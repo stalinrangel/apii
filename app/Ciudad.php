@@ -24,7 +24,7 @@ class Ciudad extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'nombre', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'nombre','pais_id', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.

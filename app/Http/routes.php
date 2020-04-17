@@ -70,6 +70,12 @@ Route::group(  ['middleware' =>'cors'], function(){
     Route::delete('/registro/{id}','RegistroController@destroy');
     Route::get('/registro/{id}','RegistroController@show');
 
+    //-------pais
+    Route::get('/pais','PaisController@index');
+    Route::post('/pais','PaisController@store');
+    Route::put('/pais/{id}','PaisController@update');
+    Route::delete('/pais/{id}','PaisController@destroy');
+
     //-------ciudad
     Route::get('/ciudad','CiudadController@index');
     Route::post('/ciudad','CiudadController@store');

@@ -4,38 +4,40 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Zonas extends Model
+class Pais extends Model
 {
 	/**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'zonas';
+    protected $table = 'pais';
 
     // Eloquent asume que cada tabla tiene una clave primaria con una columna llamada id.
-    // Si éste no fuera el caso entonces hay que indicar cuál es nuestra clave primaria en la tabla:
+    // Si Ã©ste no fuera el caso entonces hay que indicar cuÃ¡l es nuestra clave primaria en la tabla:
     //protected $primaryKey = 'id';
 
-    public $timestamps = false;
+    //public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id','coordenadas', 'nombre','costo','ciudad_id','pais_id'];
+    protected $fillable = ['id', 'nombre', 'created_at', 'updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-   // protected $hidden = ['id'];
+    //protected $hidden = ['created_at','updated_at'];
 
+    // RelaciÃ³n de calificacion con pedidos:
     public function ciudad()
     {
-        // 1 subcat pertenece a una categoria
-        return $this->belongsTo('App\Ciudad', 'ciudad_id');
+        // 1 zonas pertenece a un pedido
+        return $this->hasMany('App\Ciudad', 'pais_id');
     }
+
 }
