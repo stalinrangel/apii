@@ -18,7 +18,7 @@ class PaisController extends Controller
     {
 
         //cargar todas las coordenadas
-        $coordenadas = \App\Pais::with('ciudad')->get();
+        $coordenadas = \App\Pais::with('ciudad.zonas')->get();
 
         if(count($coordenadas) == 0){
             return response()->json(['error'=>'No existen coordenadas.'], 404);          
