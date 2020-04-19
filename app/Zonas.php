@@ -38,4 +38,9 @@ class Zonas extends Model
         // 1 subcat pertenece a una categoria
         return $this->belongsTo('App\Ciudad', 'ciudad_id');
     }
+    public function pais()
+    {
+        // 1 subcat pertenece a una categoria
+        return $this->belongsTo('App\Pais', 'pais_id');
+    }
 }

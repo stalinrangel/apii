@@ -229,6 +229,7 @@ class UsuarioController extends Controller
                 //$auxUser->password = Hash::make($request->input('password'));
                 $auxUser->nombre = $request->input('nombre');
                 $auxUser->ciudad = $request->input('ciudad');
+                $auxUser->pais_id = $request->input('pais_id');
                 $auxUser->estado = $request->input('estado');
                 $auxUser->telefono = $request->input('telefono');
                 $auxUser->imagen = $request->input('imagen');

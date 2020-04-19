@@ -40,4 +40,10 @@ class Ciudad extends Model
         return $this->hasMany('App\Zonas', 'ciudad_id');
     }
 
+    public function pais()
+    {
+        // 1 subcat pertenece a una categoria
+        return $this->belongsTo('App\Pais', 'pais_id');
+    }
+
 }

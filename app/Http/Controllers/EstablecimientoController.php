@@ -88,6 +88,7 @@ class EstablecimientoController extends Controller
         $usuario->password = Hash::make($request->input('password'));
         $usuario->nombre = $request->input('nombre');
         $usuario->ciudad = $request->input('ciudad');
+        $usuario->pais_id = $request->input('pais_id');
         $usuario->estado = $request->input('estado_geo');
         $usuario->telefono = $request->input('telefono');
         $usuario->imagen = $request->input('imagen');
