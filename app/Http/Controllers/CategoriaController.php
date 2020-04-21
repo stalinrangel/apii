@@ -14,10 +14,14 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //cargar todas las cat
-        $categorias = \App\Categoria::with('subcategorias')->get();
+        if ($request->input('ciudad_id')) {
+            $categorias = \App\Categoria:::where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')-with('subcategorias')->get();
+        }else{
+            $categorias = \App\Categoria::with('ciudad.pais')->with('subcategorias')->get();
+        }
+        
 
         if(count($categorias) == 0){
             return response()->json(['error'=>'No existen categorías.'], 404);          
@@ -245,6 +249,7 @@ class CategoriaController extends Controller
         $ingles=$request->input('ingles');
         $imagen=$request->input('imagen');
         $estado=$request->input('estado');
+        $ciudad_id=$request->input('ciudad_id');
         $catprincipales_id=$request->input('catprincipales_id');
         $subcategorias=$request->input('subcategorias');
 
@@ -274,6 +279,12 @@ class CategoriaController extends Controller
         if ($ingles != null && $ingles!='')
         {
             $categoria->ingles = $ingles;
+            $bandera=true;
+        }
+
+        if ($ciudad_id != null && $ciudad_id!='')
+        {
+            $categoria->ciudad_id = $ciudad_id;
             $bandera=true;
         }
 

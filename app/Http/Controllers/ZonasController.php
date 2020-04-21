@@ -28,16 +28,26 @@ class ZonasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->input('ciudad_id')) {
+            //cargar todas las coordenadas
+            $coordenadas = \App\Zonas::where('ciudad_id',$request->input('ciudad_id'))->with('pais')->with('ciudad')->get();
 
-        //cargar todas las coordenadas
-        $coordenadas = \App\Zonas::with('pais')->with('ciudad')->get();
-
-        if(count($coordenadas) == 0){
-            return response()->json(['error'=>'No existen coordenadas.'], 404);          
+            if(count($coordenadas) == 0){
+                return response()->json(['error'=>'No existen zonas.'], 404);          
+            }else{
+                return response()->json(['coordenadas'=>$coordenadas], 200);
+            }
         }else{
-            return response()->json(['coordenadas'=>$coordenadas], 200);
+            //cargar todas las coordenadas
+            $coordenadas = \App\Zonas::with('pais')->with('ciudad')->get();
+
+            if(count($coordenadas) == 0){
+                return response()->json(['error'=>'No existen zonas.'], 404);          
+            }else{
+                return response()->json(['coordenadas'=>$coordenadas], 200);
+            }
         }
     }
 

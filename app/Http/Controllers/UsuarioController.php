@@ -300,6 +300,7 @@ class UsuarioController extends Controller
 
         $usuario->nombre = $request->input('nombre');
         $usuario->ciudad = $request->input('ciudad');
+        $usuario->pais_id = $request->input('pais_id');
         $usuario->estado = $request->input('estado');
         $usuario->telefono = $request->input('telefono');
         $usuario->imagen = $request->input('imagen');

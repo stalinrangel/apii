@@ -14,10 +14,14 @@ class SubCategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //cargar todas las subcat
-        $subcategorias = \App\Subcategoria::with('productos')->get();
+        if ($request->input('ciudad_id')) {
+            $subcategorias = \App\Subcategoria::where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('productos')->get();
+        }else{
+            $subcategorias = \App\Subcategoria::with('ciudad.pais')->with('productos')->get();
+        }
+        
 
         if(count($subcategorias) == 0){
             return response()->json(['error'=>'No existen subcategorías.'], 404);          
@@ -128,6 +132,7 @@ class SubCategoriaController extends Controller
         $ingles=$request->input('ingles');
         $imagen=$request->input('imagen');
         $categoria_id=$request->input('categoria_id');
+        $ciudad_id=$request->input('ciudad_id');
         $estado=$request->input('estado');
         $productos=$request->input('productos');
 
@@ -152,6 +157,12 @@ class SubCategoriaController extends Controller
         if ($ingles != null && $ingles!='')
         {
             $subcategoria->ingles = $ingles;
+            $bandera=true;
+        }
+
+        if ($ciudad_id != null && $ciudad_id!='')
+        {
+            $categoria->ciudad_id = $ciudad_id;
             $bandera=true;
         }
 

@@ -24,7 +24,7 @@ class Categoria extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre', 'ingles', 'imagen', 'estado'];
+    protected $fillable = ['nombre', 'ingles', 'imagen', 'estado','ciudad_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -43,5 +43,10 @@ class Categoria extends Model
     {
         // 1 subcat pertenece a una categoria
         return $this->belongsTo('App\Catprincipales', 'catprincipales_id');
+    }
+    public function ciudad()
+    {
+        // 1 subcat pertenece a una categoria
+        return $this->belongsTo('App\Ciudad', 'ciudad_id');
     }
 }

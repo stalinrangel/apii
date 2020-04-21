@@ -24,7 +24,7 @@ class Subcategoria extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre', 'ingles', 'imagen', 'estado', 'categoria_id'];
+    protected $fillable = ['nombre', 'ingles', 'imagen', 'estado', 'categoria_id','ciudad_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -45,5 +45,11 @@ class Subcategoria extends Model
     {
         // 1 categoria puede tener varios productos
         return $this->hasMany('App\Producto', 'subcategoria_id');
+    }
+
+    public function ciudad()
+    {
+        // 1 subcat pertenece a una categoria
+        return $this->belongsTo('App\Ciudad', 'ciudad_id');
     }
 }

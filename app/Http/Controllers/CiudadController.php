@@ -14,17 +14,28 @@ class CiudadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->input('pais_id')) {
+            //cargar todas las coordenadas
+            $coordenadas = \App\Ciudad::where('pais_id',$request->input('pais_id'))->with('pais')->with('zonas')->get();
 
-        //cargar todas las coordenadas
-        $coordenadas = \App\Ciudad::with('pais')->with('zonas')->get();
-
-        if(count($coordenadas) == 0){
-            return response()->json(['error'=>'No existen coordenadas.'], 404);          
+            if(count($coordenadas) == 0){
+                return response()->json(['error'=>'No existen ciudades.'], 404);          
+            }else{
+                return response()->json(['coordenadas'=>$coordenadas], 200);
+            }
         }else{
-            return response()->json(['coordenadas'=>$coordenadas], 200);
+            //cargar todas las coordenadas
+            $coordenadas = \App\Ciudad::with('pais')->with('zonas')->get();
+
+            if(count($coordenadas) == 0){
+                return response()->json(['error'=>'No existen ciudades.'], 404);          
+            }else{
+                return response()->json(['coordenadas'=>$coordenadas], 200);
+            }
         }
+        
     }
 
 

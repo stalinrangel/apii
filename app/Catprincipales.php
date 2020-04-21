@@ -24,7 +24,7 @@ class Catprincipales extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre', 'ingles', 'imagen', 'estado','orden'];
+    protected $fillable = ['nombre', 'ingles', 'imagen', 'estado','orden','ciudad_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -43,5 +43,11 @@ class Catprincipales extends Model
     {
         // 1 subcat pertenece a una categoria
         return $this->belongsTo('App\Catprincipales', 'catprincipales_id');
+    }
+
+    public function ciudad()
+    {
+        // 1 subcat pertenece a una categoria
+        return $this->belongsTo('App\Ciudad', 'ciudad_id');
     }
 }

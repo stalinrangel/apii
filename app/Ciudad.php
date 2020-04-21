@@ -46,4 +46,5 @@ class Ciudad extends Model
         return $this->belongsTo('App\Pais', 'pais_id');
     }
 
+
 }

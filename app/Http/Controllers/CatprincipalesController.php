@@ -14,10 +14,14 @@ class CatprincipalesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //cargar todas las cat
-        $categorias = \App\Catprincipales::with('categorias')->get();
+        if ($request->input('ciudad_id')) {
+            $categorias = \App\Catprincipales::where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('categorias')->get();
+        }else{
+            $categorias = \App\Catprincipales::with('ciudad.pais')->with('categorias')->get();
+        }
+        
 
         if(count($categorias) == 0){
             return response()->json(['error'=>'No existen categorías.'], 404);          
@@ -259,10 +263,11 @@ class CatprincipalesController extends Controller
 
         // Listado de campos recibidos teóricamente.
         $nombre=$request->input('nombre');
-        $nombre=$request->input('ingles');
+        $ingles=$request->input('ingles');
         $imagen=$request->input('imagen');
         $estado=$request->input('estado');
         $subcategorias=$request->input('subcategorias');
+        $ciudad_id=$request->input('ciudad_id');
 
         // Creamos una bandera para controlar si se ha modificado algún dato.
         $bandera = false;
@@ -275,7 +280,7 @@ class CatprincipalesController extends Controller
 
             if(count($aux)!=0){
                // Devolvemos un código 409 Conflict. 
-                return response()->json(['error'=>'Ya existe otra categoría con ese nombre.'], 409);
+               // return response()->json(['error'=>'Ya existe otra categoría con ese nombre.'], 409);
             }
 
             $categoria->nombre = $nombre;
@@ -285,6 +290,12 @@ class CatprincipalesController extends Controller
         if ($ingles != null && $ingles!='')
         {
             $categoria->ingles = $ingles;
+            $bandera=true;
+        }
+
+        if ($ciudad_id != null && $ciudad_id!='')
+        {
+            $categoria->ciudad_id = $ciudad_id;
             $bandera=true;
         }
 
