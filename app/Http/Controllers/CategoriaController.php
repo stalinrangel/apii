@@ -17,7 +17,7 @@ class CategoriaController extends Controller
     public function index(Request $request)
     {
         if ($request->input('ciudad_id')) {
-            $categorias = \App\Categoria:::where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')-with('subcategorias')->get();
+            $categorias = \App\Categoria::where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('subcategorias')->get();
         }else{
             $categorias = \App\Categoria::with('ciudad.pais')->with('subcategorias')->get();
         }
@@ -447,8 +447,13 @@ class CategoriaController extends Controller
     //Usada en el panel
     public function categoriasHabilitadas()
     {
-        //cargar todas las cat en estado ON
-        $categorias = \App\Categoria::where('estado', 'ON')->get();
+        if ($request->input('ciudad_id')) {
+            $categorias = \App\Categoria::where('estado', 'ON')->where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('subcategorias')->get();
+        }else{
+            $categorias = \App\Categoria::where('estado', 'ON')->with('ciudad.pais')->with('subcategorias')->get();
+        }
+
+       // $categorias = \App\Categoria::where('estado', 'ON')->get();
 
         if(count($categorias) == 0){
             return response()->json(['error'=>'No existen categorías habilitadas.'], 404);          

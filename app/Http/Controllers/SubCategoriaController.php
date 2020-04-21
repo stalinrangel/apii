@@ -17,9 +17,9 @@ class SubCategoriaController extends Controller
     public function index(Request $request)
     {
         if ($request->input('ciudad_id')) {
-            $subcategorias = \App\Subcategoria::where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('productos')->get();
+            $subcategorias = \App\Subcategoria::where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('categoria')->with('productos.establecimiento')->get();
         }else{
-            $subcategorias = \App\Subcategoria::with('ciudad.pais')->with('productos')->get();
+            $subcategorias = \App\Subcategoria::with('ciudad.pais')->with('categoria')->with('productos.establecimiento')->get();
         }
         
 
@@ -410,8 +410,13 @@ class SubCategoriaController extends Controller
     //Usada en el panel
     public function subcategoriasHabilitadas()
     {
+        if ($request->input('ciudad_id')) {
+            $subcategorias = \App\Subcategoria::where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('categoria')->with('productos.establecimiento')->where('estado', 'ON')->get();
+        }else{
+            $subcategorias = \App\Subcategoria::with('ciudad.pais')->with('categoria')->with('productos.establecimiento')->where('estado', 'ON')->get();
+        }
         //cargar todas las subcat en estado ON
-        $subcategorias = \App\Subcategoria::with('productos.establecimiento')->where('estado', 'ON')->get();
+       // $subcategorias = \App\Subcategoria::with('productos.establecimiento')->where('estado', 'ON')->get();
 
         if(count($subcategorias) == 0){
             return response()->json(['error'=>'No existen subcategorías habilitadas.'], 404);          

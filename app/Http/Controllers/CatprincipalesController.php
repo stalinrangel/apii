@@ -445,8 +445,13 @@ class CatprincipalesController extends Controller
     //Usada en el panel
     public function categoriasHabilitadas()
     {
+        if ($request->input('ciudad_id')) {
+            $categorias = \App\Catprincipales::where('estado', 'ON')->where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('categorias')->get();
+        }else{
+            $categorias = \App\Catprincipales::where('estado', 'ON')->with('ciudad.pais')->with('categorias')->get();
+        }
         //cargar todas las cat en estado ON
-        $categorias = \App\Catprincipales::where('estado', 'ON')->get();
+        //$categorias = \App\Catprincipales::where('estado', 'ON')->get();
 
         if(count($categorias) == 0){
             return response()->json(['error'=>'No existen categorías habilitadas.'], 404);          
