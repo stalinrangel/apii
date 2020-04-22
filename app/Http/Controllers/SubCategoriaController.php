@@ -63,7 +63,7 @@ class SubCategoriaController extends Controller
         $aux = \App\Subcategoria::where('nombre', $request->input('nombre'))->get();
         if(count($aux)!=0){
            // Devolvemos un código 409 Conflict. 
-            return response()->json(['error'=>'Ya existe una subcategoría con ese nombre.'], 409);
+           // return response()->json(['error'=>'Ya existe una subcategoría con ese nombre.'], 409);
         }
 
         $categoria = \App\Categoria::where('id',$request->input('categoria_id'))->get();

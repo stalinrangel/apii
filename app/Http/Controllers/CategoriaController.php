@@ -62,7 +62,7 @@ class CategoriaController extends Controller
         $aux = \App\Categoria::where('nombre', $request->input('nombre'))->get();
         if(count($aux)!=0){
            // Devolvemos un código 409 Conflict. 
-            return response()->json(['error'=>'Ya existe una categoría con ese nombre.'], 409);
+            //return response()->json(['error'=>'Ya existe una categoría con ese nombre.'], 409);
         } 
 
         if($nuevaCategoria=\App\Categoria::create($request->all())){
