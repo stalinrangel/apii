@@ -122,14 +122,23 @@ class CatprincipalesController extends Controller
 
     public function categorias()
     {
-        //cargar todas las cat en estado ON
-        //$categorias = \App\Catprincipales::with('categorias.subcategorias')->where('estado', 'ON')->OrderBy('orden')->get();
-        $categorias = \App\Catprincipales::with(['categorias' => function ($query){
+        if ($request->input('ciudad_id')) {
+            $categorias = \App\Catprincipales::where('estado', 'ON')->where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with(['categorias' => function ($query){
                     $query->where('estado', 'ON')
                         ->with(['subcategorias' => function ($query){
                             $query->where('estado', 'ON');
                         }]);
                     }])->OrderBy('orden')->get();
+        }else{
+            $categorias = \App\Catprincipales::where('estado', 'ON')->with('ciudad.pais')->with(['categorias' => function ($query){
+                    $query->where('estado', 'ON')
+                        ->with(['subcategorias' => function ($query){
+                            $query->where('estado', 'ON');
+                        }]);
+                    }])->OrderBy('orden')->get();
+        }
+
+        
 
         if(count($categorias) == 0){
             return response()->json(['error'=>'No existen categorías habilitadas.'], 404);          
