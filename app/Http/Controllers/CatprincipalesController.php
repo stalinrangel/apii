@@ -120,7 +120,7 @@ class CatprincipalesController extends Controller
         } 
     }*/
 
-    public function categorias()
+    public function categorias(Request $request)
     {
         if ($request->input('ciudad_id')) {
             $categorias = \App\Catprincipales::where('estado', 'ON')->where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with(['categorias' => function ($query){
@@ -452,7 +452,7 @@ class CatprincipalesController extends Controller
     }
 
     //Usada en el panel
-    public function categoriasHabilitadas()
+    public function categoriasHabilitadas(Request $request)
     {
         if ($request->input('ciudad_id')) {
             $categorias = \App\Catprincipales::where('estado', 'ON')->where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('categorias')->get();
