@@ -111,7 +111,7 @@ class DashboardController extends Controller
 
         $pedido = $pedido->newQuery();
 
-        $ciudad = \App\ciudad::with('zonas')->get();
+        $ciudad = \App\Ciudad::with('zonas')->get();
        // return response()->json(['ciudad'=>$ciudad], 200);
         $zonas=[];
 
