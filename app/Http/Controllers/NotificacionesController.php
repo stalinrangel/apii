@@ -14,16 +14,24 @@ class NotificacionesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(Request $request)
+    {   //$request->input('ciudad_id')
         //cargar todas las calificaciones
-        $Notificacion = \App\Notificacion::where('visto',0)->orderBy('id', 'desc')
-            ->get();;
+        $Notificacion = \App\Notificacion::where('visto',0)->with(['usuario' => function ($query) use ($request){
+                $query->where('ciudad',$request->input('ciudad_id'));
+            }])->orderBy('id', 'desc')
+            ->get();
+        $aux=[];
+        for ($i=0; $i < count($Notificacion); $i++) { 
+           if ($Notificacion[$i]->usuario!=null) {
+                array_push($aux,$Notificacion[$i]);
+            } 
+        }
 
-        if(count($Notificacion) == 0){
-            return response()->json(['error'=>'No existen Notificacion.'], 404);          
+        if(count($aux) == 0){
+            return response()->json(['notificaciones'=>[]], 200);          
         }else{
-            return response()->json(['notificaciones'=>$Notificacion], 200);
+            return response()->json(['notificaciones'=>$aux], 200);
         } 
     }
 

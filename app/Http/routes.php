@@ -174,6 +174,7 @@ Route::group(  ['middleware' =>'cors'], function(){
 
         //----Pruebas UsuarioController
         Route::get('/usuarios','UsuarioController@index');
+        Route::get('/index_panel','UsuarioController@index_panel');
         Route::get('/index_ciudades','UsuarioController@index_ciudades');
         Route::get('/index_zonas','UsuarioController@index_zonas');
         Route::get('/index_zonasp','UsuarioController@index_zonasp');

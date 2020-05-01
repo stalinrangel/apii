@@ -33,6 +33,26 @@ class UsuarioController extends Controller
         return $zonas;
     }
 
+
+    public function index_panel(Request $request)
+    {
+        
+        $tipo=[0,1,5,6,7];
+        $usuarios = \App\User::select('id', 'email', 'nombre', 'ciudad', 'estado', 'telefono', 'imagen', 'tipo_usuario', 'zona_id','token_notificacion', 'status','created_at')
+            ->whereIn('tipo_usuario', $tipo)->
+            where('ciudad',$request->input('ciudad_id'))->get();
+        //return response()->json(['usuarios'=>$usuarios], 200);
+        
+
+
+       // $calificaciones = \App\Calificacion::where('',$usuarios[$i]->id);
+        if(count($usuarios) == 0){
+            return response()->json(['error'=>'No existen usuarios.'], 404);          
+        }else{
+            return response()->json(['usuarios'=>$usuarios], 200);
+        } 
+    }
+
     /**
      * Display a listing of the resource.
      *
