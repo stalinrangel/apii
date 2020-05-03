@@ -408,7 +408,7 @@ class SubCategoriaController extends Controller
     }
 
     //Usada en el panel
-    public function subcategoriasHabilitadas()
+    public function subcategoriasHabilitadas(Request $request)
     {
         if ($request->input('ciudad_id')) {
             $subcategorias = \App\Subcategoria::where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('categoria')->with('productos.establecimiento')->where('estado', 'ON')->get();

@@ -218,12 +218,12 @@ class Notificaciones_generalesController extends Controller
         $Notificaciones_generales=\App\Notificaciones_generales::find($id);
 
         if(count($Notificaciones_generales)==0){
-            return response()->json(['error'=>'No existe la calificación con id '.$id], 404);          
+            return response()->json(['error'=>'No existe la Notificaciones_generales con id '.$id], 404);          
         }
         
         // Eliminamos la Notificaciones_generales del pedido.
         $Notificaciones_generales->delete();
 
-        return response()->json(['message'=>'Se ha eliminado correctamente la calificación.'], 200);
+        return response()->json(['message'=>'Se ha eliminado correctamente la Notificaciones_generales.'], 200);
     }
 }
