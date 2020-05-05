@@ -24,7 +24,7 @@ class Notificaciones_generales extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'mensaje', 'tipo_usuario','zona_id', 'ciudad_id','created_at','updated_at'];
+    protected $fillable = ['id', 'mensaje', 'tipo_usuario','zona_id', 'ciudad_id','usuario_id','created_at','updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.

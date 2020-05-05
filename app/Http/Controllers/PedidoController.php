@@ -190,6 +190,8 @@ class PedidoController extends Controller
                 $Notificacion= new \App\Notificacion;
                 $Notificacion->mensaje='Nuevo Pedido S00'.$nuevoPedido->id;
                 $Notificacion->usuario_id=$nuevoPedido->usuario_id;
+                $Notificacion->id_operacion=$nuevoPedido->id;
+                $Notificacion->accion=5;
 
             $admin = \App\User::where('tipo_usuario', 1)->first();
             $this->enviarNotificacion($admin->token_notificacion, 'Nuevo%20pedido%20S00'.$nuevoPedido->id, $nuevoPedido->id, 6, $obj);
@@ -270,6 +272,8 @@ class PedidoController extends Controller
                 $Notificacion= new \App\Notificacion;
                 $Notificacion->mensaje='Pedido '.$pedido->id.' en camino';
                 $Notificacion->usuario_id=$pedido->repartidor_id;
+                $Notificacion->id_operacion=$pedido->id;
+                $Notificacion->accion=6;
                 
                 try {
                     $Notificacion->save();
@@ -340,6 +344,8 @@ class PedidoController extends Controller
                 $Notificacion= new \App\Notificacion;
                 $Notificacion->mensaje='Pedido '.$pedido->id.' cancelado';
                 $Notificacion->usuario_id=$request->input('finalizo');
+                $Notificacion->id_operacion=$pedido->id;
+                $Notificacion->accion=8;
                 
                 try {
                     $Notificacion->save();

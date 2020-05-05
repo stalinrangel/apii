@@ -404,6 +404,7 @@ class RepartidorController extends Controller
                 }
                 $Notificacion->mensaje=''.$usuario->nombre.' ha cambiado su estado '. $act;
                 $Notificacion->usuario_id=$usuario->id;
+                $Notificacion->accion=4;
 
                 $admin = \App\User::where('tipo_usuario', 1)->first();
                 

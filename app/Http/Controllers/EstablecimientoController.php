@@ -156,6 +156,7 @@ class EstablecimientoController extends Controller
                 $Notificacion= new \App\Notificacion;
                 $Notificacion->mensaje='Nuevo Proveedor se ha registrado '. $request->input('email'). ' '.$request->input('nombre');
                 $Notificacion->usuario_id=$request->input('finalizo');
+                $Notificacion->accion=2;
                 
                 try {
                     $Notificacion->save();

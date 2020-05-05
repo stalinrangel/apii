@@ -280,6 +280,7 @@ class UsuarioController extends Controller
                     $Notificacion= new \App\Notificacion;
                     $Notificacion->mensaje='Nuevo Usuario registrado '.$usuario->email;
                     $Notificacion->usuario_id=$auxUser->id;
+                    $Notificacion->accion=3;
                     
                     try {
                         $Notificacion->save();
@@ -348,6 +349,7 @@ class UsuarioController extends Controller
                 $Notificacion= new \App\Notificacion;
                     $Notificacion->mensaje='Nuevo Usuario registrado '.$usuario->email;
                     $Notificacion->usuario_id=$usuario->id;
+                    $Notificacion->accion=3;
                     
                     try {
                         $Notificacion->save();
@@ -566,6 +568,7 @@ class UsuarioController extends Controller
                     $Notificacion= new \App\Notificacion;
                     $Notificacion->mensaje='Nuevo Usuario registrado '.$usuario->email;
                     $Notificacion->usuario_id=$usuario->id;
+                    $Notificacion->accion=3;
                     
                     try {
                         $Notificacion->save();
