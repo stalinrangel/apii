@@ -14,7 +14,8 @@
 		print_r($_GET);
 		//return $ciudad_id;
 		$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, "https://service24.app/alinstanteAPI/public/index_zonas?ciudad_id=".$ciudad_id);
+			curl_setopt($ch, CURLOPT_URL, "https://service24.app/apii/public/index_zonasp?ciudad_id=".$ciudad_id);
+			//curl_setopt($ch, CURLOPT_URL, "http://localhost/apii/public/index_zonasp?ciudad_id=".$ciudad_id);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 			curl_setopt($ch, CURLOPT_HEADER, FALSE);
 			//curl_setopt($ch, CURLOPT_POST, TRUE);

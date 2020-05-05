@@ -14,7 +14,8 @@
 		//print_r($_GET);
 
 		$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, "https://service24.app/alinstanteAPI/public/index_zonasp?ciudad_id=".$ciudad_id);
+			curl_setopt($ch, CURLOPT_URL, "https://service24.app/apii/public/index_zonasp?ciudad_id=".$ciudad_id);
+			//curl_setopt($ch, CURLOPT_URL, "http://localhost/apii/public/index_zonasp?ciudad_id=".$ciudad_id);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 			curl_setopt($ch, CURLOPT_HEADER, FALSE);
 			//curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -32,7 +33,7 @@
 			$tokes=[];
 			$j=0;
 
-			for ($i=0; $i < count($response1); $i++) { 
+			/*for ($i=0; $i < count($response1); $i++) { 
 				$fields = array(
 							'app_id' => "d972ea38-fbba-48de-ac2c-991904917c41",
 							'include_player_ids' => $response1[$i],
@@ -60,7 +61,7 @@
 
 						$response = curl_exec($ch);
 						curl_close($ch);
-			}
+			}*/
 
 			if (count($response1)<=10) {
 					$fields = array(
