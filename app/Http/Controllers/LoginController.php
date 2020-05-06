@@ -237,8 +237,11 @@ class LoginController extends Controller
 
             if ($request->input('token_notificacion') != '' && $request->input('token_notificacion') != null) {
                 if ($request->input('token_notificacion') != $user->token_notificacion) {
-                    $user->token_notificacion = $request->input('token_notificacion');
-                    $user->save();
+                    if ($user->tipo_usuario == 2) {
+                        
+                        $user->token_notificacion = $request->input('token_notificacion');
+                        $user->save();
+                    }
                 } 
             }
             
