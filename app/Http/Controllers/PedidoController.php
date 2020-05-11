@@ -667,12 +667,12 @@ class PedidoController extends Controller
             ->with('zonas')
             ->with('calificacion')
             ->where('estado',5)
-            ->where(DB::raw("PERIOD_DIFF(DATE_FORMAT(now(), '%y%m') ,DATE_FORMAT(created_at, '%y%m'))"), '<=', 1)
+            //->where(DB::raw("PERIOD_DIFF(DATE_FORMAT(now(), '%y%m') ,DATE_FORMAT(created_at, '%y%m'))"), '<=', 1)
             ->orderBy('id', 'desc')
             ->get();
 
         if(count($pedidos) == 0){
-            return response()->json(['error'=>'No existen pedidos finalizados.'], 404);          
+            return response()->json(['error'=>'No existen pedidos Cancelados.'], 404);          
         }else{
             return response()->json(['pedidos'=>$pedidos], 200);
         } 

@@ -444,6 +444,7 @@ class RepartidorController extends Controller
 
         if ($bandera)
         {
+            $obj=null;
             // Almacenamos en la base de datos el registro.
             if ($repartidor->save() && $usuario->save()) {
                  $admin = \App\User::where('tipo_usuario', 1)->first();

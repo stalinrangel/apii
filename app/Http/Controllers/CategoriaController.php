@@ -445,7 +445,7 @@ class CategoriaController extends Controller
     }
 
     //Usada en el panel
-    public function categoriasHabilitadas()
+    public function categoriasHabilitadas(Request $request)
     {
         if ($request->input('ciudad_id')) {
             $categorias = \App\Categoria::where('estado', 'ON')->where('ciudad_id',$request->input('ciudad_id'))->with('ciudad.pais')->with('subcategorias')->get();

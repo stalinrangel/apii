@@ -141,16 +141,16 @@ class EstablecimientoController extends Controller
 
             $nuevoEstablecimiento->usuario = $usuario;
 
-            $Cobros = new \App\Cobros;
+           /* $Cobros = new \App\Cobros;
             $Cobros->monto = 0;
             $Cobros->estado = 0;
             $Cobros->fecha_pago = new DateTime();
             $Cobros->prox_pago = new DateTime();
             $Cobros->establecimiento_id = $nuevoEstablecimiento->id;
             $Cobros->usuario_id = $usuario->id;
-            $Cobros->observacion = 'Cuota de ingreso al sistema.';
+            $Cobros->observacion = 'Cuota de ingreso al sistema.';*/
 
-            if ($Cobros->save()) {
+            if (true) {
                 $this->emailDeValidacion($usuario->email);
 
                 $Notificacion= new \App\Notificacion;

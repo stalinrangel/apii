@@ -70,17 +70,35 @@ class DashboardController extends Controller
             ->where(DB::raw('YEAR(created_at)'),$anio_actual)
             ->count();
 
-        $repartidores_activos = \App\Repartidor::where('estado','ON')
+        $repartidores_activos = \App\Repartidor::with(['usuario'=> function ($query) use ($zonas) {
+                $query->whereIn('zona_id',$zonas);
+            }])->where('estado','ON')
             //->where('estado', 'ON')
-            ->where('activo', 1)
+            ->where('activo', 1)->get();
             //->where('ocupado', 2)
-            ->count();
+            //->count();
+        $repartidores_activos_count=0;
+        for ($i=0; $i < count($repartidores_activos); $i++) { 
+            if ($repartidores_activos[$i]->usuario) {
+                $repartidores_activos_count++;
+            }
+        }
 
-        $repartidores_inactivos = \App\Repartidor::where('estado','OFF')
+
+        $repartidores_inactivos = \App\Repartidor::with(['usuario'=> function ($query) use ($zonas) {
+                $query->whereIn('zona_id',$zonas);
+            }])->where('estado','OFF')
             //->where('estado', 'OFF')
             ->orWhere('activo', 2)
             //->where('ocupado', 2)
-            ->count();
+            ->get();
+
+        $repartidores_inactivos_count=0;
+        for ($i=0; $i < count($repartidores_inactivos); $i++) { 
+            if ($repartidores_inactivos[$i]->usuario) {
+                $repartidores_inactivos_count++;
+            }
+        }
 
         $dinero_recaudado = \App\Pedido::where('estado_pago','aprobado')
             ->where(DB::raw('DAY(created_at)'),$dia_actual)
@@ -94,8 +112,8 @@ class DashboardController extends Controller
             'pedidos_aceptar'=>$pedidos_aceptar,
             'pedidos_finalizados'=>$pedidos_finalizados,
             'pedidos_cancelados'=>$pedidos_cancelados,
-            'repartidores_activos'=>$repartidores_activos,
-            'repartidores_inactivos'=>$repartidores_inactivos,
+            'repartidores_activos'=>$repartidores_activos_count,
+            'repartidores_inactivos'=>$repartidores_inactivos_count,
             'dinero_recaudado'=>$dinero_recaudado,
             'zonas'=>$zonas,
         ], 200);

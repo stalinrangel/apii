@@ -203,7 +203,20 @@ class ProductoController extends Controller
         ])){
 
             $admin = \App\User::where('tipo_usuario', 1)->first();
+            $establecimient = \App\Establecimiento::with('usuario')->find($request->input('establecimiento_id'));
             $this->enviarNotificacion($admin->token_notificacion, 'Se%20ha%20creado%20un%20servicio%20$'.$request->input('nombre'), 0, 6, $obj);
+
+            $Notificacion= new \App\Notificacion;
+            $Notificacion->mensaje= 'Se%20ha%20creado%20un%20servicio%20$'.$request->input('nombre');
+            $Notificacion->id_operacion=$nuevoProducto->id;
+            $Notificacion->usuario_id=$establecimient->usuario_id;
+            $Notificacion->accion=9;
+            
+            try {
+                $Notificacion->save();
+            } catch (Exception $e) {
+                //return response()->json(['error'=>$e], 500);
+            }
            return response()->json(['message'=>'Producto creado con éxito.',
              'producto'=>$nuevoProducto], 200);
         }else{
@@ -396,6 +409,23 @@ class ProductoController extends Controller
         {
             // Almacenamos en la base de datos el registro.
             if ($producto->save()) {
+
+                $admin = \App\User::where('tipo_usuario', 1)->first();
+                $establecimient = \App\Establecimiento::with('usuario')->find($producto->establecimiento_id);
+                $this->enviarNotificacion($admin->token_notificacion, 'Se%20ha%20editado%20un%20servicio%20$'.$request->input('nombre'), 0, 6, $obj);
+
+                $Notificacion= new \App\Notificacion;
+                $Notificacion->mensaje= 'Se%20ha%20editado%20un%20servicio%20$'.$request->input('nombre');
+                $Notificacion->id_operacion=$producto->id;
+                $Notificacion->usuario_id=$establecimient->usuario_id;
+                $Notificacion->accion=10;
+                
+                try {
+                    $Notificacion->save();
+                } catch (Exception $e) {
+                    //return response()->json(['error'=>$e], 500);
+                }
+
                 return response()->json(['message'=>'Producto editado con éxito.',
                     'producto'=>$producto], 200);
             }else{
