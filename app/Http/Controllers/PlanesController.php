@@ -120,14 +120,26 @@ class PlanesController extends Controller
 
         // Listado de campos recibidos teóricamente.
         $descripcion=$request->input('descripcion');
-        
+        $tipo_plan=$request->input('tipo_plan');
+        $costo=$request->input('costo');
+
         // Creamos una bandera para controlar si se ha modificado algún dato.
         $bandera = false;
 
         // Actualización parcial de campos.
+        if ($tipo_plan != null && $tipo_plan!='')
+        {
+            $Planes->tipo_plan = $tipo_plan;
+            $bandera=true;
+        }
         if ($descripcion != null && $descripcion!='')
         {
             $Planes->descripcion = $descripcion;
+            $bandera=true;
+        }
+        if ($costo != null && $costo!='')
+        {
+            $Planes->costo = $costo;
             $bandera=true;
         }
 
