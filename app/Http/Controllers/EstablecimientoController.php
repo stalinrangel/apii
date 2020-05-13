@@ -149,11 +149,7 @@ class EstablecimientoController extends Controller
             $Cobros->establecimiento_id = $nuevoEstablecimiento->id;
             $Cobros->usuario_id = $usuario->id;
             $Cobros->observacion = 'Cuota de ingreso al sistema.';*/
-
-            if (true) {
-                $this->emailDeValidacion($usuario->email);
-
-                $Notificacion= new \App\Notificacion;
+            $Notificacion= new \App\Notificacion;
                 $Notificacion->mensaje='Nuevo Proveedor se ha registrado '. $request->input('email'). ' '.$request->input('nombre');
                 $Notificacion->usuario_id=$usuario->id;
                 $Notificacion->accion=2;
@@ -163,6 +159,11 @@ class EstablecimientoController extends Controller
                 } catch (Exception $e) {
                     //return response()->json(['error'=>$e], 500);
                 }
+
+            if (true) {
+                $this->emailDeValidacion($usuario->email);
+
+                
 
                 return response()->json(['message'=>'Proveedor creado con éxito.', 'establecimiento'=>$nuevoEstablecimiento], 200);
             }else{

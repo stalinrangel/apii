@@ -235,6 +235,20 @@ class PedidoController extends Controller
                     ->orWhere('estado',3)
                     ->orWhere('estado',4);
             })->first();
+
+        $calificaciones = \App\Calificacion::where('califique_a',$pedido->usuario_id)->get();
+           
+        if (count($calificaciones)!=0)
+        {
+            $promedio=0;
+            for ($j=0; $j < count($calificaciones); $j++) { 
+                $promedio=$promedio+$calificaciones[$j]->puntaje;
+            }
+            $promedio=$promedio/count($calificaciones);
+            $pedido->usuario->promedio=$promedio;
+        }else{
+            $pedido->usuario->promedio=0;
+        } 
         //$pedido = \App\Pedido::with('usuario')->with('productos.establecimiento')
             /*->with('establecimiento')->with('calificacion')*/
             //->with('ruta')->find($id);

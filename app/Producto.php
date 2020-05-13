@@ -66,4 +66,13 @@ class Producto extends Model
         // 
         return $this->hasMany('\App\Producto_foto','producto_id'); 
     }
+
+
+
+
+    // Relación de producto con ciudades:
+    public function zonas(){
+        // 1 producto puede estar en varias ciudades
+        return $this->belongsToMany('\App\Zonas','zonas_productos','producto_id','zona_id');
+    }
 }

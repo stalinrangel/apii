@@ -43,4 +43,10 @@ class Zonas extends Model
         // 1 subcat pertenece a una categoria
         return $this->belongsTo('App\Pais', 'pais_id');
     }
+
+      // Relación de ciudad con productos:
+    public function productos(){
+        // 1 ciudad puede tener varios productos
+        return $this->belongsToMany('\App\Producto','zonas_productos','zona_id','producto_id');
+    }
 }

@@ -16,7 +16,10 @@ class ProductoController extends Controller
      */
     public function index(Request $request)
     {
-
+        /*$producto = \App\Producto::
+        with(['ciudades' => function ($query) use ($ciudad_id)  {
+            $query->where('ciudad_id', $ciudad_id);
+        }])->find($producto_id);*/
         $zona_id=$request->input('zona_id');
         $zona_id=(int)$zona_id;
 
@@ -201,6 +204,12 @@ class ProductoController extends Controller
             'idoneidad' => $request->input('idoneidad'),
             'anos_experiencia' => $request->input('anos_experiencia'),
         ])){
+             /*$zonas=\App\Zonas::find($zona_id);
+             for ($i=0; $i < count($productos) ; $i++) {
+
+                    $ciudad->productos()->attach($productos[$i]);
+
+                }*/
 
             $admin = \App\User::where('tipo_usuario', 1)->first();
             $establecimient = \App\Establecimiento::with('usuario')->find($request->input('establecimiento_id'));
