@@ -231,6 +231,19 @@ class DashboardController extends Controller
     {
         set_time_limit(300);
 
+        $ciudad = \App\Ciudad::with('zonas')->get();
+       // return response()->json(['ciudad'=>$ciudad], 200);
+        $zonas=[];
+
+        for ($i=0; $i < count($ciudad); $i++) { 
+            if ($ciudad[$i]->id==$request->input('ciudad_id')) {
+                for ($j=0; $j < count($ciudad[$i]->zonas); $j++) { 
+                    array_push($zonas,$ciudad[$i]->zonas[$j]->id);
+                }
+            }
+        }
+
+
         $pedido = $pedido->newQuery();
 
         if ($request->has('dia')) {
@@ -256,7 +269,7 @@ class DashboardController extends Controller
 
         //$pedidos = $pedido->get();
 
-        $pedidos = $pedido->select('id', 'created_at')
+        $pedidos = $pedido->whereIn('zona_id',$zonas)->select('id', 'created_at')
             ->with(['productos' => function ($query) {
                 $query->select('productos.id', 'productos.nombre', 'productos.subcategoria_id');
             }])
