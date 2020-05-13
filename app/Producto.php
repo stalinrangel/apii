@@ -71,7 +71,7 @@ class Producto extends Model
 
 
     // Relación de producto con ciudades:
-    public function zonas(){
+    public function zonas2(){
         // 1 producto puede estar en varias ciudades
         return $this->belongsToMany('\App\Zonas','zonas_productos','producto_id','zona_id');
     }
