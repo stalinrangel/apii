@@ -122,6 +122,8 @@ class PlanesController extends Controller
         $descripcion=$request->input('descripcion');
         $tipo_plan=$request->input('tipo_plan');
         $costo=$request->input('costo');
+        $descuento=$request->input('descuento');
+        $recomendado=$request->input('recomendado');
 
         // Creamos una bandera para controlar si se ha modificado algún dato.
         $bandera = false;
@@ -140,6 +142,16 @@ class PlanesController extends Controller
         if ($costo != null && $costo!='')
         {
             $Planes->costo = $costo;
+            $bandera=true;
+        }
+        if ($descuento != null && $descuento!='')
+        {
+            $Planes->descuento = $descuento;
+            $bandera=true;
+        }
+        if ($recomendado != null && $recomendado!='')
+        {
+            $Planes->recomendado = $recomendado;
             $bandera=true;
         }
 

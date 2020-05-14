@@ -117,6 +117,11 @@ Route::group(  ['middleware' =>'cors'], function(){
     //----Pruebas VarSistemaController
     Route::get('/sistema','VarSistemaController@index');
     Route::get('/sistema/contacto','VarSistemaController@getContacto');
+    Route::put('/sistema/contacto/{id}','VarSistemaController@contacto_edit');
+    Route::get('/sistema/terminos','VarSistemaController@terminos');
+    Route::get('/sistema/aviso','VarSistemaController@aviso');
+    Route::get('/sistema/contrato','VarSistemaController@contrato');
+
 
     Route::get('/notificaciones','NotificacionesController@index');
     Route::put('/notificaciones/{id}','NotificacionesController@update');

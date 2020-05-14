@@ -24,7 +24,7 @@ class Planes extends Model
      *
      * @var array
      */
-    protected $fillable = ['tipo_plan', 'costo','descripcion','pais_id'];
+    protected $fillable = ['tipo_plan', 'costo','descripcion','descuento', 'recomendado','pais_id'];
 
     /**
      * The attributes excluded from the model's JSON form.

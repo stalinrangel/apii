@@ -28,6 +28,76 @@ class VarSistemaController extends Controller
             return response()->json(['varSistema'=>$varSistema[0]], 200);
         }
     }
+    /*
+    getContacto
+    terminos
+    aviso
+    */
+    public function getContacto(Request $request)
+    {
+        //cargar todas las varSistema
+        $varSistema = \App\Contacto::where('pais_id',$request->input('pais_id'))
+                ->get();
+
+        if(count($varSistema) == 0){
+            return response()->json(['error'=>'No existen variables del sistema.'], 404);          
+        }else{
+
+            return response()->json(['contacto'=>$varSistema[0]], 200);
+        }
+    }
+
+    public function contacto_edit(Request $request, $id)
+    {
+        // Comprobamos si la varSistema que nos están pasando existe o no.
+        $varSistema=\App\Contacto::find($id);
+
+        if (count($varSistema)==0)
+        {
+            // Devolvemos error codigo http 404
+            return response()->json(['error'=>'No existe la varSistema con id '.$id], 404);
+        }  
+
+        $varSistema->fill($request->all());
+
+        // Almacenamos en la base de datos el registro.
+        if ($varSistema->save()) {
+            return response()->json(['message'=>'Sistema configurado con éxito.',
+                'varSistema'=>$varSistema], 200);
+        }else{
+            return response()->json(['error'=>'Error al configurar el sistema.'], 500);
+        }
+    }
+
+    public function terminos(Request $request)
+    {
+        //cargar todas las varSistema
+        $varSistema = \App\Urls::where('nombre','terminos')
+                ->where('pais_id',$request->input('pais_id'))
+                ->get();
+
+        if(count($varSistema) == 0){
+            return response()->json(['error'=>'No existen variables del sistema.'], 404);          
+        }else{
+
+            return response()->json(['varSistema'=>$varSistema[0]], 200);
+        }
+    }
+
+    public function aviso(Request $request)
+    {
+        //cargar todas las varSistema
+        $varSistema = \App\Urls::where('nombre','aviso')
+                ->where('pais_id',$request->input('pais_id'))
+                ->get();
+
+        if(count($varSistema) == 0){
+            return response()->json(['error'=>'No existen variables del sistema.'], 404);          
+        }else{
+
+            return response()->json(['varSistema'=>$varSistema[0]], 200);
+        }
+    }
 
     public function ubicacion()
     {
@@ -138,7 +208,7 @@ class VarSistemaController extends Controller
         //
     }
 
-    public function getContacto()
+    public function getContacto2()
     {
         $dataArray = array("direccion" => "Uruguay",
             "correo" => "service24uy@gmail.com",
