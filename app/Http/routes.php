@@ -87,6 +87,7 @@ Route::group(  ['middleware' =>'cors'], function(){
     Route::post('/zonas','ZonasController@store');
     Route::put('/zonas/{id}','ZonasController@update');
     Route::delete('/zonas/{id}','ZonasController@destroy');
+    Route::get('/zonas/{id}/productos','ZonasController@zonaProductos');
 
     //-------notificaciones_generales
     Route::get('/notificaciones_generales','Notificaciones_generalesController@index');
