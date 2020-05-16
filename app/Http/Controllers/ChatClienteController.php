@@ -503,9 +503,25 @@ class ChatClienteController extends Controller
         return response()->json(['message'=>'ok'], 200);
     }
 
+    public function ciudad($ciudad_id)
+    {
+        $ciudad = \App\Ciudad::with('zonas')->get();
+        $zonas=[];
+
+        for ($i=0; $i < count($ciudad); $i++) { 
+            if ($ciudad[$i]->id==$ciudad_id) {
+                for ($j=0; $j < count($ciudad[$i]->zonas); $j++) { 
+                    array_push($zonas,$ciudad[$i]->zonas[$j]->id);
+                }
+            }
+        }
+        return $zonas;
+    }
+
     /*Retorna los ultimos 10 mensajes sin leer (estado=1) de un receptor_id*/
     public function getMsgsSinLeer($receptor_id)
     {
+        $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar los ultimos 10 ids de mensajes sin leer
         $idsSinLeer = \App\MsgChatCliente::
             select(/*'id', 'estado', 'msg', 'created_at',*/ DB::raw('Max(id) AS max_id'))
@@ -525,7 +541,7 @@ class ChatClienteController extends Controller
         $msgs = \App\MsgChatCliente::select('id', 'msg', 'estado', 'chat_id', 'emisor_id', 'receptor_id', 'created_at')
             ->whereIn('id', $idsAux)
             ->with(['emisor' => function ($query) {
-                $query->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion');
+                $query->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion','zona_id')->whereIn('zona_id',$zonas);;
             }])
             ->orderBy('id', 'desc')
             ->get();
@@ -534,14 +550,14 @@ class ChatClienteController extends Controller
     }
 
     /*Retorna el chat de un cliente*/
-    public function miChat($usuario_id)
+    public function miChat(Request $request,$usuario_id)
     {
         //Cargar el chat.
         $chat=\App\ChatCliente::where('usuario_id', $usuario_id)->get();
 
         //Cargar los datos del admin
-            $admin=\App\User::where('tipo_usuario', 1)
-                ->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion')
+            $admin=\App\User::where('tipo_usuario', 1)->where('ciudad', $request->input('ciudad_id'))
+                ->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion','ciudad','pais_id','zona_id')
                 ->get();
 
         if (count($chat)==0)
