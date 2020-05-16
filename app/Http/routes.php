@@ -100,6 +100,7 @@ Route::group(  ['middleware' =>'cors'], function(){
 
     //-------PLANES
     Route::get('/planes','PlanesController@index');
+    Route::get('/planes2','PlanesController@index2');
     Route::post('/planes','PlanesController@store');
     Route::put('/planes/{id}','PlanesController@update');
     Route::delete('/planes/{id}','PlanesController@destroy');
