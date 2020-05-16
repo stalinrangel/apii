@@ -503,20 +503,7 @@ class ChatClienteController extends Controller
         return response()->json(['message'=>'ok'], 200);
     }
 
-    public function ciudad($ciudad_id)
-    {
-        $ciudad = \App\Ciudad::with('zonas')->get();
-        $zonas=[];
-
-        for ($i=0; $i < count($ciudad); $i++) { 
-            if ($ciudad[$i]->id==$ciudad_id) {
-                for ($j=0; $j < count($ciudad[$i]->zonas); $j++) { 
-                    array_push($zonas,$ciudad[$i]->zonas[$j]->id);
-                }
-            }
-        }
-        return $zonas;
-    }
+    
 
     /*Retorna los ultimos 10 mensajes sin leer (estado=1) de un receptor_id*/
     public function getMsgsSinLeer($receptor_id)
