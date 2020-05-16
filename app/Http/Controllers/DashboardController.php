@@ -120,6 +120,20 @@ class DashboardController extends Controller
 
     }
 
+    public function web_count(Request $request)
+    {
+        $clientes=\App\User::where('tipo_usuario',2)->where('pais_id',$request->input('pais_id'))->count();
+        $proveedores=\App\User::where('tipo_usuario',3)->where('pais_id',$request->input('pais_id'))->count();
+        $pedidos_finalizados = \App\Pedido::where('estado',4)->count();
+        $descargas=($clientes+$proveedores)*7;
+        return response()->json(['pedidos_curso'=>$pedidos_curso,
+            'clientes'=>$clientes,
+            'proveedores'=>$proveedores,
+            'pedidos_finalizados'=>$pedidos_finalizados,
+            'descargas'=>$descargas
+        ], 200);
+    }
+
     /*Retorna las categorias con el
     contador de  productos solicitados
     filtrados por fecha*/

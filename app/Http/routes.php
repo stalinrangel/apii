@@ -46,6 +46,7 @@ Route::group(  ['middleware' =>'cors'], function(){
     //----Web
     Route::get('/usuarios/webcontacto/{email}','UsuarioController@webcontacto');
     Route::get('/usuarios/webcontactoproveedor/{email}','UsuarioController@webcontactoproveedor');
+    Route::get('/web_count','DashboardController@web_count');
 
     
     //----Pruebas PasswordController
@@ -166,6 +167,8 @@ Route::group(  ['middleware' =>'cors'], function(){
     //Route::group(['middleware' => 'jwt-auth'], function(){
 
         //----Pruebas DashboardController
+        
+
         Route::get('/dashboard/contadores','DashboardController@contadores');
         Route::get('/dashboard/diagram1','DashboardController@filterCategorias');
         Route::get('/dashboard/diagram2','DashboardController@filterSubcateogrias');
