@@ -537,14 +537,14 @@ class ChatRepartidorController extends Controller
 
 
     /*Retorna el chat de un repartidor*/
-    public function miChat($usuario_id)
+    public function miChat(Request $request, $usuario_id)
     {
         //Cargar el chat.
         $chat=\App\ChatRepartidor::where('usuario_id', $usuario_id)->get();
 
         //Cargar los datos del admin
-            $admin=\App\User::where('tipo_usuario', 1)
-                ->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion')->with('registro')
+            $admin=\App\User::where('tipo_usuario', 1)->where('ciudad', $request->input('ciudad_id'))
+                ->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion','ciudad_id','pais_id','zona_id')->with('registro')
                 ->get();
             $activo=\App\Repartidor::where('usuario_id', $usuario_id)->first();
             $direccion=\App\Registro::where('usuario_id', $usuario_id)->first();
