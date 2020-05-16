@@ -211,4 +211,17 @@ class ZonasController extends Controller
 
         
     }
+
+    public function zonaProductos($id)
+    {
+        //cargar una zona
+        $zona = \App\Zonas::with('productos')->find($id);
+
+        if(count($zona)==0){
+            return response()->json(['error'=>'No existe la zona con id '.$id], 404);          
+        }else{
+
+            return response()->json(['zona'=>$zona], 200);
+        }
+    }
 }

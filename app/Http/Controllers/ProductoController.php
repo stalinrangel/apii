@@ -189,6 +189,18 @@ class ProductoController extends Controller
              $zona_id=$request->input('zona_id');
         }
 
+        if ($request->input('zonas')) {
+            //Verificar que todas las zonas existen
+            $zonas = json_decode($request->input('zonas'));
+            for ($i=0; $i < count($zonas) ; $i++) { 
+                $aux2 = \App\Zona::find($zonas[$i]->id);
+                if(count($aux2) == 0){
+                   // Devolvemos un código 409 Conflict. 
+                    return response()->json(['error'=>'No existe la zona con id '.$zonas[$i]->id], 409);
+                }   
+            } 
+        }
+
         if($nuevoProducto=\App\Producto::create([
             'nombre' => $request->input('nombre'),
             'estado' => $request->input('estado'),
@@ -204,6 +216,16 @@ class ProductoController extends Controller
             'idoneidad' => $request->input('idoneidad'),
             'anos_experiencia' => $request->input('anos_experiencia'),
         ])){
+
+            if ($request->input('zonas')) {
+                //Crear las relaciones en la tabla pivote
+                for ($i=0; $i < count($zonas) ; $i++) { 
+
+                    $nuevoProducto->zonas2()->attach($zonas[$i]->id);
+                       
+                }
+            }
+
              /*$zonas=\App\Zonas::find($zona_id);
              for ($i=0; $i < count($productos) ; $i++) {
 
