@@ -24,7 +24,7 @@ class MsgChatPedido extends Model
      *
      * @var array
      */
-    protected $fillable = ['msg', 'estado', 'chat_id', 'emisor_id', 'receptor_id'];
+    protected $fillable = ['msg', 'estado', 'chat_id', 'emisor_id', 'receptor_id', 'created_at'];
 
     /**
      * The attributes excluded from the model's JSON form.

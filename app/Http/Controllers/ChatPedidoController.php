@@ -128,6 +128,11 @@ class ChatPedidoController extends Controller
             // Se devuelve un array error con los errors encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para messagees de validación.
             return response()->json(['error'=>'Falta el parametro pedido_id.'],422);
         }
+        if ( !$request->input('created_at') )
+        {
+            // Se devuelve un array error con los errors encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para messagees de validación.
+            return response()->json(['error'=>'Falta el parametro created_at.'],422);
+        }
 
         $pedido=\App\Pedido::with(['repartidor.usuario' => function ($query) {
                 $query->select('usuarios.id', 'usuarios.token_notificacion', 'usuarios.imagen');
@@ -171,6 +176,7 @@ class ChatPedidoController extends Controller
                     'msg' => $request->input('msg'),
                     'emisor_id' => $chat->repartidor_id,
                     'receptor_id' => $chat->usuario_id,
+                    'created_at' => $request->input('created_at'),
                 ]);
 
                if ($request->input('token_notificacion') != '' && $request->input('token_notificacion') != null && $request->input('token_notificacion') != 'null') {
@@ -220,6 +226,7 @@ class ChatPedidoController extends Controller
                     'msg' => $request->input('msg'),
                     'emisor_id' => $chat->usuario_id,
                     'receptor_id' => $chat->repartidor_id,
+                    'created_at' => $request->input('created_at'),
                 ]);
 
                if ($request->input('token_notificacion') != '' && $request->input('token_notificacion') != null && $request->input('token_notificacion') != 'null') {
@@ -284,6 +291,7 @@ class ChatPedidoController extends Controller
                     'msg' => $request->input('msg'),
                     'emisor_id' => $chat->repartidor_id,
                     'receptor_id' => $chat->usuario_id,
+                    'created_at' => $request->input('created_at'),
                 ]);
 
                if ($request->input('token_notificacion') != '' && $request->input('token_notificacion') != null && $request->input('token_notificacion') != 'null') {
@@ -333,6 +341,7 @@ class ChatPedidoController extends Controller
                     'msg' => $request->input('msg'),
                     'emisor_id' => $chat->usuario_id,
                     'receptor_id' => $chat->repartidor_id,
+                    'created_at' => $request->input('created_at'),
                 ]);
 
                if ($request->input('token_notificacion') != '' && $request->input('token_notificacion') != null && $request->input('token_notificacion') != 'null') {

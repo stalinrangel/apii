@@ -151,6 +151,11 @@ class ChatClienteController extends Controller
             // Se devuelve un array error con los errors encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para messagees de validación.
             return response()->json(['error'=>'Falta el parametro emisor.'],422);
         }
+        if ( !$request->input('created_at') )
+        {
+            // Se devuelve un array error con los errors encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para messagees de validación.
+            return response()->json(['error'=>'Falta el parametro created_at.'],422);
+        }
 
 
         //Verificar si existe un chat entre el admin y el cliente
@@ -198,6 +203,7 @@ class ChatClienteController extends Controller
                     'msg' => $request->input('msg'),
                     'emisor_id' => $chat->admin_id,
                     'receptor_id' => $chat->usuario_id,
+                    'created_at' => $request->input('created_at'),
                 ]);
 
                if ($request->input('token_notificacion') != '' && $request->input('token_notificacion') != null && $request->input('token_notificacion') != 'null') {
@@ -245,6 +251,7 @@ class ChatClienteController extends Controller
                     'msg' => $request->input('msg'),
                     'emisor_id' => $chat->usuario_id,
                     'receptor_id' => $chat->admin_id,
+                    'created_at' => $request->input('created_at'),
                 ]);
 
                if ($request->input('token_notificacion') != '' && $request->input('token_notificacion') != null && $request->input('token_notificacion') != 'null') {
@@ -307,6 +314,7 @@ class ChatClienteController extends Controller
                     'msg' => $request->input('msg'),
                     'emisor_id' => $chat->admin_id,
                     'receptor_id' => $chat->usuario_id,
+                    'created_at' => $request->input('created_at'),
                 ]);
 
                if ($request->input('token_notificacion') != '' && $request->input('token_notificacion') != null && $request->input('token_notificacion') != 'null') {
@@ -354,6 +362,7 @@ class ChatClienteController extends Controller
                     'msg' => $request->input('msg'),
                     'emisor_id' => $chat->usuario_id,
                     'receptor_id' => $chat->admin_id,
+                    'created_at' => $request->input('created_at'),
                 ]);
 
                if ($request->input('token_notificacion') != '' && $request->input('token_notificacion') != null && $request->input('token_notificacion') != 'null') {
