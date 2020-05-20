@@ -340,9 +340,12 @@ class SubCategoriaController extends Controller
                 $subcategoria = \App\Subcategoria::with(['productos' => function ($query)use ($zona_id){
                     $query
                     ->where('productos.estado', 'ON')
-                    ->where('productos.zona_id',$zona_id)
+                    //->where('productos.zona_id',$zona_id)
                     ->with('fotos')
-                    ->with('establecimiento.usuario.repartidor.registro');
+                    ->with('establecimiento.usuario.repartidor.registro')
+                    ->whereHas('zonas2', function ($query) use ($zona_id) {
+                        $query->where('zona_productos.zona_id', $zona_id);
+                    });
                }])->find($id);
                // return response()->json(['subcategoria'=>$subcategoria], 200);
             }

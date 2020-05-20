@@ -43,7 +43,14 @@ class ProductoController extends Controller
                     ->with(['registro'=> function ($query) {
                     $query->select('id', 'tipo', 'ruc','email','logo','direccion','direccion_exacta','idoneidad','anos_experiencia','urgencias','factura','foto','usuario_id');
                     }]);
-                }])->with('subcategoria.categoria')->where('estado','ON')->where('zona_id',$zona_id)->get(); 
+                }])
+               ->with('subcategoria.categoria')
+               ->where('estado','ON')
+               //->where('zona_id',$zona_id)
+               ->whereHas('zonas2', function ($query) use ($zona_id) {
+                    $query->where('zona_productos.zona_id', $zona_id);
+                })
+               ->get(); 
             }
            
        }
