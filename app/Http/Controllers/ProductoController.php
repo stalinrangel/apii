@@ -189,9 +189,9 @@ class ProductoController extends Controller
              $zona_id=$request->input('zona_id');
         }
 
-        if ($request->input('zonas')) {
+        if ($request->input('zona_id')) {
             //Verificar que todas las zonas existen
-            $zonas = json_decode($request->input('zonas'));
+            $zonas = json_decode($request->input('zona_id'));
             for ($i=0; $i < count($zonas) ; $i++) { 
                 $aux2 = \App\Zonas::find($zonas[$i]->id);
                 if(count($aux2) == 0){
@@ -217,7 +217,7 @@ class ProductoController extends Controller
             'anos_experiencia' => $request->input('anos_experiencia'),
         ])){
 
-            if ($request->input('zonas')) {
+            if ($request->input('zona_id')) {
                 //Crear las relaciones en la tabla pivote
                 for ($i=0; $i < count($zonas) ; $i++) { 
 
