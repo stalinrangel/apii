@@ -193,7 +193,7 @@ class ProductoController extends Controller
             //Verificar que todas las zonas existen
             $zonas = json_decode($request->input('zonas'));
             for ($i=0; $i < count($zonas) ; $i++) { 
-                $aux2 = \App\Zona::find($zonas[$i]->id);
+                $aux2 = \App\Zona::find($zonas[$i]->zona_id);
                 if(count($aux2) == 0){
                    // Devolvemos un código 409 Conflict. 
                     return response()->json(['error'=>'No existe la zona con id '.$zonas[$i]->id], 409);
@@ -221,7 +221,7 @@ class ProductoController extends Controller
                 //Crear las relaciones en la tabla pivote
                 for ($i=0; $i < count($zonas) ; $i++) { 
 
-                    $nuevoProducto->zonas2()->attach($zonas[$i]->id);
+                    $nuevoProducto->zonas2()->attach($zonas[$i]->zona_id);
                        
                 }
             }
