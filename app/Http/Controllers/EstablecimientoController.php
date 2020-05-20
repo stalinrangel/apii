@@ -654,10 +654,12 @@ class EstablecimientoController extends Controller
     donde la subcat a la que pertenece el producto este ON*/
     public function establecimientoProductos($id)
     {
-        $establecimiento = \App\Establecimiento::with('productos.subcategoria')->find($id);
+        /*$establecimiento = \App\Establecimiento::
+            with('productos.subcategoria')
+            ->find($id);*/
 
          $establecimiento = \App\Establecimiento::with(['productos' => function ($query){
-                    $query->with('zonas')
+                    $query->with('zonas2')
                     ->with('subcategoria');
                }])->find($id);
 
