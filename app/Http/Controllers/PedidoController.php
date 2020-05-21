@@ -635,6 +635,9 @@ class PedidoController extends Controller
             ->where(DB::raw("PERIOD_DIFF(DATE_FORMAT(now(), '%y%m') ,DATE_FORMAT(created_at, '%y%m'))"), '<=', 1)
             ->orderBy('id', 'desc')
             ->get();
+        for ($i=0; $i < count($pedidos); $i++) { 
+            $pedidos[$i]->zonas=$pedidos[$i]->zonas2;
+        }
 
         if(count($pedidos) == 0){
             return response()->json(['error'=>'No existen pedidos en curso.'], 404);          
@@ -664,6 +667,10 @@ class PedidoController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
+            for ($i=0; $i < count($pedidos); $i++) { 
+                $pedidos[$i]->zonas=$pedidos[$i]->zonas2;
+            }
+
         if(count($pedidos) == 0){
             return response()->json(['error'=>'No existen pedidos finalizados.'], 404);          
         }else{
@@ -692,6 +699,9 @@ class PedidoController extends Controller
             //->where(DB::raw("PERIOD_DIFF(DATE_FORMAT(now(), '%y%m') ,DATE_FORMAT(created_at, '%y%m'))"), '<=', 1)
             ->orderBy('id', 'desc')
             ->get();
+            for ($i=0; $i < count($pedidos); $i++) { 
+                $pedidos[$i]->zonas=$pedidos[$i]->zonas2;
+            }
 
         if(count($pedidos) == 0){
             return response()->json(['error'=>'No existen pedidos Cancelados.'], 404);          

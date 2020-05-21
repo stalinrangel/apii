@@ -545,6 +545,10 @@ class ProductoController extends Controller
             })
             ->get();
 
+        for ($i=0; $i < count($productos); $i++) { 
+            $productos[$i]->zonas=$productos[$i]->zonas2;
+        }
+
         if(count($productos) == 0){
             return response()->json(['error'=>'No existen productos.'], 404);          
         }else{
