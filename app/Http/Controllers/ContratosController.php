@@ -101,7 +101,7 @@ class ContratosController extends Controller
             }
         }
 
-        if ($request->input('pais_id')==2apii) {
+        if ($request->input('pais_id')==2) {
             if ($firma!=null) {
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, "https://service24.app/apii/public/contratos/crearp.php?nombre=".$nombre."&ci=".$ci."&telefono=".$telefono."&direccion=".$direccion."&plan=".$plan."&usuario_id=".$usuario_id);
