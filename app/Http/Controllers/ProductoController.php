@@ -436,6 +436,16 @@ class ProductoController extends Controller
         {
             $producto->estado = $estado;
             $bandera=true;
+            if ($estado=="ON") {
+                $msj="Su servicio".$producto->nombre." se ha activado y esta listo para obtener pedidos!";
+            }else if ($estado=="OFF") {
+                $msj="Su servicio".$producto->nombre." se ha desactivado. Contacta con soporte para mas información.";
+            }
+            $Notificacion= new \App\Notificacion;
+            $Notificacion->mensaje= $msj;
+            $Notificacion->id_operacion=$producto->id;
+            //$Notificacion->usuario_id=$producto->usuario_id;
+            $Notificacion->accion=9;
         }
         if ($imagen != null && $imagen!='')
         {
@@ -527,7 +537,9 @@ class ProductoController extends Controller
     {
         $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar todos los productos con su subcategoria y establecimineto
-        $productos = \App\Producto::whereIn('zona_id',$zonas)->with('subcategoria.categoria.catprincipales')->with('establecimiento')->with('zonas')->get();
+        $productos = \App\Producto::whereHas('zonas2', function ($query) use ($zona_id) {
+                    $query->where('zona_productos.zona_id', $zona_id);
+                })->with('subcategoria.categoria.catprincipales')->with('establecimiento')->with('zonas')->get();
 
         if(count($productos) == 0){
             return response()->json(['error'=>'No existen productos.'], 404);          
