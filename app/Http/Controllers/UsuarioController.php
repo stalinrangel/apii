@@ -66,7 +66,7 @@ class UsuarioController extends Controller
         $usuarios = \App\User::select('id', 'email', 'nombre', 'ciudad', 'estado', 'telefono', 'imagen', 'tipo_usuario', 'zona_id','token_notificacion', 'status','created_at')
             ->with(['chat_cliente' => function ($query) {
                 $query->select('id', 'admin_id', 'usuario_id');
-            }])
+            }])->with('zonas')
             ->where('tipo_usuario', 2)->
             whereIn('zona_id',$zonas)->get();
         //return response()->json(['usuarios'=>$usuarios], 200);
