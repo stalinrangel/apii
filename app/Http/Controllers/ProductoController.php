@@ -537,9 +537,13 @@ class ProductoController extends Controller
     {
         $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar todos los productos con su subcategoria y establecimineto
-        $productos = \App\Producto::whereHas('zonas2', function ($query) use ($zona_id) {
-                    $query->where('zona_productos.zona_id', $zona_id);
-                })->with('subcategoria.categoria.catprincipales')->with('establecimiento')->with('zonas')->get();
+        $productos = \App\Producto::with('subcategoria.categoria.catprincipales')
+            ->with('establecimiento')
+            //->with('zonas')
+            ->with('zonas2', function ($query) use ($zonas) {
+                $query->whereIn('zona_id',$zonas);
+            })
+            ->get();
 
         if(count($productos) == 0){
             return response()->json(['error'=>'No existen productos.'], 404);          
