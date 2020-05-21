@@ -16,7 +16,7 @@ $telefono=$_GET['telefono'];
 $usuario_id=$_GET['usuario_id'];
 //$nombre='eimar';
 //$ci='123124';
-$url='https://service24.app/alinstanteAPI/public/con_contratos_firma/'.$usuario_id;
+$url='https://service24.app/apii/public/con_contratos_firma/'.$usuario_id;
     $ch = curl_init($url);
 
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
