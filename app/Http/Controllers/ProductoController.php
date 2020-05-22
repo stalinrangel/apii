@@ -242,10 +242,10 @@ class ProductoController extends Controller
 
             $admin = \App\User::where('tipo_usuario', 1)->first();
             $establecimient = \App\Establecimiento::with('usuario')->find($request->input('establecimiento_id'));
-            $this->enviarNotificacion($admin->token_notificacion, 'Se%20ha%20creado%20un%20servicio%20$'.$request->input('nombre'), 0, 6, $obj);
+            $this->enviarNotificacion($admin->token_notificacion, 'Se ha creado un servicio'.$request->input('nombre'), 0, 6, $obj);
 
             $Notificacion= new \App\Notificacion;
-            $Notificacion->mensaje= 'Se%20ha%20creado%20un%20servicio%20$'.$request->input('nombre');
+            $Notificacion->mensaje= 'Se ha creado un servicio'.$request->input('nombre');
             $Notificacion->id_operacion=$nuevoProducto->id;
             $Notificacion->usuario_id=$establecimient->usuario_id;
             $Notificacion->accion=9;
@@ -441,11 +441,13 @@ class ProductoController extends Controller
             }else if ($estado=="OFF") {
                 $msj="Su servicio".$producto->nombre." se ha desactivado. Contacta con soporte para mas información.";
             }
-            $Notificacion= new \App\Notificacion;
+
+            $establecimiento = \App\Establecimiento::where('id',$producto->establecimiento_id)->with('usuario')->first();
+            $Notificacion= new \App\Notificaciones_generales;
             $Notificacion->mensaje= $msj;
-            $Notificacion->id_operacion=$producto->id;
-            //$Notificacion->usuario_id=$producto->usuario_id;
-            $Notificacion->accion=9;
+            $Notificacion->tipo_usuario=3;
+            $Notificacion->ciudad_id=$establecimiento->usuario->ciudad;
+            $Notificacion->usuario_id=$establecimiento->usuario->id;
         }
         if ($imagen != null && $imagen!='')
         {
@@ -460,10 +462,10 @@ class ProductoController extends Controller
 
                 $admin = \App\User::where('tipo_usuario', 1)->first();
                 $establecimient = \App\Establecimiento::with('usuario')->find($producto->establecimiento_id);
-                $this->enviarNotificacion($admin->token_notificacion, 'Se%20ha%20editado%20un%20servicio%20$'.$request->input('nombre'), 0, 6, $obj);
+                $this->enviarNotificacion($admin->token_notificacion, 'Se ha editado un servicio'.$request->input('nombre'), 0, 6, $obj);
 
                 $Notificacion= new \App\Notificacion;
-                $Notificacion->mensaje= 'Se%20ha%20editado%20un%20servicio%20$'.$request->input('nombre');
+                $Notificacion->mensaje= 'Se ha editado un servicio '.$request->input('nombre');
                 $Notificacion->id_operacion=$producto->id;
                 $Notificacion->usuario_id=$establecimient->usuario_id;
                 $Notificacion->accion=10;

@@ -33,7 +33,7 @@ class Notificaciones_generalesController extends Controller
     {
         //$zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar todas las Notificaciones_generales
-        $Notificaciones_generales = \App\Notificaciones_generales::where('ciudad_id',$request->input('ciudad_id'))->orderBy('id', 'DESC')->get();
+        $Notificaciones_generales = \App\Notificaciones_generales::where('usuario_id',1)->where('ciudad_id',$request->input('ciudad_id'))->orderBy('id', 'DESC')->get();
 
         if(count($Notificaciones_generales) == 0){
             return response()->json(['error'=>'No existen Notificaciones_generales.'], 404);          
@@ -118,8 +118,9 @@ class Notificaciones_generalesController extends Controller
      */
     public function show2(Request $request)
     {
+        $usuarios=[1,$request->input('usuario_id')];
         //cargar una Notificaciones_generales
-         $Notificaciones_generales = \App\Notificaciones_generales::where('ciudad_id',$request->input('ciudad_id'))->where('tipo_usuario',2)->orderBy('id', 'DESC')->take(20)->get();
+         $Notificaciones_generales = \App\Notificaciones_generales::whereIn('usuario_id',$usuarios)->where('ciudad_id',$request->input('ciudad_id'))->where('tipo_usuario',2)->orderBy('id', 'DESC')->take(20)->get();
 
         if(count($Notificaciones_generales) == 0){
             return response()->json(['error'=>'No existen Notificaciones_generales.'], 404);          
@@ -129,8 +130,9 @@ class Notificaciones_generalesController extends Controller
     }
     public function show3(Request $request)
     {
+        $usuarios=[1,$request->input('usuario_id')];
         //cargar una Notificaciones_generales
-         $Notificaciones_generales = \App\Notificaciones_generales::where('ciudad_id',$request->input('ciudad_id'))->where('tipo_usuario',3)->orderBy('id', 'DESC')->take(20)->get();
+         $Notificaciones_generales = \App\Notificaciones_generales::whereIn('usuario_id',$usuarios)->where('ciudad_id',$request->input('ciudad_id'))->where('tipo_usuario',3)->orderBy('id', 'DESC')->take(20)->get();
 
         if(count($Notificaciones_generales) == 0){
             return response()->json(['error'=>'No existen Notificaciones_generales.'], 404);          

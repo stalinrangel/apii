@@ -149,11 +149,12 @@ class EstablecimientoController extends Controller
             $Cobros->establecimiento_id = $nuevoEstablecimiento->id;
             $Cobros->usuario_id = $usuario->id;
             $Cobros->observacion = 'Cuota de ingreso al sistema.';*/
-            $Notificacion= new \App\Notificacion;
-                $Notificacion->mensaje='Nuevo Proveedor se ha registrado '. $request->input('email'). ' '.$request->input('nombre');
+
+                $Notificacion= new \App\Notificaciones_generales;
+                $Notificacion->mensaje= 'Nuevo Proveedor se ha registrado '. $request->input('email'). ' '.$request->input('nombre');
+                $Notificacion->tipo_usuario=3;
+                $Notificacion->ciudad_id=$usuario->ciudad;
                 $Notificacion->usuario_id=$usuario->id;
-                $Notificacion->accion=2;
-                
                 try {
                     $Notificacion->save();
                 } catch (Exception $e) {
