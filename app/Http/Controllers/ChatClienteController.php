@@ -515,7 +515,7 @@ class ChatClienteController extends Controller
     
 
     /*Retorna los ultimos 10 mensajes sin leer (estado=1) de un receptor_id*/
-    public function getMsgsSinLeer($receptor_id)
+    public function getMsgsSinLeer(Request $request,$receptor_id)
     {
         $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar los ultimos 10 ids de mensajes sin leer
