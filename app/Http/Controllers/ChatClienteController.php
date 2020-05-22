@@ -537,7 +537,7 @@ class ChatClienteController extends Controller
         $msgs = \App\MsgChatCliente::select('id', 'msg', 'estado', 'chat_id', 'emisor_id', 'receptor_id', 'created_at')
             ->whereIn('id', $idsAux)
             ->with(['emisor' => function ($query) {
-                $query->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion','zona_id')->whereIn('zona_id',$zonas);;
+                $query->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion','zona_id')->whereIn('zona_id',$zonas);
             }])
             ->orderBy('id', 'desc')
             ->get();
