@@ -60,7 +60,7 @@ class RepartidorController extends Controller
                     ->with('subcategoria.categoria.catprincipales');
                }])*/
             ->with('calificaciones.producto.pedidos.usuario')
-            ->with('establecimiento.productos.zonas')
+            ->with('establecimiento.productos.zonas2')
             ->whereIn('zona_id',$zonas)
             ->orderBy('id', 'desc')->get();
 
