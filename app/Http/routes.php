@@ -374,6 +374,8 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::get('/chats/repartidores/michat/{usuario_id}','ChatRepartidorController@miChat');
         Route::put('/chats/repartidores/leer','ChatRepartidorController@leerMensajes');
         Route::get('/chats/sinleer/repartidores/{receptor_id}','ChatRepartidorController@getMsgsSinLeer');
+        Route::get('/chats/sinleer/repartidores/{receptor_id}','ChatRepartidorController@getMsgsSinLeer');
+        Route::get('/mensajesp/repartidores/noleidos','ChatRepartidorController@MsgsPanelRep');
 
         //----Pruebas ChatPedidoController
         Route::get('/chats/pedidos','ChatPedidoController@index');

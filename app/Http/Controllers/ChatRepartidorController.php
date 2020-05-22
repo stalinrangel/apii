@@ -501,6 +501,46 @@ class ChatRepartidorController extends Controller
         return response()->json(['message'=>'ok'], 200);
     }
 
+    public function MsgsPanelRep(Request $request)
+    {
+        $zonas=$this->ciudad($request->input('ciudad_id'));
+        //cargar los ultimos 10 ids de mensajes sin leer
+        $idsSinLeer = \App\MsgChatRepartidor::
+            select(/*'id', 'estado', 'msg', 'created_at',*/ DB::raw('Max(id) AS max_id'))
+            ->where('estado', 1)
+            //->where('receptor_id', $receptor_id)
+            ->groupBy('chat_id')
+            ->orderBy('max_id', 'desc')
+            ->take(50)
+            ->get();
+
+        $idsAux = [];
+        for ($i=0; $i < count($idsSinLeer); $i++) { 
+            array_push($idsAux, $idsSinLeer[$i]->max_id);
+        }
+
+        //cargar toda la info de los mensajes sin leer
+        $msgs = \App\MsgChatRepartidor::select('id', 'msg', 'estado', 'chat_id', 'emisor_id', 'receptor_id', 'created_at')
+            ->whereIn('id', $idsAux)
+            ->with(['emisor' => function ($query)use ($zonas) {
+                $query->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion','zona_id')->whereIn('zona_id',$zonas);
+            }])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        $msgs2=[];
+        for ($i=0; $i < count($msgs); $i++) { 
+            for ($j=0; $j < count($zonas); $j++) { 
+                if ($msgs[$i]->emisor->zona_id==$zonas[$j]) {
+                    array_push($msgs2, $msgs[$i]);
+                }
+            }
+        }
+        $msgs=$msgs2;
+
+        return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'msgs'=>$msgs], 200); 
+    }
+
     /*Retorna los ultimos 10 mensajes sin leer (estado=1) de un receptor_id*/
     public function getMsgsSinLeer(Request $request, $receptor_id)
     {
