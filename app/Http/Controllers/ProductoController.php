@@ -437,7 +437,7 @@ class ProductoController extends Controller
             $producto->estado = $estado;
             $bandera=true;
             if ($estado=="ON") {
-                $msj="Su servicio".$producto->nombre." se ha activado y esta listo para obtener pedidos!";
+                $msj="Su servicio ".$producto->nombre." se ha activado y esta listo para obtener pedidos!";
             }else if ($estado=="OFF") {
                 $msj="Su servicio ".$producto->nombre." se ha desactivado. Contacta con soporte para mas información.";
             }
