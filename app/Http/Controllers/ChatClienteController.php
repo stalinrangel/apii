@@ -532,7 +532,7 @@ class ChatClienteController extends Controller
         for ($i=0; $i < count($idsSinLeer); $i++) { 
             array_push($idsAux, $idsSinLeer[$i]->max_id);
         }
-
+        return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsAux'=>$idsAux], 200); 
         //cargar toda la info de los mensajes sin leer
         $msgs = \App\MsgChatCliente::select('id', 'msg', 'estado', 'chat_id', 'emisor_id', 'receptor_id', 'created_at')
             ->whereIn('id', $idsAux)
