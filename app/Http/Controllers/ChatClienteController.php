@@ -512,7 +512,7 @@ class ChatClienteController extends Controller
         return response()->json(['message'=>'ok'], 200);
     }
 
-    public function getMsgsSinLeerPanel(Request $request)
+    public function MsgsPanelClientes(Request $request)
     {
         $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar los ultimos 10 ids de mensajes sin leer
