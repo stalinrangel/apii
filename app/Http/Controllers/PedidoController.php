@@ -614,9 +614,7 @@ class PedidoController extends Controller
     {
         $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar todos los pedidos en curso (Estado 1, 2, 3)
-        $pedidos = \App\Pedido::with('zonas2', function ($query) use ($zonas) {
-                $query->whereIn('zona_id',$zonas);
-            })
+        $pedidos = \App\Pedido::whereIn('zona_id',$zonas)
             ->with('usuario')
             //->with('repartidor')
             ->with(['repartidor.usuario' => function ($query) {
@@ -650,9 +648,7 @@ class PedidoController extends Controller
     {
          $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar todos los pedidos en finalizados (Estado 4)
-        $pedidos = \App\Pedido::with('zonas2', function ($query) use ($zonas) {
-                $query->whereIn('zona_id',$zonas);
-            })
+        $pedidos = \App\Pedido::whereIn('zona_id',$zonas)
             ->with('usuario')
             //->with('repartidor')
             ->with(['repartidor'=> function ($query) {
@@ -683,9 +679,7 @@ class PedidoController extends Controller
         $zonas=$this->ciudad($request->input('ciudad_id'));
             
         //cargar todos los pedidos en finalizados (Estado 4)
-        $pedidos = \App\Pedido::with('zonas2', function ($query) use ($zonas) {
-                $query->whereIn('zona_id',$zonas);
-            })
+        $pedidos = \App\Pedido::whereIn('zona_id',$zonas)
             ->with('usuario')
             //->with('repartidor')
             ->with(['repartidor.usuario' => function ($query) {

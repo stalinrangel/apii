@@ -44,6 +44,11 @@ class Pedido extends Model
         // 1 producto pertenece a una zonas
         return $this->belongsTo('App\Zonas', 'zona_id');
     }
+    // Relación de producto con ciudades:
+    public function zonas2(){
+        // 1 producto puede estar en varias ciudades
+        return $this->belongsToMany('\App\Zonas','zona_productos','producto_id','zona_id');
+    }
 
     // Relación de pedidos con usuarios (cliente):
 	public function usuario()
