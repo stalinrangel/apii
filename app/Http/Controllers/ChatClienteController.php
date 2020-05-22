@@ -524,7 +524,7 @@ class ChatClienteController extends Controller
             ->orderBy('max_id', 'desc')
             ->take(10)
             ->get();
-        //return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsSinLeer'=>$idsSinLeer], 200); 
+        return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsSinLeer'=>$idsSinLeer], 200); 
         $idsAux = [];
         for ($i=0; $i < count($idsSinLeer); $i++) { 
             array_push($idsAux, $idsSinLeer[$i]->max_id);
