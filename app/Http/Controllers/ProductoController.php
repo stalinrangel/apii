@@ -439,7 +439,7 @@ class ProductoController extends Controller
             if ($estado=="ON") {
                 $msj="Su servicio".$producto->nombre." se ha activado y esta listo para obtener pedidos!";
             }else if ($estado=="OFF") {
-                $msj="Su servicio".$producto->nombre." se ha desactivado. Contacta con soporte para mas información.";
+                $msj="Su servicio ".$producto->nombre." se ha desactivado. Contacta con soporte para mas información.";
             }
 
             $establecimiento = \App\Establecimiento::where('id',$producto->establecimiento_id)->with('usuario')->first();
@@ -466,7 +466,7 @@ class ProductoController extends Controller
                 $this->enviarNotificacion($admin->token_notificacion, 'Se ha editado un servicio'.$request->input('nombre'), 0, 6, $obj);
 
                 $Notificacion= new \App\Notificacion;
-                $Notificacion->mensaje= 'Se ha editado un servicio '.$request->input('nombre');
+                $Notificacion->mensaje= 'Se ha editado un servicio '.$producto->nombre;
                 $Notificacion->id_operacion=$producto->id;
                 $Notificacion->usuario_id=$establecimient->usuario_id;
                 $Notificacion->accion=10;
