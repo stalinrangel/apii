@@ -406,6 +406,14 @@ class RepartidorController extends Controller
                 $Notificacion->usuario_id=$usuario->id;
                 $Notificacion->accion=4;
 
+                if ($request->input('activar')==1) {
+                    $Notificacion= new \App\Notificaciones_generales;
+                    $Notificacion->mensaje=''.$usuario->nombre.' ha cambiado su estado '. $act;
+                    $Notificacion->tipo_usuario=3;
+                    $Notificacion->ciudad_id=$usuario->ciudad;
+                    $Notificacion->usuario_id=$usuario->id;
+                }
+
                 $admin = \App\User::where('tipo_usuario', 1)->first();
                 
                     
