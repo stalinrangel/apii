@@ -516,7 +516,7 @@ class ChatClienteController extends Controller
     {
         $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar los ultimos 10 ids de mensajes sin leer
-        return 1;
+        //return 1;
         $idsSinLeer = \App\MsgChatCliente::
             select(/*'id', 'estado', 'msg', 'created_at',*/ DB::raw('Max(id) AS max_id'))
             ->where('estado', 1)
@@ -525,7 +525,7 @@ class ChatClienteController extends Controller
             ->orderBy('max_id', 'desc')
             ->take(10)
             ->get();
-        return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsSinLeer'=>$idsSinLeer], 200); 
+        //return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsSinLeer'=>$idsSinLeer], 200); 
         $idsAux = [];
         for ($i=0; $i < count($idsSinLeer); $i++) { 
             array_push($idsAux, $idsSinLeer[$i]->max_id);
