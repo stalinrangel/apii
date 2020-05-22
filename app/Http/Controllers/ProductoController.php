@@ -448,6 +448,7 @@ class ProductoController extends Controller
             $Notificacion->tipo_usuario=3;
             $Notificacion->ciudad_id=$establecimiento->usuario->ciudad;
             $Notificacion->usuario_id=$establecimiento->usuario->id;
+            $Notificacion->save();
         }
         if ($imagen != null && $imagen!='')
         {
