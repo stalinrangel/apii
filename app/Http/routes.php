@@ -362,6 +362,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::get('/chats/clientes/michat/{usuario_id}','ChatClienteController@miChat');
         Route::put('/chats/clientes/leer','ChatClienteController@leerMensajes');
         Route::get('/chats/sinleer/clientes/{receptor_id}','ChatClienteController@getMsgsSinLeer');
+        Route::get('/chats/sinleer/clientes/panel','ChatClienteController@getMsgsSinLeerPanel');
 
         //----Pruebas ChatRepartidorController
         Route::get('/chats/repartidores','ChatRepartidorController@index');

@@ -512,7 +512,35 @@ class ChatClienteController extends Controller
         return response()->json(['message'=>'ok'], 200);
     }
 
-    
+    public function getMsgsSinLeerPanel(Request $request)
+    {
+        $zonas=$this->ciudad($request->input('ciudad_id'));
+        //cargar los ultimos 10 ids de mensajes sin leer
+        $idsSinLeer = \App\MsgChatCliente::
+            select(/*'id', 'estado', 'msg', 'created_at',*/ DB::raw('Max(id) AS max_id'))
+            ->where('estado', 1)
+            //->where('receptor_id', $receptor_id)
+            ->groupBy('chat_id')
+            ->orderBy('max_id', 'desc')
+            ->take(10)
+            ->get();
+        //return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsSinLeer'=>$idsSinLeer], 200); 
+        $idsAux = [];
+        for ($i=0; $i < count($idsSinLeer); $i++) { 
+            array_push($idsAux, $idsSinLeer[$i]->max_id);
+        }
+        //return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsAux'=>$idsAux], 200); 
+        //cargar toda la info de los mensajes sin leer
+        $msgs = \App\MsgChatCliente::select('id', 'msg', 'estado', 'chat_id', 'emisor_id', 'receptor_id', 'created_at')
+            ->whereIn('id', $idsAux)
+            ->with(['emisor' => function ($query) {
+                $query->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion','zona_id')->whereIn('zona_id',$zonas);
+            }])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'msgs'=>$msgs], 200); 
+    }
 
     /*Retorna los ultimos 10 mensajes sin leer (estado=1) de un receptor_id*/
     public function getMsgsSinLeer(Request $request,$receptor_id)
@@ -527,12 +555,12 @@ class ChatClienteController extends Controller
             ->orderBy('max_id', 'desc')
             ->take(10)
             ->get();
-        return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsSinLeer'=>$idsSinLeer], 200); 
+        //return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsSinLeer'=>$idsSinLeer], 200); 
         $idsAux = [];
         for ($i=0; $i < count($idsSinLeer); $i++) { 
             array_push($idsAux, $idsSinLeer[$i]->max_id);
         }
-        return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsAux'=>$idsAux], 200); 
+        //return response()->json([/*'idsSinLeer'=>$idsAux,*/ 'idsAux'=>$idsAux], 200); 
         //cargar toda la info de los mensajes sin leer
         $msgs = \App\MsgChatCliente::select('id', 'msg', 'estado', 'chat_id', 'emisor_id', 'receptor_id', 'created_at')
             ->whereIn('id', $idsAux)
