@@ -543,7 +543,7 @@ class ChatClienteController extends Controller
         for ($i=0; $i < count($msgs); $i++) { 
             for ($j=0; $j < count($zonas); $j++) { 
                 if ($msgs[$i]->emisor->zona_id==$zonas[$j]) {
-                    array_push($msgs2, $msgs[$i])
+                    array_push($msgs2, $msgs[$i]);
                 }
             }
         }
