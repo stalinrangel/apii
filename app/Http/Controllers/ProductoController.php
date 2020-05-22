@@ -562,11 +562,18 @@ class ProductoController extends Controller
                 }
             }
         }
-        $prod=array_unique($msgs2);
-        if(count($prod) == 0){
+        for ($i=0; $i < count($msgs2); $i++) { 
+            for ($j=$i+1; $j < count($msgs2)-$i; $j++) { 
+                if ($msgs2[$i]->id==$msgs2[$j]->id) {
+                    array_splice($msgs2, $j,1);
+                }
+            }
+        }
+        
+        if(count($msgs2) == 0){
             return response()->json(['error'=>'No existen productos.'], 404);          
         }else{
-            return response()->json(['productos'=>$prod], 200);
+            return response()->json(['productos'=>$msgs2], 200);
         } 
     }
 
