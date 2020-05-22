@@ -563,10 +563,10 @@ class ProductoController extends Controller
             }
         }
 
-        if(count($productos) == 0){
+        if(count($msgs2) == 0){
             return response()->json(['error'=>'No existen productos.'], 404);          
         }else{
-            return response()->json(['productos'=>$productos], 200);
+            return response()->json(['productos'=>$msgs2], 200);
         } 
     }
 
