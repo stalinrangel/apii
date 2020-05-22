@@ -552,6 +552,17 @@ class ProductoController extends Controller
             $productos[$i]->zonas=$productos[$i]->zonas2;
         }
 
+        $msgs2=[];
+        for ($i=0; $i < count($productos); $i++) {
+            for ($k=0; $k < count($productos[$i]->zonas); $k++) { 
+                for ($j=0; $j < count($zonas); $j++) { 
+                    if ($productos[$i]->zonas[$k]->id==$zonas[$j]) {
+                        array_push($msgs2, $productos[$i]);
+                    }
+                }
+            }
+        }
+
         if(count($productos) == 0){
             return response()->json(['error'=>'No existen productos.'], 404);          
         }else{

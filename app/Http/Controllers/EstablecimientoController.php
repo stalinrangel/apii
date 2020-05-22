@@ -150,7 +150,8 @@ class EstablecimientoController extends Controller
             $Cobros->usuario_id = $usuario->id;
             $Cobros->observacion = 'Cuota de ingreso al sistema.';*/
                 $Notificacion= new \App\Notificacion;
-                $Notificacion->mensaje='Nuevo Usuario registrado '.$usuario->email;
+                $Notificacion->mensaje='Nuevo Proveedor registrado '.$usuario->email;
+                $Notificacion->id_operacion=$usuario->id;
                 $Notificacion->usuario_id=$usuario->id;
                 $Notificacion->accion=2;
 
