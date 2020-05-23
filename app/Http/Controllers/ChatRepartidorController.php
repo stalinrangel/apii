@@ -625,7 +625,7 @@ class ChatRepartidorController extends Controller
 
             if (count($admin)==0) {
                 // Devolvemos un código 409 Conflict.
-                return response()->json(['Error'=>'No hay admis disponibles para iniciar un chat.',['admin'=>$admin,'activo'=>$activo->activo,'direccion'=>$direccion->direccion, 'promedio_calificacion'=>$promedio,'calificaciones'=>$calificaciones], 409);
+                return response()->json(['Error'=>'No hay admis disponibles para iniciar un chat.','admin'=>$admin,'activo'=>$activo->activo,'direccion'=>$direccion->direccion, 'promedio_calificacion'=>$promedio,'calificaciones'=>$calificaciones], 409);
             }
             else{
                 // Devolvemos error codigo http 404
