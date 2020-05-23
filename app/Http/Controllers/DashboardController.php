@@ -775,8 +775,7 @@ class DashboardController extends Controller
         }
 
         $calificaciones = $calificacion
-            ->with(['pedido' => function ($query) {
-                $query->whereIn('zona_id',$zonas)->select('id', 'usuario_id', 'repartidor_id', 'repartidor_nom');
+            ->with('pedido')->select('id', 'usuario_id', 'repartidor_id', 'repartidor_nom');
             }])->orderBy('id', 'desc')->take(12)
             ->get();
 
