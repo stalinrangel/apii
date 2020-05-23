@@ -520,7 +520,7 @@ class ChatClienteController extends Controller
         }
               
 
-            return response()->json(['message'=>'ok','msg'=>$msg], 200);
+            return response()->json(['message'=>'ok','msg'=>$rows], 200);
 
         
     }
