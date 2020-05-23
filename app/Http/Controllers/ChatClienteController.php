@@ -512,7 +512,7 @@ class ChatClienteController extends Controller
         $msg = \App\MsgChatCliente::where('estado', 1)
             ->where('chat_id', $request->input('chat_id'))
             ->where('receptor_id', $request->input('receptor_id'))
-            ->fist();
+            ->first();
 
         $msg->estado=2;
 
