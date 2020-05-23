@@ -509,7 +509,17 @@ class ChatClienteController extends Controller
                 ->where('estado', 1)
                 ->update(['estado' => 2]);
 
-        return response()->json(['message'=>'ok'], 200);
+        $msg = \App\MsgChatCliente::where('estado', 1)
+            ->where('chat_id', $request->input('chat_id'))
+            ->where('receptor_id', $request->input('receptor_id'))
+            ->fist();
+
+        $msg->estado=2;
+
+        if ($msg->save()) {
+            return response()->json(['message'=>'ok','msg'=>$msg], 200);
+        }
+        
     }
 
     public function MsgsPanelClientes(Request $request)
