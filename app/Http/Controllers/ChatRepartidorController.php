@@ -493,7 +493,7 @@ class ChatRepartidorController extends Controller
     {
         DB::table('msgs_chats_repartidores')
                 ->where('chat_id', $request->input('chat_id'))
-                ->where('receptor_id', $request->input('receptor_id'))
+                //->where('receptor_id', $request->input('receptor_id'))
                 /*->where('emisor_id', $request->input('emisor_id'))*/
                 ->where('estado', 1)
                 ->update(['estado' => 2]);
