@@ -497,6 +497,15 @@ class ChatRepartidorController extends Controller
                 /*->where('emisor_id', $request->input('emisor_id'))*/
                 ->where('estado', 1)
                 ->update(['estado' => 2]);
+        $rows = \App\MsgChatCliente::where('estado', 1)
+            ->where('chat_id', $request->input('chat_id'))
+            //->where('receptor_id', $request->input('receptor_id'))
+            ->get();
+
+        foreach($rows as $row){
+            $rows->estado = 2;
+            $rows->save();
+        }
 
         return response()->json(['message'=>'ok'], 200);
     }
