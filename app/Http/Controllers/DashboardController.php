@@ -775,8 +775,7 @@ class DashboardController extends Controller
         }
 
         $calificaciones = $calificacion
-            ->with('pedido')->select('id', 'usuario_id', 'repartidor_id', 'repartidor_nom');
-            }])->orderBy('id', 'desc')->take(12)
+            ->with('pedido')->orderBy('id', 'desc')->take(12)
             ->get();
 
         return response()->json(['calificaciones'=>$calificaciones], 200);
