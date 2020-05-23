@@ -22,11 +22,12 @@ $contenido = '<html><body>
 				<h3 style="text-align: center;">
 					CONTRATO
 				</h3>
-				<p style="text-align: justify;">En la Ciudad de Panamá, el día '.$fecha.' entre <b>“Service24”</b>, y por la otra, <b>'.$nombre.'</b> de C.I '.$ci.' quien en lo sucesivo se denominará <b>“El Proveedor”</b>, se ha convenido en celebrar el presente contrato de conformidad con los términos y condiciones siguientes:
-				</p>
-        <p><b>A- OBJETO: “Service24”</b> es una aplicación (plataforma) que actúa como intermediario entre quién busca el producto o servicio, en este caso y en lo sucesivo denominado <b>“El Cliente”</b> y quiénes están registrados en ella para ofrecerlos, en este caso <b>“El Proveedor”</b>, quien solo se encargará de gestionar la logística entre las partes para que los trabajos se lleven a cabo. Por este contrato, quién se presenta en este momento <b>“El Proveedor”</b> solicita y adquiere el uso de la plataforma para ofrecer a través de ella sus productos/servicios de acuerdo a los términos y condiciones que se establecen a continuación.</p>
+				<p style="text-align: justify;">En la Ciudad de Panamá, el día '.$fecha.' entre <b>“Service24 S.A.”</b>sociedad anónima debidamente representada para este acto por Michael Alexander Armas Alvarez, varon, venezolano, portadora de la cédula de identidad personal Nº E-8-128773, con domicilio en: Costa Sur, Corregimiento Juan Diaz, Panamá, República de Panamápor una parte, quien en lo adelante se denominará “Service24 Panamá”, y por la otra, <b>'.$nombre.'</b> de C.I '.$ci.' quien en lo sucesivo se denominará <b>“El Proveedor”</b>, se ha convenido en celebrar el presente contrato de conformidad con los términos y condiciones siguientes:
+        </p>
+        <p><b>A- OBJETO: “Service24 Panamá”</b> es una aplicación (plataforma) que actúa como intermediario entre quién busca el producto o servicio, en este caso y en lo sucesivo denominado <b>“El Cliente”</b> y quiénes están registrados en ella para ofrecerlos, en este caso <b>“El Proveedor”</b>, quien solo se encargará de gestionar la logística entre las partes para que los trabajos se lleven a cabo. Por este contrato, quién se presenta en este momento <b>“El Proveedor”</b> solicita y adquiere el uso de la plataforma para ofrecer a través de ella sus productos/servicios de acuerdo a los términos y condiciones que se establecen a continuación.</p>
+        
         <p><b>B- PRECIO: </b>A partir de la confirmación de esta solicitud, <b>“El Proveedor”</b> debe abonar las siguientes cantidades: </p>
-        <p>I- La zona que se adopte una cuota mensual por el monto de '.$costo.'.$u según el plan <b>"'.$plan.'. El Proveedor debe abonar la suma correspondiente al plan contratado a través de la cuenta Brou Caja de ahorro en pesos 600-1611077, vía web a la cuenta BROU numero 110137464-00001 caja de ahorro en pesos."</b>.</p> 
+        <p>I- La zona que se adopte una cuota mensual por el monto de '.$costo.'.$ según el plan <b>"'.$plan.'</b>. Monto total debe ser depositado en la cuenta de Service 24 PanamáBanco GeneralNro04-69-98-099966-0.</p> 
         
 
         <p><b>C- DERECHOS Y OBLIGACIONES:</b> 1- Este contrato se entiende celebrado Intuitu Personae, por lo tanto, ninguna de las partes podrá ceder o traspasar a terceros los derechos y obligaciones que de él se derivan. 2- <b>“El Proveedor”</b> es responsable a partir del momento en el que se coordina el servicio en realizar el trabajo y finalizarlo, cobrando por ese servicio lo que se acuerde entre él y <b>“El Cliente”</b>, estando <b>“Service24”</b> libre de toda responsabilidad contractual que haya podido adquirir con <b>“El Cliente”</b>.</p>
@@ -45,7 +46,7 @@ $contenido = '<html><body>
 
         <p><b>J- NOTIFICACIONES:</b> Toda notificación en virtud de este convenio preliminar podrá realizarse vía fax, telefax o correo certificado, a las direcciones físicas de las partes mencionadas a continuación:</p>
 
-        <p><b>“Servicio 24”</b>: Ciudad de Panamá y 59891960115)</p>
+        <p><b>“Servicio 24”</b>: Ciudad de Panamá y 50760708072</p>
 
         <p><b>“EL Proveedor”</b>: Dirección: '.$direccion.', Teléfono: '.$telefono.'</p>
 

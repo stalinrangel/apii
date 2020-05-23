@@ -602,7 +602,7 @@ class ChatRepartidorController extends Controller
         $chat=\App\ChatRepartidor::where('usuario_id', $usuario_id)->get();
 
         //Cargar los datos del admin
-            $admin=\App\User::where('tipo_usuario', 1)->where('ciudad', $request->input('ciudad_id'))
+            $admin=\App\User::whereIn('tipo_usuario', [0,1,2,3])->where('ciudad', $request->input('ciudad_id'))
                 ->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion','ciudad','pais_id','zona_id')->with('registro')
                 ->get();
             $activo=\App\Repartidor::where('usuario_id', $usuario_id)->first();
