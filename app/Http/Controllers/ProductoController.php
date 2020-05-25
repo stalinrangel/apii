@@ -449,7 +449,10 @@ class ProductoController extends Controller
             $Notificacion->ciudad_id=$establecimiento->usuario->ciudad;
             $Notificacion->usuario_id=$establecimiento->usuario->id;
             $Notificacion->save();
+        }else{
+            $producto->estado = 'ED';
         }
+        
         if ($imagen != null && $imagen!='')
         {
             $producto->imagen = $imagen;
@@ -535,12 +538,51 @@ class ProductoController extends Controller
         }
         return $zonas;
     }
-
     public function productosSubcatEst(Request $request)
     {
         $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar todos los productos con su subcategoria y establecimineto
         $productos = \App\Producto::with('subcategoria.categoria.catprincipales')
+            ->with('establecimiento')
+            //->with('zonas')
+            ->with('zonas2', function ($query) use ($zonas) {
+                $query->whereIn('zona_id',$zonas);
+            })
+            ->get();
+
+        for ($i=0; $i < count($productos); $i++) { 
+            $productos[$i]->zonas=$productos[$i]->zonas2;
+        }
+
+        $msgs2=[];
+        for ($i=0; $i < count($productos); $i++) {
+            for ($k=0; $k < count($productos[$i]->zonas); $k++) { 
+                for ($j=0; $j < count($zonas); $j++) { 
+                    if ($productos[$i]->zonas[$k]->id==$zonas[$j]) {
+                        array_push($msgs2, $productos[$i]);
+                    }
+                }
+            }
+        }
+        for ($i=0; $i < count($msgs2); $i++) { 
+            for ($j=$i+1; $j < count($msgs2)-$i; $j++) { 
+                if ($msgs2[$i]->id==$msgs2[$j]->id) {
+                    array_splice($msgs2, $j,1);
+                }
+            }
+        }
+        
+        if(count($msgs2) == 0){
+            return response()->json(['error'=>'No existen productos.'], 404);          
+        }else{
+            return response()->json(['productos'=>$msgs2], 200);
+        } 
+    }
+    public function productosEditados(Request $request)
+    {
+        $zonas=$this->ciudad($request->input('ciudad_id'));
+        //cargar todos los productos con su subcategoria y establecimineto
+        $productos = \App\Producto::where('estado','ED')->with('subcategoria.categoria.catprincipales')
             ->with('establecimiento')
             //->with('zonas')
             ->with('zonas2', function ($query) use ($zonas) {

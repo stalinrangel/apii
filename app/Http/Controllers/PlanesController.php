@@ -16,15 +16,35 @@ class PlanesController extends Controller
      */
     public function index(Request $request)
     {
-        $pais_id=$request->input('pais_id');
-        //cargar todas las calificaciones
-        $Planes = \App\Planes::where('pais_id',$pais_id)->get();
+        if ($request->input('panel') != null && $request->input('panel')!='') {
+            $pais_id=$request->input('pais_id');
+            //cargar todas las calificaciones
+            $Planes = \App\Planes::where('pais_id',$pais_id)->get();
 
-        if(count($Planes) == 0){
-            return response()->json(['error'=>'No existen Planes.'], 404);          
-        }else{
-            return response()->json(['Planes'=>$Planes], 200);
-        } 
+            if(count($Planes) == 0){
+                return response()->json(['error'=>'No existen Planes.'], 404);          
+            }else{
+                return response()->json(['Planes'=>$Planes], 200);
+            } 
+        }else {
+            $pais_id=$request->input('pais_id');
+            //cargar todas las calificaciones
+            $Planes = \App\Planes::where('pais_id',$pais_id)->get();
+
+            $planesaux=[];
+
+            for ($i=0; $i < count($Planes); $i++) { 
+                if ($Planes[$i]->tipo_plan!="Opciones") {
+                    array_push($planesaux, $Planes[$i]);
+                }
+            }
+            if(count($planesaux) == 0){
+                return response()->json(['error'=>'No existen Planes.'], 404);          
+            }else{
+                return response()->json(['Planes'=>$planesaux], 200);
+            } 
+        }
+        
     }
 
     public function index2(Request $request)

@@ -223,6 +223,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         //----Pruebas ProductoController
         Route::get('/productos','ProductoController@index');
         Route::get('/productos/subcategoria/establecimiento','ProductoController@productosSubcatEst');
+        Route::get('/productos/editados','ProductoController@productosEditados');
         Route::get('/productos/establecimiento/{establecimiento_id}','ProductoController@productosEst');
         Route::post('/productos','ProductoController@store');
         Route::put('/productos/{id}','ProductoController@update');
