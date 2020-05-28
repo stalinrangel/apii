@@ -131,6 +131,7 @@ Route::group(  ['middleware' =>'cors'], function(){
 
     //----Pruebas CategoriaController
     Route::get('/catprincipales','CatprincipalesController@index');
+    Route::get('/replicar_categorias','CatprincipalesController@replicar_categorias');
     Route::get('/catprincipales/categorias','CatprincipalesController@categorias');
     Route::get('/catprincipales/habilitadas','CatprincipalesController@categoriasHabilitadas');
     Route::get('/catprincipales/{id}','CatprincipalesController@show');

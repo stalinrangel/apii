@@ -30,6 +30,66 @@ class CatprincipalesController extends Controller
         } 
     }
 
+    public function replicar_categorias(Request $request)
+    {
+        if ($request->input('ciudad_id')) {
+            $categorias = \App\Catprincipales::where('ciudad_id',$request->input('ciudad_id'))->with('categorias.subcategorias')->get();
+        }
+        
+        for ($i=0; $i < count($categorias); $i++) {
+            $principales=new \App\Catprincipales; 
+            $principales->orden=$categorias[$i]->orden;
+            $principales->nombre=$categorias[$i]->nombre;
+            $principales->ingles=$categorias[$i]->ingles;
+            $principales->imagen=$categorias[$i]->imagen;
+            $principales->estado=$categorias[$i]->estado;
+            $principales->ciudad_id=$request->input('nueva_ciudad_id');
+
+            if ($principales->save()) {
+                for ($j=0; $j < count($categorias[$i]->categorias); $j++) { 
+                    $categ=new \App\Categoria; 
+                    $categ->nombre=$categorias[$i]->categorias[$j]->nombre;
+                    $categ->ingles=$categorias[$i]->categorias[$j]->ingles;
+                    $categ->imagen=$categorias[$i]->categorias[$j]->imagen;
+                    $categ->estado=$categorias[$i]->categorias[$j]->estado;
+                    $categ->ciudad_id=$request->input('nueva_ciudad_id');
+                    $categ->catprincipales_id=$principales->id;
+
+                    if ($categ->save()) {
+                        for ($k=0; $k < count($categorias[$i]->categorias[$j]->subcategorias); $k++) { 
+                            $subcateg=new \App\Subcategoria; 
+                            $subcateg->nombre=$categorias[$i]->categorias[$j]->subcategorias[$k]->nombre;
+                            $subcateg->ingles=$categorias[$i]->categorias[$j]->subcategorias[$k]->ingles;
+                            $subcateg->imagen=$categorias[$i]->categorias[$j]->subcategorias[$k]->imagen;
+                            $subcateg->estado=$categorias[$i]->categorias[$j]->subcategorias[$k]->estado;
+                            $subcateg->ciudad_id=$request->input('nueva_ciudad_id');
+                            $subcateg->categoria_id=$categ->id;
+                            if ($subcateg->save()) {
+                                # code...
+                            }else{
+                                return response()->json(['error'=>'Error al crear sub'], 404);  
+                            }
+                        }
+                    }else{
+                            return response()->json(['error'=>'Error al crear categ'], 404);  
+                        }
+                }
+            }else{
+                return response()->json(['error'=>'Error al crear principales'], 404);  
+            }
+        }
+
+
+        $categoriasF = \App\Catprincipales::where('ciudad_id',$request->input('nueva_ciudad_id'))->with('categorias.subcategorias')->get();
+
+
+        if(count($categoriasF) == 0){
+            return response()->json(['error'=>'No existen categorías.'], 404);          
+        }else{
+            return response()->json(['categorias'=>$categoriasF], 200);
+        } 
+    }
+
     /**
      * Show the form for creating a new resource.
      *
