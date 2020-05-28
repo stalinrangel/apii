@@ -147,7 +147,7 @@ class SubCategoriaController extends Controller
 
             if(count($aux)!=0){
                // Devolvemos un código 409 Conflict. 
-                return response()->json(['error'=>'Ya existe otra subcategoría con ese nombre.'], 409);
+               // return response()->json(['error'=>'Ya existe otra subcategoría con ese nombre.'], 409);
             }
 
             $subcategoria->nombre = $nombre;

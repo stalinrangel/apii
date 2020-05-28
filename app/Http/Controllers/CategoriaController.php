@@ -264,7 +264,7 @@ class CategoriaController extends Controller
 
             if(count($aux)!=0){
                // Devolvemos un código 409 Conflict. 
-                return response()->json(['error'=>'Ya existe otra categoría con ese nombre.'], 409);
+              //  return response()->json(['error'=>'Ya existe otra categoría con ese nombre.'], 409);
             }
 
             $categoria->nombre = $nombre;
