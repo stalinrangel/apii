@@ -413,11 +413,15 @@ class CategoriaController extends Controller
         } 
     }
 
-    public function categSub()
+    public function categSub(Request $request)
     {
         //cargar una cat con sus subcat
-        $categoria = \App\Categoria::with('subcategorias')->get();
-
+        if ($request->input('ciudad_id')) {
+            
+            $categoria = \App\Categoria::where('ciudad_id',$request->input('ciudad_id'))->with('subcategorias')->get();
+        }else{
+            $categoria = \App\Categoria::with('subcategorias')->get();
+        }
         if(count($categoria)==0){
             return response()->json(['error'=>'No existe la categoría '], 404);          
         }else{
