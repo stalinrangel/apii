@@ -576,6 +576,7 @@ class ProductoController extends Controller
         for ($i=0; $i < count($msgs2); $i++) { 
             for ($j=0; $j < count($a); $j++) { 
                 $band=0;
+                return response()->json(['productos'=>$a[$j]->id,'productos'=>$msgs2[$i]->id], 200);
                 if ($a[$j]->id==$msgs2[$i]->id) {
                     $band=1;
                 }
