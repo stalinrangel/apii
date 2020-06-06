@@ -579,7 +579,7 @@ class ProductoController extends Controller
                 if ($a[$j]->id==$msgs2[$i]->id) {
                     $band=1;
                 }
-                if ($band=0) {
+                if ($band==0) {
                     array_push($a, $msgs2[$i]);
                 }
             }
