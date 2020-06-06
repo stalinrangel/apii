@@ -571,11 +571,24 @@ class ProductoController extends Controller
                 }
             }
         }
+        $a=[];
+        array_push($a, $msgs2[0]);
+        for ($i=0; $i < count($msgs2); $i++) { 
+            for ($j=0; $j < count($a); $j++) { 
+                $band=0;
+                if ($a[$j]->id==$msgs2[$i]->id) {
+                    $band==1;
+                }
+                if ($band==0) {
+                    array_push($a, $msgs2[$i]);
+                }
+            }
+        }
         
-        if(count($msgs2) == 0){
+        if(count($a) == 0){
             return response()->json(['error'=>'No existen productos.'], 404);          
         }else{
-            return response()->json(['productos'=>$msgs2], 200);
+            return response()->json(['productos'=>$a], 200);
         } 
     }
     public function productosEditados(Request $request)
