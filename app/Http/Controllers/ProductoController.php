@@ -574,15 +574,14 @@ class ProductoController extends Controller
         $a=[];
         array_push($a, $msgs2[0]);
         for ($i=0; $i < count($msgs2); $i++) { 
+            $band=0;
             for ($j=0; $j < count($a); $j++) { 
-                $band=0;
-                return response()->json(['productos'=>$a[$j]->id,'productos2'=>$msgs2[$i]->id], 200);
                 if ($a[$j]->id==$msgs2[$i]->id) {
                     $band=1;
                 }
-                if ($band==0) {
-                    array_push($a, $msgs2[$i]);
-                }
+            }
+            if ($band==0) {
+                array_push($a, $msgs2[$i]);
             }
         }
         
