@@ -62,15 +62,31 @@ class CalificacionController extends Controller
         $obj=$pedido->id;
         if(count($calificacion) == 0 || count($calificacion) == 1){
             if ($request->input('califico')==3) {
-                $usuario = \App\User::where('id', $pedido->usuario_id)->first();
+                $ya_califico_p=0;
+                for ($i=0; $i < count($calificacion; $i++) { 
+                    if ($calificacion[$i]->tipo_usuario==3) {
+                        $ya_califico_p=1;
+                    }
+                }
+                if ($ya_califico_p==0) {
+                   $usuario = \App\User::where('id', $pedido->usuario_id)->first();
                  $this->enviarNotificacionCliente($usuario->token_notificacion, 'Califica%20al%20proveedor%20del%20servicio%20S00'.$pedido->id, $pedido->id, 6, $obj);
+                }
+                
             }
 
             if ($request->input('califico')==2) {
-                $repartidor = \App\Repartidor::where('id', $pedido->repartidor_id)->first();
-                $proveedor = \App\User::where('id', $repartidor->usuario_id)->first();
-                $this->enviarNotificacion($proveedor->token_notificacion, 'Califica%20al%20cliente%20del%20servicio%20S00'.$pedido->id, $pedido->id, 16, $obj);
-
+                $ya_califico_c=0;
+                for ($i=0; $i < count($calificacion; $i++) { 
+                    if ($calificacion[$i]->tipo_usuario==2) {
+                        $ya_califico_c=1;
+                    }
+                }
+                if ($ya_califico_c==0) {
+                    $repartidor = \App\Repartidor::where('id', $pedido->repartidor_id)->first();
+                    $proveedor = \App\User::where('id', $repartidor->usuario_id)->first();
+                    $this->enviarNotificacion($proveedor->token_notificacion, 'Califica%20al%20cliente%20del%20servicio%20S00'.$pedido->id, $pedido->id, 16, $obj);
+                }
             } 
         }
 
