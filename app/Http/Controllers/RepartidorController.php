@@ -593,22 +593,55 @@ class RepartidorController extends Controller
         }
     }
 
-    public function repDisponibles()
+    public function repDisponibles(Request $request)
     {
-        //cargar todos los repartidores en ON, Trabajando y Disponibles
-        $repartidores = \App\Repartidor::
-                where('estado', 'ON')
-                ->where('activo', 1)
-                //->orWhere('activo', 2)
-                //->where('ocupado', 2)
-                ->with('usuario')
-                ->get();
 
-        if(count($repartidores) == 0){
+        //cargar los productos de la zona y subcat
+        $productos = \App\Producto::where('zona_id', $request->input('zona_id'))
+            ->where('subcategoria_id', $request->input('subcategoria_id'))
+            ->with('establecimiento')
+            ->get();
+
+        if(count($productos) == 0){
             return response()->json(['error'=>'No hay proveedores disponibles.'], 404);          
         }else{
-            return response()->json(['repartidores'=>$repartidores], 200);
+
+            $idsAux = [$productos[0]->establecimiento->usuario_id];
+
+            if (count($productos) > 1) {
+
+                for ($i=1; $i < count($productos); $i++) { 
+                    $esta = false;
+                    for ($j=0; $j < count($idsAux); $j++) { 
+                        if ($productos[$i]->establecimiento->usuario_id == $idsAux[$j]) {
+                            $esta = true;
+                        }
+                    }
+                    if (!$esta) {
+                        array_push($idsAux, $productos[$i]->establecimiento->usuario_id);
+                    }
+                }
+
+            }
+
+            //cargar todos los repartidores en ON, Trabajando y Disponibles
+            $repartidores = \App\Repartidor::where('estado', 'ON')
+                    ->where('activo', 1)
+                    //->where('ocupado', 2)
+                    ->whereIn('usuario_id', $idsAux)
+                    //->with('usuario')
+                    ->whereHas('usuario')
+                    ->get();
+
+            if(count($repartidores) == 0){
+                return response()->json(['error'=>'No hay proveedores disponibles.'], 404);          
+            }else{
+                return response()->json(['repartidores'=>$repartidores], 200);
+            }    
+            
         } 
+
+         
     }
 
     public function miPedidoEnEspera($repartidor_id)
