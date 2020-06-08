@@ -630,7 +630,7 @@ class RepartidorController extends Controller
                     //->where('ocupado', 2)
                     ->whereIn('usuario_id', $idsAux)
                     //->with('usuario')
-                    ->whereHas('usuario')
+                    ->has('usuario')
                     ->get();
 
             if(count($repartidores) == 0){
