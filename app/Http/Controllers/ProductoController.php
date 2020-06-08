@@ -291,7 +291,7 @@ class ProductoController extends Controller
         $establecimineto=  \App\Establecimiento::where('id',$productos->establecimiento->id)->first();
         $productos->establecimineto=$establecimineto;
         //return count($producto);
-        $calificaciones = \App\Calificacion::where('producto_id',$productos->id)->with('usuario')->with('producto')->get();
+        $calificaciones = \App\Calificacion::where('producto_id',$productos->id)->where('usuario_id',$establecimineto->usuario_id)->with('usuario')->with('producto')->get();
         $servicios = \App\Producto::where('establecimiento_id',$productos->establecimiento->id)->with('subcategoria')->get();
                 //return $calificaciones;
         $promedio=0;
