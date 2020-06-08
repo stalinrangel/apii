@@ -64,10 +64,16 @@ class CalificacionController extends Controller
             if ($request->input('califico')==3) {
                 $ya_califico_p=0;
                 for ($i=0; $i < count($calificacion); $i++) { 
+                    if ($calificacion[$i]->tipo_usuario==2) {
+                        $ya_califico_p=1;
+                    }
+                }
+                for ($i=0; $i < count($calificacion); $i++) { 
                     if ($calificacion[$i]->tipo_usuario==3) {
                         $ya_califico_p=1;
                     }
                 }
+
                 if ($ya_califico_p==0) {
                    $usuario = \App\User::where('id', $pedido->usuario_id)->first();
                  $this->enviarNotificacionCliente($usuario->token_notificacion, 'Califica%20al%20proveedor%20del%20servicio%20S00'.$pedido->id, $pedido->id, 6, $obj);
@@ -79,6 +85,11 @@ class CalificacionController extends Controller
                 $ya_califico_c=0;
                 for ($i=0; $i < count($calificacion); $i++) { 
                     if ($calificacion[$i]->tipo_usuario==2) {
+                        $ya_califico_c=1;
+                    }
+                }
+                for ($i=0; $i < count($calificacion); $i++) { 
+                    if ($calificacion[$i]->tipo_usuario==3) {
                         $ya_califico_c=1;
                     }
                 }
