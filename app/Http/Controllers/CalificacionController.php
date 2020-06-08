@@ -63,7 +63,7 @@ class CalificacionController extends Controller
         if(count($calificacion) == 0 || count($calificacion) == 1){
             if ($request->input('califico')==3) {
                 $ya_califico_p=0;
-                for ($i=0; $i < count($calificacion; $i++) { 
+                for ($i=0; $i < count($calificacion); $i++) { 
                     if ($calificacion[$i]->tipo_usuario==3) {
                         $ya_califico_p=1;
                     }
@@ -77,7 +77,7 @@ class CalificacionController extends Controller
 
             if ($request->input('califico')==2) {
                 $ya_califico_c=0;
-                for ($i=0; $i < count($calificacion; $i++) { 
+                for ($i=0; $i < count($calificacion); $i++) { 
                     if ($calificacion[$i]->tipo_usuario==2) {
                         $ya_califico_c=1;
                     }
