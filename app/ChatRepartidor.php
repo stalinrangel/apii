@@ -24,7 +24,7 @@ class ChatRepartidor extends Model
      *
      * @var array
      */
-    protected $fillable = ['admin_id', 'usuario_id'];
+    protected $fillable = ['admin_id', 'usuario_id', 'ciudad_id'];
 
     /**
      * The attributes excluded from the model's JSON form.

@@ -66,6 +66,7 @@ class ChatClienteController extends Controller
                 $query->select('id', 'nombre', 'imagen', 'tipo_usuario', 'zona_id', 'token_notificacion')
                 ->whereIn('zona_id',$zonas);
             }])
+            ->where('ciudad_id', $request->input('ciudad_id'))
             ->orderBy('id', 'desc')
             ->get();
 
@@ -156,6 +157,11 @@ class ChatClienteController extends Controller
             // Se devuelve un array error con los errors encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para messagees de validación.
             return response()->json(['error'=>'Falta el parametro created_at.'],422);
         }
+        if ( !$request->input('ciudad_id') )
+        {
+            // Se devuelve un array error con los errors encontrados y cabecera HTTP 422 Unprocessable Entity – [Entidad improcesable] Utilizada para messagees de validación.
+            return response()->json(['error'=>'Falta el parametro ciudad_id.'],422);
+        }
 
 
         //Verificar si existe un chat entre el admin y el cliente
@@ -186,6 +192,7 @@ class ChatClienteController extends Controller
                 $chat=\App\ChatCliente::create([
                         'admin_id' => $request->input('emisor_id'),
                         'usuario_id' => $request->input('receptor_id'),
+                        'ciudad_id' => $request->input('ciudad_id'),
                     ]);
 
             }else if ($request->input('emisor') == 'cliente') {
@@ -193,6 +200,7 @@ class ChatClienteController extends Controller
                 $chat=\App\ChatCliente::create([
                         'admin_id' => $request->input('receptor_id'),
                         'usuario_id' => $request->input('emisor_id'),
+                        'ciudad_id' => $request->input('ciudad_id'),
                     ]);
             }
 
@@ -602,7 +610,8 @@ class ChatClienteController extends Controller
         $chat=\App\ChatCliente::where('usuario_id', $usuario_id)->get();
 
         //Cargar los datos del admin
-            $admin=\App\User::where('tipo_usuario', 1)->where('ciudad', $request->input('ciudad_id'))
+            $admin=\App\User::where('tipo_usuario', 1)
+                ->where('ciudad', $request->input('ciudad_id'))
                 ->select('id', 'nombre', 'imagen', 'tipo_usuario', 'token_notificacion','ciudad','pais_id','zona_id')
                 ->get();
 
