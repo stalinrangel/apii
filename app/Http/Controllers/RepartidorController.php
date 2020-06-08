@@ -628,8 +628,8 @@ class RepartidorController extends Controller
             $repartidores = \App\Repartidor::where('estado', 'ON')
                     ->where('activo', 1)
                     //->where('ocupado', 2)
+                    ->with('usuario')
                     ->whereIn('usuario_id', $idsAux)
-                    //->with('usuario')
                     ->has('usuario')
                     ->get();
 
