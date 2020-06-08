@@ -237,7 +237,8 @@ class PedidoController extends Controller
             })->first();
 
         $calificaciones = \App\Calificacion::where('califique_a',$pedido->usuario_id)->get();
-           
+        $calificaciones_producto = \App\Calificacion::where('pedido_id',$pedido->id)->get();
+        $pedido->calificaciones_producto=$calificaciones_producto;   
         if (count($calificaciones)!=0)
         {
             $promedio=0;
