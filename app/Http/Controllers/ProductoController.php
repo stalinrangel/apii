@@ -288,6 +288,7 @@ class ProductoController extends Controller
     {
         //cargar un producto
         $productos = \App\Producto::with('establecimiento.usuario.repartidor.registro')->where('id',$id)->first();
+        $establecimineto=  \App\Establecimiento::where('id',$productos->establecimiento->id)->first();
 
         //return count($producto);
         $calificaciones = \App\Calificacion::where('producto_id',$productos->id)->with('usuario')->with('producto')->get();
