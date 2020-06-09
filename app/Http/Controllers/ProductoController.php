@@ -242,7 +242,7 @@ class ProductoController extends Controller
 
             $admin = \App\User::where('tipo_usuario', 1)->first();
             $establecimient = \App\Establecimiento::with('usuario')->find($request->input('establecimiento_id'));
-            $this->enviarNotificacion($admin->token_notificacion, 'Se ha creado un servicio'.$request->input('nombre'), 0, 6, $obj);
+            //$this->enviarNotificacion($admin->token_notificacion, 'Se ha creado un servicio'.$request->input('nombre'), 0, 6, $obj);
 
             $Notificacion= new \App\Notificacion;
             $Notificacion->mensaje= 'Se ha creado un servicio'.$request->input('nombre');
