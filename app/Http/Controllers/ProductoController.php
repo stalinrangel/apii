@@ -190,11 +190,11 @@ class ProductoController extends Controller
             }
         }
 
-        /*if ($request->input('zona_id')==null||$request->input('zona_id')=='') {
+        if ($request->input('zona_id')==null||$request->input('zona_id')=='') {
             $zona_id=1;
         }else{
              $zona_id=$request->input('zona_id');
-        }*/
+        }
 
         if ($request->input('zona_id')) {
             //Verificar que todas las zonas existen
@@ -217,7 +217,7 @@ class ProductoController extends Controller
             'descripcion' => $request->input('descripcion'),
             'subcategoria_id' => $request->input('subcategoria_id'),
             'establecimiento_id' => $request->input('establecimiento_id'),
-            //'zona_id' => $zona_id,
+            'zona_id' => $zona_id,
             'codigo' => $codigo,
             //'imagen' => $imagen
             'idoneidad' => $request->input('idoneidad'),
