@@ -190,7 +190,7 @@ class ProductoController extends Controller
             }
         }
 
-         if ($request->input('zona_id')==null||$request->input('zona_id')=='') {
+        if ($request->input('zona_id')==null||$request->input('zona_id')=='') {
             $zona_id=1;
         }else{
              $zona_id=$request->input('zona_id');
@@ -233,16 +233,9 @@ class ProductoController extends Controller
                 }
             }
 
-             /*$zonas=\App\Zonas::find($zona_id);
-             for ($i=0; $i < count($productos) ; $i++) {
-
-                    $ciudad->productos()->attach($productos[$i]);
-
-                }*/
-
             $admin = \App\User::where('tipo_usuario', 1)->first();
             $establecimient = \App\Establecimiento::with('usuario')->find($request->input('establecimiento_id'));
-            $this->enviarNotificacion($admin->token_notificacion, 'Se ha creado un servicio'.$request->input('nombre'), 0, 6, $obj);
+            //$this->enviarNotificacion($admin->token_notificacion, 'Se ha creado un servicio'.$request->input('nombre'), 0, 6, $obj);
 
             $Notificacion= new \App\Notificacion;
             $Notificacion->mensaje= 'Se ha creado un servicio'.$request->input('nombre');
