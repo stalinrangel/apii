@@ -233,11 +233,10 @@ class ProductoController extends Controller
                 }
             }
 
-            $admin = \App\User::where('tipo_usuario', 1)->first();
+            
             $establecimient = \App\Establecimiento::with('usuario')->find($request->input('establecimiento_id'));
-            //$this->enviarNotificacion($admin->token_notificacion, 'Se ha creado un servicio'.$request->input('nombre'), 0, 6, $obj);
 
-            $Notificacion= new \App\Notificacion;
+            $Notificacion = new \App\Notificacion;
             $Notificacion->mensaje= 'Se ha creado un servicio'.$request->input('nombre');
             $Notificacion->id_operacion=$nuevoProducto->id;
             $Notificacion->usuario_id=$establecimient->usuario_id;
@@ -248,8 +247,28 @@ class ProductoController extends Controller
             } catch (Exception $e) {
                 //return response()->json(['error'=>$e], 500);
             }
+
+            $admin = \App\User::where('tipo_usuario', 1)->first();
+
+            // Orden del reemplazo
+            //$str     = "Line 1\nLine 2\rLine 3\r\nLine 4\n";
+            $order   = array("\r\n", "\n", "\r", " ", "&");
+            $replace = array('%20', '%20', '%20', '%20', '%26');
+
+            //Tratar los espacios de la fecha
+            $fecha = str_replace($order, $replace, $nuevoProducto->created_at);
+
+            $obj = array('created_at'=>$fecha);
+            $obj = json_encode($obj);
+
+            //Tratar los espacios del nombre
+            $nombre = str_replace($order, $replace, $request->input('nombre'));
+
+            $this->enviarNotificacion($admin->token_notificacion, 'Se%20ha%20creado%20un%20servicio%20'.$nombre, 0, 6, $obj);
+
            return response()->json(['message'=>'Producto creado con éxito.',
              'producto'=>$nuevoProducto], 200);
+
         }else{
             return response()->json(['error'=>'Error al crear el producto.'], 500);
         }
