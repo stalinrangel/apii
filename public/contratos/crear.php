@@ -10,6 +10,9 @@ $ci=$_GET['ci'];
 $firma=$_GET['firma'];
 $plan1=json_decode($_GET['plan']);
 $costo=$plan1->costo;
+if ($plan1->descuento!=0) {
+  $costo=$plan1->descuento;
+}
 $plan=$plan1->tipo_plan;
 $direccion=$_GET['direccion'];
 $telefono=$_GET['telefono'];
@@ -34,12 +37,12 @@ $contenido = '<html><body>
 				</p>
         <p><b>A- OBJETO: “Service24”</b> es una aplicación (plataforma) que actúa como intermediario entre quién busca el producto o servicio, en este caso y en lo sucesivo denominado <b>“El Cliente”</b> y quiénes están registrados en ella para ofrecerlos, en este caso <b>“El Proveedor”</b>, quien solo se encargará de gestionar la logística entre las partes para que los trabajos se lleven a cabo. Por este contrato, quién se presenta en este momento <b>“El Proveedor”</b> solicita y adquiere el uso de la plataforma para ofrecer a través de ella sus productos/servicios de acuerdo a los términos y condiciones que se establecen a continuación.</p>
         <p><b>B- PRECIO: </b>A partir de la confirmación de esta solicitud, <b>“El Proveedor”</b> debe abonar las siguientes cantidades: </p>
-        <p>I- La zona que se adopte una cuota mensual por el monto de '.$costo.'.$u según el plan <b>"'.$plan.'. El Proveedor debe abonar la suma correspondiente al plan contratado a través de Red Pagos, Mi Diner Nº 5351231."</b>.</p> 
+        <p>I- La zona que se adopte una cuota mensual por el monto de '.$costo.'.$u según el plan <b>"'.$plan.'. El Proveedor debe abonar la suma correspondiente al plan contratado a través de Red Pagos, Mi Dinero Nº 5351231."</b>.</p> 
         
 
         <p><b>C- DERECHOS Y OBLIGACIONES:</b> 1- Este contrato se entiende celebrado Intuitu Personae, por lo tanto, ninguna de las partes podrá ceder o traspasar a terceros los derechos y obligaciones que de él se derivan. 2- <b>“El Proveedor”</b> es responsable a partir del momento en el que se coordina el servicio en realizar el trabajo y finalizarlo, cobrando por ese servicio lo que se acuerde entre él y <b>“El Cliente”</b>, estando <b>“Service24”</b> libre de toda responsabilidad contractual que haya podido adquirir con <b>“El Cliente”</b>.</p>
 
-        <p><b>D- PLAZO:</b> El presente contrato tendrá una duración de <b>UN (1) AÑO FIJO</b>, contado a partir de la fecha de su aceptación y suscripción, prorrogable automáticamente por igual periodo o por otro, siempre que las partes acuerden su renovación por lo menos con treinta (30) días calendarios antes del vencimiento del plazo fijo o de cualquiera de sus prórrogas.</p>  
+        <p><b>D- PLAZO:</b> El presente contrato tendrá una duración de <b>UN (1) "'.$tipo.'"</b>, contado a partir de la fecha de su aceptación y suscripción, prorrogable automáticamente por igual periodo o por otro, siempre que las partes acuerden su renovación por lo menos con treinta (30) días calendarios antes del vencimiento del plazo fijo o de cualquiera de sus prórrogas.</p>  
 
         <p><b>E- RESCISIÓN: </b>en caso de incumplimiento el presente contrato se rescindirá: 1- Cuando la calificación dada por <b>“El Cliente”</b> a <b>“El Proveedor”</b> en cuanto al servicio brindado se refiere, mediante la plataforma sea de 1 estrella, reiterándose esta situación tres veces y previo análisis de por parte de <b>“Service24”</b>. 2- Por dos (2) faltas cuándo ya se confirmó a <b>“El Cliente”</b> proveer el servicio, determinándose horario y demás condiciones previamente pactadas. Esta situación acarreará treinta (30) días de suspensión. Los retrasos en la llegada al domicilio de <b>“El Cliente”</b> o al lugar donde se ejecutará el servicio, excluyendo demoras por causa del tránsito o alguna urgencia imprevista (las cuales ya están calculadas en un margen aproximado) se computarán como media falta. Posteriormente a esta situación y registrándose dos (2) retrasos más o una falta, este contrato quedará rescindido de pleno derecho. 3- Por abuso, agresión o cualquier situación de violencia que se registre hacia <b>“El Cliente”</b> desde el momento en el que se coordina el servicio y hasta la finalización del mismo. 4- Por la sola voluntad de las partes en dar por terminado el servicio.</p>
 

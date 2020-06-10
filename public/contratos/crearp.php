@@ -10,6 +10,9 @@ $ci=$_GET['ci'];
 $firma=$_GET['firma'];
 $plan1=json_decode($_GET['plan']);
 $costo=$plan1->costo;
+if ($plan1->descuento!=0) {
+  $costo=$plan1->descuento;
+}
 $plan=$plan1->tipo_plan;
 $direccion=$_GET['direccion'];
 $telefono=$_GET['telefono'];
@@ -35,7 +38,7 @@ $contenido = '<html><body>
         <p><b>A- OBJETO: “Service24 Panamá”</b> es una aplicación (plataforma) que actúa como intermediario entre quién busca el producto o servicio, en este caso y en lo sucesivo denominado <b>“El Cliente”</b> y quiénes están registrados en ella para ofrecerlos, en este caso <b>“El Proveedor”</b>, quien solo se encargará de gestionar la logística entre las partes para que los trabajos se lleven a cabo. Por este contrato, quién se presenta en este momento <b>“El Proveedor”</b> solicita y adquiere el uso de la plataforma para ofrecer a través de ella sus productos/servicios de acuerdo a los términos y condiciones que se establecen a continuación.</p>
         
         <p><b>B- PRECIO: </b>A partir de la confirmación de esta solicitud, <b>“El Proveedor”</b> debe abonar las siguientes cantidades: </p>
-        <p>I- La zona que se adopte una cuota mensual por el monto de '.$costo.'.$ según el plan <b>"'.$plan.'</b>. Monto total debe ser depositado en la cuenta de Service 24 PanamáBanco GeneralNro04-69-98-099966-0.</p> 
+        <p>I- La zona que se adopte una cuota mensual por el monto de '.$costo.'.$ según el plan <b>"'.$plan.'</b>. Monto total debe ser depositado en la cuenta de Service 24 PanamáBanco General Nro 04-69-98-099966-0.</p> 
         
 
         <p><b>C- DERECHOS Y OBLIGACIONES:</b> 1- Este contrato se entiende celebrado Intuitu Personae, por lo tanto, ninguna de las partes podrá ceder o traspasar a terceros los derechos y obligaciones que de él se derivan. 2- <b>“El Proveedor”</b> es responsable a partir del momento en el que se coordina el servicio en realizar el trabajo y finalizarlo, cobrando por ese servicio lo que se acuerde entre él y <b>“El Cliente”</b>, estando <b>“Service24”</b> libre de toda responsabilidad contractual que haya podido adquirir con <b>“El Cliente”</b>.</p>
@@ -60,13 +63,7 @@ $contenido = '<html><body>
 
         <p><b>K- ARBITRAJE:</b> Cualquiera controversia que surja por razón de interpretación, ejecución o incumplimiento del presente contrato, será resuelta entre las partes. En caso de que las partes no logren llegar a un acuerdo, entonces se resolverá mediante arbitraje en Derecho ante el Centro de Conciliación y Arbitraje de la Cámara de Comercio, Industrias y Agricultura de laCiudad de Panamá, de conformidad con sus normas y reglamentos de procedimiento. Para estos efectos, cada parte designará a un árbitro y éstos, a su vez, designarán a un tercero, quienes conformarán el Tribunal Arbitral. La decisión adoptada por dicho tribunal será final, definitiva y de obligatorio cumplimiento para las partes, por lo que la misma no podrá ser impugnada ante los tribunales de justicia. La parte vencida pagará los costos, gastos y honorarios incurridos en el proceso arbitral. El arbitraje se conducirá en idioma castellano.</p>
 
-        <p><b>L- DOMICILIO:</b> Las partes contratantes eligen como domicilio especial a la ciudad deCiudad de Panamá para todos los efectos, derivados y consecuencias de este contrato. EnCiudad de Panamá, a los '.$fecha.'</p>
-        <div align="center">
-          <img src="'.$firma.'" alt="" style="width: 250px">
-          <div style="border-bottom: 1px solid #000;margin-bottom: 10px;width: 400px"></div>
-          <p >'.$nombre.'</p>
-          <p >C.I. No. '.$ci.'</p>
-        </div>
+        
         
 
 			  </body></html>';
