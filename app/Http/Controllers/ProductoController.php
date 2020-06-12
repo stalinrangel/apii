@@ -248,23 +248,30 @@ class ProductoController extends Controller
                 //return response()->json(['error'=>$e], 500);
             }
 
-            $admin = \App\User::where('tipo_usuario', 1)->first();
+            $admin = \App\User::select('token_notificacion')
+                   ->where('tipo_usuario', 1)
+                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->first();
 
-            // Orden del reemplazo
-            //$str     = "Line 1\nLine 2\rLine 3\r\nLine 4\n";
-            $order   = array("\r\n", "\n", "\r", " ", "&");
-            $replace = array('%20', '%20', '%20', '%20', '%26');
+            if ($admin) {
+                // Orden del reemplazo
+                //$str     = "Line 1\nLine 2\rLine 3\r\nLine 4\n";
+                $order   = array("\r\n", "\n", "\r", " ", "&");
+                $replace = array('%20', '%20', '%20', '%20', '%26');
 
-            //Tratar los espacios de la fecha
-            $fecha = str_replace($order, $replace, $nuevoProducto->created_at);
+                //Tratar los espacios de la fecha
+                $fecha = str_replace($order, $replace, $nuevoProducto->created_at);
 
-            $obj = array('created_at'=>$fecha);
-            $obj = json_encode($obj);
+                $obj = array('created_at'=>$fecha);
+                $obj = json_encode($obj);
 
-            //Tratar los espacios del nombre
-            $nombre = str_replace($order, $replace, $request->input('nombre'));
+                //Tratar los espacios del nombre
+                $nombre = str_replace($order, $replace, $request->input('nombre'));
 
-            $this->enviarNotificacion($admin->token_notificacion, 'Se%20ha%20creado%20un%20servicio%20'.$nombre, 0, 6, $obj);
+                $this->enviarNotificacion($admin->token_notificacion, 'Se%20ha%20creado%20un%20servicio%20'.$nombre, 0, 6, $obj);    
+            }
+
+            
 
            return response()->json(['message'=>'Producto creado con éxito.',
              'producto'=>$nuevoProducto], 200);
@@ -477,9 +484,28 @@ class ProductoController extends Controller
             // Almacenamos en la base de datos el registro.
             if ($producto->save()) {
 
-                $admin = \App\User::where('tipo_usuario', 1)->first();
+                $admin = \App\User::select('token_notificacion')
+                   ->where('tipo_usuario', 1)
+                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->first();
+
                 $establecimient = \App\Establecimiento::with('usuario')->find($producto->establecimiento_id);
-                $this->enviarNotificacion($admin->token_notificacion, 'Se ha editado un servicio'.$request->input('nombre'), 0, 6, $obj);
+
+                if ($admin) {
+
+                    // Orden del reemplazo
+                    //$str     = "Line 1\nLine 2\rLine 3\r\nLine 4\n";
+                    $order   = array("\r\n", "\n", "\r", " ", "&");
+                    $replace = array('%20', '%20', '%20', '%20', '%26');
+
+                    //Tratar los espacios del nombre
+                    $nombre = str_replace($order, $replace, $request->input('nombre'));
+
+                    $obj = null;
+
+                    $this->enviarNotificacion($admin->token_notificacion, 'Se%20ha%20editado%20un%20servicio'.$nombre, 0, 6, $obj);
+                }
+                
 
                 $Notificacion= new \App\Notificacion;
                 $Notificacion->mensaje= 'Se ha editado un servicio '.$producto->nombre;

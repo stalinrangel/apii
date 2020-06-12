@@ -407,7 +407,10 @@ class RepartidorController extends Controller
                 $Notificacion->accion=4;
 
 
-                $admin = \App\User::where('tipo_usuario', 1)->first();
+                $admin = \App\User::select('token_notificacion')
+                   ->where('tipo_usuario', 1)
+                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->first();
                 
                     
                     try {
@@ -417,7 +420,18 @@ class RepartidorController extends Controller
                     }
 
                     try {
-                        $this->enviarNotificacion($admin->token_notificacion, 'Proveedor '.$usuario->nombre.' ha cambiado su estado '. $act, 'null', 6, $obj);
+                        if ($admin) {
+
+                            $obj = null;
+
+                            $order   = array("\r\n", "\n", "\r", " ", "&");
+                            $replace = array('%20', '%20', '%20', '%20', '%26');
+
+                            $nombre_aux = str_replace($order, $replace, $usuario->nombre);
+
+                            $this->enviarNotificacion($admin->token_notificacion, 'Proveedor%20'.$nombre_aux.'%20ha%20cambiado%20su%20estado%20'. $act, 'null', 6, $obj);
+                        }
+                        
                     } catch (Exception $e) {
                         //return response()->json(['error'=>$e], 500);
                     }
@@ -448,8 +462,19 @@ class RepartidorController extends Controller
             $obj=null;
             // Almacenamos en la base de datos el registro.
             if ($repartidor->save() && $usuario->save()) {
-                 $admin = \App\User::where('tipo_usuario', 1)->first();
-                $this->enviarNotificacion($admin->token_notificacion, 'Proveedor ha cambiado su estado ', 'null', 6, $obj);
+
+                 $admin = \App\User::select('token_notificacion')
+                   ->where('tipo_usuario', 1)
+                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->first();
+
+                 $obj = null;
+
+                 if ($admin) {
+                    $this->enviarNotificacion($admin->token_notificacion, 'Proveedor%20ha%20cambiado%20su%20estado.', 'null', 6, $obj);
+                 }
+                
+
                 if ($activo==2) {
 
                     $order   = array("\r\n", "\n", "\r", " ", "&");

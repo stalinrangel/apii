@@ -193,8 +193,15 @@ class PedidoController extends Controller
                 $Notificacion->id_operacion=$nuevoPedido->id;
                 $Notificacion->accion=5;
 
-            $admin = \App\User::where('tipo_usuario', 1)->first();
-            $this->enviarNotificacion($admin->token_notificacion, 'Nuevo%20pedido%20S00'.$nuevoPedido->id, $nuevoPedido->id, 6, $obj);
+            $admin = \App\User::select('token_notificacion')
+                   ->where('tipo_usuario', 1)
+                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->first();
+                   
+            if ($admin) {
+                $this->enviarNotificacion($admin->token_notificacion, 'Nuevo%20pedido%20S00'.$nuevoPedido->id, $nuevoPedido->id, 6, $obj);
+            }
+            
                 
                 try {
                     $Notificacion->save();
