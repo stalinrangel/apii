@@ -171,7 +171,7 @@ class ChatClienteController extends Controller
         }
         else{
 
-            if ($request->input('emisor') == 'admin') {
+            /*if ($request->input('emisor') == 'admin') {
 
                 $chat = \App\ChatCliente::
                     where(function ($query) use ($request) {
@@ -188,9 +188,9 @@ class ChatClienteController extends Controller
                               ->where('ciudad_id', $request->input('ciudad_id'));
                     })
                     ->get();
-                }
+            }*/
 
-            /*$chat = \App\ChatCliente::
+            $chat = \App\ChatCliente::
                 where(function ($query) use ($request) {
                     $query->where('admin_id', $request->input('emisor_id'))
                           ->where('usuario_id', $request->input('receptor_id'));
@@ -199,7 +199,7 @@ class ChatClienteController extends Controller
                     $query->where('admin_id', $request->input('receptor_id'))
                           ->where('usuario_id', $request->input('emisor_id'));
                 })
-                ->get();*/
+                ->get();
 
             $bandera = true;
         }
@@ -439,7 +439,7 @@ class ChatClienteController extends Controller
 
            return response()->json(['message'=>'Mensaje enviado con éxito.',
              'chat'=>$chat, 'msg'=>$msg], 200);
-
+}
         }
     }
 
