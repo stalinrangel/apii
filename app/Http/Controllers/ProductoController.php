@@ -247,10 +247,11 @@ class ProductoController extends Controller
             } catch (Exception $e) {
                 //return response()->json(['error'=>$e], 500);
             }
+            $zn = \App\Zonas::where('id',$request->input('zona_id'))->with('ciudad')->first();
 
             $admin = \App\User::select('token_notificacion')
                    ->where('tipo_usuario', 1)
-                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->where('ciudad', $zn->ciudad->id)
                    ->first();
 
             if ($admin) {
@@ -486,7 +487,7 @@ class ProductoController extends Controller
 
                 $admin = \App\User::select('token_notificacion')
                    ->where('tipo_usuario', 1)
-                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->where('ciudad', $request->input('ciudad_id'))
                    ->first();
 
                 $establecimient = \App\Establecimiento::with('usuario')->find($producto->establecimiento_id);

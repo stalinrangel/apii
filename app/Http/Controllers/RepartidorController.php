@@ -409,7 +409,7 @@ class RepartidorController extends Controller
 
                 $admin = \App\User::select('token_notificacion')
                    ->where('tipo_usuario', 1)
-                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->where('ciudad', $usuario->ciudad)
                    ->first();
                 
                     
@@ -465,7 +465,7 @@ class RepartidorController extends Controller
 
                  $admin = \App\User::select('token_notificacion')
                    ->where('tipo_usuario', 1)
-                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->where('ciudad', $usuario->usuario)
                    ->first();
 
                  $obj = null;

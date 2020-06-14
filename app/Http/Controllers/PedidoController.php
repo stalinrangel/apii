@@ -192,10 +192,11 @@ class PedidoController extends Controller
                 $Notificacion->usuario_id=$nuevoPedido->usuario_id;
                 $Notificacion->id_operacion=$nuevoPedido->id;
                 $Notificacion->accion=5;
-
+            
+            $usuario = \App\User::find($request->input('usuario_id'));
             $admin = \App\User::select('token_notificacion')
                    ->where('tipo_usuario', 1)
-                   ->where('ciudad_id', $request->input('ciudad_id'))
+                   ->where('ciudad', $usuario->ciudad)
                    ->first();
                    
             if ($admin) {
