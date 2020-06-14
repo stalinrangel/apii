@@ -170,7 +170,27 @@ class ChatClienteController extends Controller
             $bandera = false;
         }
         else{
-            $chat = \App\ChatCliente::
+
+            if ($request->input('emisor') == 'admin') {
+
+                $chat = \App\ChatCliente::
+                    where(function ($query) use ($request) {
+                        $query->where('usuario_id', $request->input('receptor_id'))
+                              ->where('ciudad_id', $request->input('ciudad_id'));
+                    })
+                    ->get();
+
+            }else if ($request->input('emisor') == 'cliente') {
+
+                $chat = \App\ChatCliente::
+                    where(function ($query) use ($request) {
+                        $query->where('usuario_id', $request->input('emisor_id'))
+                              ->where('ciudad_id', $request->input('ciudad_id'));
+                    })
+                    ->get();
+                }
+
+            /*$chat = \App\ChatCliente::
                 where(function ($query) use ($request) {
                     $query->where('admin_id', $request->input('emisor_id'))
                           ->where('usuario_id', $request->input('receptor_id'));
@@ -179,9 +199,9 @@ class ChatClienteController extends Controller
                     $query->where('admin_id', $request->input('receptor_id'))
                           ->where('usuario_id', $request->input('emisor_id'));
                 })
-                ->get();
+                ->get();*/
 
-                $bandera = true;
+            $bandera = true;
         }
 
         if(count($chat)==0){

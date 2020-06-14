@@ -349,7 +349,11 @@ class PedidoController extends Controller
         $repartidor = \App\Repartidor::where('id', $pedido->repartidor_id)->first();
         $proveedor = \App\User::where('id', $repartidor->usuario_id)->first();
 
-        $admin = \App\User::where('tipo_usuario', 1)->first();
+        //$admin = \App\User::where('tipo_usuario', 1)->first();
+        $admin = \App\User::select('token_notificacion')
+                   ->where('tipo_usuario', 1)
+                   ->where('ciudad', $usuario->ciudad)
+                   ->first();
 
         if (count($pedido)==0)
         {
@@ -360,7 +364,10 @@ class PedidoController extends Controller
         $obj=$pedido->id;
         $this->enviarNotificacionCliente($usuario->token_notificacion, 'Cancelado%20pedido%20S00'.$pedido->id, $pedido->id, 6, $obj);
         $this->enviarNotificacion($proveedor->token_notificacion, 'Cancelado%20pedido%20S00'.$pedido->id, $pedido->id, 6, $obj);
-        $this->enviarNotificacion($admin->token_notificacion, 'Cancelado%20pedido%20S00'.$pedido->id, $pedido->id, 6, $obj);
+        if ($admin) {
+            $this->enviarNotificacion($admin->token_notificacion, 'Cancelado%20pedido%20S00'.$pedido->id, $pedido->id, 6, $obj);
+        }
+        
 
         if ($pedido->save()) {
 
