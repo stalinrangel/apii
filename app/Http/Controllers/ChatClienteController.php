@@ -271,7 +271,27 @@ class ChatClienteController extends Controller
 
                     $this->enviarNotificacionCliente($request->input('token_notificacion'), $newstr, 'null', 2, $obj);
 
+                    //Enviar a los demas admins
+                    $admins = \App\User::select('token_notificacion')
+                       ->where(function ($query) {
+                            $query
+                                ->where('tipo_usuario', 1)
+                                ->orwhere('tipo_usuario', 5)
+                                ->orwhere('tipo_usuario', 6);
+                        })
+                       ->where('ciudad', $request->input('ciudad_id'))
+                       ->where('id', '<>', $request->input('emisor_id'))
+                       ->get();
+
+                    for ($i=0; $i < count($admins); $i++) { 
+                        if ($admins[$i]->token_notificacion) {
+                            $this->enviarNotificacion($admins[$i]->token_notificacion, $newstr, 'null', 2, $obj);
+                        }
+                    }
+
                 }
+
+                
 
             }else if ($request->input('emisor') == 'cliente') {
 
@@ -319,7 +339,27 @@ class ChatClienteController extends Controller
 
                     $not=$this->enviarNotificacion($request->input('token_notificacion'), $newstr, 'null', 2, $obj);
 
+                    //Enviar a los demas admins
+                    $admins = \App\User::select('token_notificacion')
+                       ->where(function ($query) {
+                            $query
+                                ->where('tipo_usuario', 1)
+                                ->orwhere('tipo_usuario', 5)
+                                ->orwhere('tipo_usuario', 6);
+                        })
+                       ->where('ciudad', $request->input('ciudad_id'))
+                       ->where('id', '<>', $request->input('receptor_id'))
+                       ->get();
+
+                    for ($i=0; $i < count($admins); $i++) { 
+                        if ($admins[$i]->token_notificacion) {
+                            $this->enviarNotificacion($admins[$i]->token_notificacion, $newstr, 'null', 2, $obj);
+                        }
+                    }
+
                 }
+
+                
             }
 
             $receptor = \App\User::select('id', 'token_notificacion')->find($msg->receptor_id);
@@ -382,6 +422,24 @@ class ChatClienteController extends Controller
 
                     $this->enviarNotificacionCliente($request->input('token_notificacion'), $newstr, 'null', 2, $obj);
 
+                    //Enviar a los demas admins
+                    $admins = \App\User::select('token_notificacion')
+                       ->where(function ($query) {
+                            $query
+                                ->where('tipo_usuario', 1)
+                                ->orwhere('tipo_usuario', 5)
+                                ->orwhere('tipo_usuario', 6);
+                        })
+                       ->where('ciudad', $request->input('ciudad_id'))
+                       ->where('id', '<>', $request->input('emisor_id'))
+                       ->get();
+
+                    for ($i=0; $i < count($admins); $i++) { 
+                        if ($admins[$i]->token_notificacion) {
+                            $this->enviarNotificacion($admins[$i]->token_notificacion, $newstr, 'null', 2, $obj);
+                        }
+                    }
+
                 }
 
             }else if ($request->input('emisor') == 'cliente') {
@@ -429,6 +487,24 @@ class ChatClienteController extends Controller
                     $obj = json_encode($obj);
 
                     $this->enviarNotificacion($request->input('token_notificacion'), $newstr, 'null', 2, $obj);
+
+                    //Enviar a los demas admins
+                    $admins = \App\User::select('token_notificacion')
+                       ->where(function ($query) {
+                            $query
+                                ->where('tipo_usuario', 1)
+                                ->orwhere('tipo_usuario', 5)
+                                ->orwhere('tipo_usuario', 6);
+                        })
+                       ->where('ciudad', $request->input('ciudad_id'))
+                       ->where('id', '<>', $request->input('receptor_id'))
+                       ->get();
+
+                    for ($i=0; $i < count($admins); $i++) { 
+                        if ($admins[$i]->token_notificacion) {
+                            $this->enviarNotificacion($admins[$i]->token_notificacion, $newstr, 'null', 2, $obj);
+                        }
+                    }
 
                 }
             }
