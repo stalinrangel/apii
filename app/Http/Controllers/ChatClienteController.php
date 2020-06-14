@@ -439,7 +439,7 @@ class ChatClienteController extends Controller
 
            return response()->json(['message'=>'Mensaje enviado con éxito.',
              'chat'=>$chat, 'msg'=>$msg], 200);
-}
+
         }
     }
 
