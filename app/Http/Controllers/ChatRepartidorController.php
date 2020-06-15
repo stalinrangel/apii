@@ -158,7 +158,27 @@ class ChatRepartidorController extends Controller
             $bandera = false;
         }
         else{
-            $chat = \App\ChatRepartidor::
+
+            if ($request->input('emisor') == 'admin') {
+
+                $chat = \App\ChatRepartidor::
+                    where(function ($query) use ($request) {
+                        $query->where('usuario_id', $request->input('receptor_id'))
+                              ->where('ciudad_id', $request->input('ciudad_id'));
+                    })
+                    ->get();
+
+            }else if ($request->input('emisor') == 'repartidor') {
+
+                $chat = \App\ChatRepartidor::
+                    where(function ($query) use ($request) {
+                        $query->where('usuario_id', $request->input('emisor_id'))
+                              ->where('ciudad_id', $request->input('ciudad_id'));
+                    })
+                    ->get();
+            }
+
+            /*$chat = \App\ChatRepartidor::
                 where(function ($query) use ($request) {
                     $query->where('admin_id', $request->input('emisor_id'))
                           ->where('usuario_id', $request->input('receptor_id'));
@@ -167,7 +187,7 @@ class ChatRepartidorController extends Controller
                     $query->where('admin_id', $request->input('receptor_id'))
                           ->where('usuario_id', $request->input('emisor_id'));
                 })
-                ->get();
+                ->get();*/
 
                 $bandera = true;
         }
@@ -240,6 +260,24 @@ class ChatRepartidorController extends Controller
 
                     $oneSignal = $this->enviarNotificacion($request->input('token_notificacion'), $newstr, 'null', 2, $obj);
 
+                    //Enviar a los demas admins
+                    $admins = \App\User::select('token_notificacion')
+                       ->where(function ($query) {
+                            $query
+                                ->where('tipo_usuario', 1)
+                                ->orwhere('tipo_usuario', 5)
+                                ->orwhere('tipo_usuario', 6);
+                        })
+                       ->where('ciudad', $request->input('ciudad_id'))
+                       ->where('id', '<>', $request->input('emisor_id'))
+                       ->get();
+
+                    for ($i=0; $i < count($admins); $i++) { 
+                        if ($admins[$i]->token_notificacion) {
+                            $this->enviarNotificacion($admins[$i]->token_notificacion, $newstr, 'null', 2, $obj);
+                        }
+                    }
+
                 }
 
             }else if ($request->input('emisor') == 'repartidor') {
@@ -288,6 +326,24 @@ class ChatRepartidorController extends Controller
                     $obj = json_encode($obj);
 
                     $oneSignal = $this->enviarNotificacion($request->input('token_notificacion'), $newstr, 'null', 2, $obj);
+
+                    //Enviar a los demas admins
+                    $admins = \App\User::select('token_notificacion')
+                       ->where(function ($query) {
+                            $query
+                                ->where('tipo_usuario', 1)
+                                ->orwhere('tipo_usuario', 5)
+                                ->orwhere('tipo_usuario', 6);
+                        })
+                       ->where('ciudad', $request->input('ciudad_id'))
+                       ->where('id', '<>', $request->input('receptor_id'))
+                       ->get();
+
+                    for ($i=0; $i < count($admins); $i++) { 
+                        if ($admins[$i]->token_notificacion) {
+                            $this->enviarNotificacion($admins[$i]->token_notificacion, $newstr, 'null', 2, $obj);
+                        }
+                    }
 
                 }
             }
@@ -351,6 +407,24 @@ class ChatRepartidorController extends Controller
 
                     $oneSignal = $this->enviarNotificacion($request->input('token_notificacion'), $newstr, 'null', 2, $obj);
 
+                    //Enviar a los demas admins
+                    $admins = \App\User::select('token_notificacion')
+                       ->where(function ($query) {
+                            $query
+                                ->where('tipo_usuario', 1)
+                                ->orwhere('tipo_usuario', 5)
+                                ->orwhere('tipo_usuario', 6);
+                        })
+                       ->where('ciudad', $request->input('ciudad_id'))
+                       ->where('id', '<>', $request->input('emisor_id'))
+                       ->get();
+
+                    for ($i=0; $i < count($admins); $i++) { 
+                        if ($admins[$i]->token_notificacion) {
+                            $this->enviarNotificacion($admins[$i]->token_notificacion, $newstr, 'null', 2, $obj);
+                        }
+                    }
+
                 }
 
             }else if ($request->input('emisor') == 'repartidor') {
@@ -398,6 +472,24 @@ class ChatRepartidorController extends Controller
                     $obj = json_encode($obj);
 
                     $oneSignal = $this->enviarNotificacion($request->input('token_notificacion'), $newstr, 'null', 2, $obj);
+
+                    //Enviar a los demas admins
+                    $admins = \App\User::select('token_notificacion')
+                       ->where(function ($query) {
+                            $query
+                                ->where('tipo_usuario', 1)
+                                ->orwhere('tipo_usuario', 5)
+                                ->orwhere('tipo_usuario', 6);
+                        })
+                       ->where('ciudad', $request->input('ciudad_id'))
+                       ->where('id', '<>', $request->input('receptor_id'))
+                       ->get();
+
+                    for ($i=0; $i < count($admins); $i++) { 
+                        if ($admins[$i]->token_notificacion) {
+                            $this->enviarNotificacion($admins[$i]->token_notificacion, $newstr, 'null', 2, $obj);
+                        }
+                    }
 
                 }
             }
