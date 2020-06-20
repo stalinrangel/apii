@@ -12,6 +12,7 @@ class BulkSmsController extends Controller
 {
     public function sendSms( Request $request )
     {
+        return 1;
        // Your Account SID and Auth Token from twilio.com/console
        $sid    = env( 'TWILIO_SID' );
        $token  = env( 'TWILIO_TOKEN' );
