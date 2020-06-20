@@ -12,12 +12,12 @@ class BulkSmsController extends Controller
 {
     public function sendSms( Request $request )
     {
-        return 1;
+        
        // Your Account SID and Auth Token from twilio.com/console
        $sid    = env( 'TWILIO_SID' );
        $token  = env( 'TWILIO_TOKEN' );
        $client = new Client( $sid, $token );
-
+       return 1;
        $validator = Validator::make($request->all(), [
            'numbers' => '+584121280290',
            'message' => 'prueba'
