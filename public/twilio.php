@@ -4,8 +4,8 @@ require __DIR__ . '../vendor/autoload.php';
 use Twilio\Rest\Client;
 
 $sid= $_ENV["ACf5be9d98c1dba8b32f4805c1c9d2c3b6"];
-$sid= $_ENV["3480f4b1e1d0cf9f00c92cb75ff88e79"];
-
+$token= $_ENV["3480f4b1e1d0cf9f00c92cb75ff88e79"];
+/*
 $client=new Client($sid,$token);
 
 $client->messages->create(
@@ -15,5 +15,5 @@ $client->messages->create(
 		'body'=>'Prueba Ser24'
 	)
 );
-
+*/
 ?>
