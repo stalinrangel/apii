@@ -686,6 +686,39 @@ class UsuarioController extends Controller
         });
     }
 
+    public function verificar_numero($numero)
+    {
+        $salt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+
+            $rand = '';
+            $i = 0;
+            $length = 6;
+
+            while ($i < $length) {
+                //Loop hasta que el string aleatorio contenga la longitud ingresada.
+                $num = rand() % strlen($salt);
+                $tmp = substr($salt, $num, 1);
+                $rand = $rand . $tmp;
+                $i++;
+            }
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://service24.app/sms/sms.php?numero=".$numero."&codigo=".$rand);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
+            'Authorization: Basic NGMxNWE5YTItNjM2OC00NGNlLWE0NTYtYzNlNzg3NGI3OWNm'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        ///curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        return response()->json(['codigo'=>$rand], 200);
+
+    }
+
     public function webcontacto($email,Request $request)
     {
         //Enviamos el correo con el enlace para validar
