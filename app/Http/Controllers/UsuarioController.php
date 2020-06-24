@@ -715,7 +715,7 @@ class UsuarioController extends Controller
         $response = curl_exec($ch);
         curl_close($ch);
 
-        return response()->json(['codigo'=>$rand], 200);
+        return response()->json(['codigo'=>$rand,'numero'=>$numero], 200);
 
     }
 
