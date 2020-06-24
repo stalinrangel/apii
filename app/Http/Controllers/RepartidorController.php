@@ -724,8 +724,8 @@ class RepartidorController extends Controller
             ->with('ruta')
             //->with('calificacion')
            
-            //->where(DB::raw('MONTH(created_at)'),$request->input('mes'))
-            //->where(DB::raw('YEAR(created_at)'),$request->input('anio'))
+            ->where(DB::raw('MONTH(created_at)'),$request->input('mes'))
+            ->where(DB::raw('YEAR(created_at)'),$request->input('anio'))
             ->get();
 
         for ($i=0; $i < count($pedidos); $i++) {
