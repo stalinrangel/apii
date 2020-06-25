@@ -61,7 +61,7 @@ class UsuarioController extends Controller
 
 
         $repartidores = \App\Repartidor::where('usuario_id',$id)->first();
-        $repartidores->estado = "OFF";
+        $repartidores->activo = 2;
 
         if ($usuario->save()) {
                 $repartidores->save();
