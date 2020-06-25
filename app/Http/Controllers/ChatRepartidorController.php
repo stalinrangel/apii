@@ -709,7 +709,7 @@ class ChatRepartidorController extends Controller
             $activo=\App\Repartidor::where('usuario_id', $usuario_id)->first();
             $direccion=\App\Registro::where('usuario_id', $usuario_id)->first();
 
-        $calificaciones = \App\Calificacion::where('califique_a',$activo->id)->with('usuario')->with('producto')->get();
+        $calificaciones = \App\Calificacion::where('usuario_id',$usuario_id)->where('califique_a',$activo->id)->with('usuario')->with('producto')->get();
             //return $calificaciones;
             if (count($calificaciones)>5) {
                 $promedio=0;

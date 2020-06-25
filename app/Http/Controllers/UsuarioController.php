@@ -53,6 +53,24 @@ class UsuarioController extends Controller
         } 
     }
 
+    public function cerrar_sesion($id)
+    {
+        $usuario=\App\User::find($id);
+
+        $usuario->token_notificacion = "";
+
+
+        $repartidores = \App\Repartidor::where('usuario_id',$id)->first();
+        $repartidores->estado = "OFF";
+
+        if ($usuario->save()) {
+                $repartidores->save();
+                return response()->json(['message'=>'Usuario actualizado con éxito.', 'usuario'=>$usuario], 200);
+        }else{
+                return response()->json(['error'=>'Error al actualizar el usuario.'], 500);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

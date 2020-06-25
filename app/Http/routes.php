@@ -43,6 +43,7 @@ Route::group(  ['middleware' =>'cors'], function(){
     Route::get('/masajes','LoginController@masaje');
     Route::get('/usuario_zona/{id}','ZonasController@usuario_zona');
     Route::get('/verificar_numero/{numero}','UsuarioController@verificar_numero');
+    Route::get('/cerrar_sesion/{id}','UsuarioController@cerrar_sesion');
     //----Web
     Route::get('/usuarios/webcontacto/{email}','UsuarioController@webcontacto');
     Route::get('/usuarios/webcontactoproveedor/{email}','UsuarioController@webcontactoproveedor');
