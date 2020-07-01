@@ -729,4 +729,19 @@ class ProductoController extends Controller
             return response()->json(['productos'=>$productos], 200);
         } 
     }
+
+    /*Usada para llenar la tabla zona_productos*/
+    public function setTablaZonaProductos()
+    {
+        //cargar todos los productos 
+        $productos = \App\Producto::all();
+
+        for ($i=0; $i < count($productos); $i++) { 
+
+            $productos[$i]->zonas2()->attach($productos[$i]->zona_id);
+
+        }
+
+        return response()->json(['productos'=>$productos], 200); 
+    }
 }

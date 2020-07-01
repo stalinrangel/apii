@@ -232,6 +232,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::delete('/productos/{id}','ProductoController@destroy');
         Route::get('/productos/{id}','ProductoController@show');
         Route::get('/productos/habilitados/{subcategoria_id}/{establecimiento_id}','ProductoController@prodHabSubcatEst');
+        //Route::get('/productos/set/tabla/zonaproductos','ProductoController@setTablaZonaProductos');
 
         //----fotos del producto
 
