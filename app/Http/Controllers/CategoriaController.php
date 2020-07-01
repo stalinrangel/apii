@@ -465,4 +465,56 @@ class CategoriaController extends Controller
             return response()->json(['categorias'=>$categorias], 200);
         }   
     }
+
+    /*Usada para llenar las categorias de ciudad de panamá*/
+    public function setTablaCategorias()
+    {
+        //cargar  
+        $categorias = \App\Categoria2::where('ciudad_id', 29)->get();
+
+        for ($i=0; $i < count($categorias); $i++) {
+
+            $aux = \App\Catprincipales2::where('id', $categorias[$i]->catprincipales_id)
+                ->get();
+
+            $aux2 = \App\Catprincipales::where('ciudad_id', 21)
+                ->where('nombre', $aux[0]->nombre)
+                ->where('imagen', $aux[0]->imagen)
+                ->get(); 
+
+            $nuevoObj=\App\Categoria::create([
+                'nombre' => $categorias[$i]->nombre,
+                'ingles' => $categorias[$i]->ingles,
+                'imagen' => $categorias[$i]->imagen,
+                'estado' => $categorias[$i]->estado,
+                'ciudad_id' => 21,
+                'catprincipales_id' => $aux2[0]->id,
+            ]);    
+
+        }
+
+        return response()->json(['categorias'=>$categorias], 200); 
+    }
+
+    /*Usada para llenar las categorias principales de ciudad de panamá*/
+    public function setTablaCategoriasPrincipales()
+    {
+        //cargar  
+        $categorias = \App\Catprincipales2::where('ciudad_id', 29)->get();
+
+        for ($i=0; $i < count($categorias); $i++) { 
+
+            $nuevoObj=\App\Catprincipales::create([
+                'nombre' => $categorias[$i]->nombre,
+                'ingles' => $categorias[$i]->ingles,
+                'imagen' => $categorias[$i]->imagen,
+                'estado' => $categorias[$i]->estado,
+                'orden' => $categorias[$i]->orden,
+                'ciudad_id' => 21,
+            ]);    
+
+        }
+
+        return response()->json(['categorias'=>$categorias], 200); 
+    }
 }

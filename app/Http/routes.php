@@ -139,14 +139,16 @@ Route::group(  ['middleware' =>'cors'], function(){
     Route::post('/catprincipales','CatprincipalesController@store');
     Route::put('/catprincipales/{id}','CatprincipalesController@update');
     Route::delete('/catprincipales/{id}','CatprincipalesController@destroy');
+    //Route::get('/catprincipales/set/panama','CategoriaController@setTablaCategoriasPrincipales');
 
     //----Pruebas CategoriaController
     Route::get('/categorias','CategoriaController@index');
     Route::get('/categorias/habilitadas','CategoriaController@categoriasHabilitadas');
     Route::get('/categorias/{id}','CategoriaController@show');
     //----Pruebas CategoriaController
-        //Route::get('/categorias','CategoriaController@index');
-        Route::get('/categorias/subcats/productos/establecimiento','CategoriaController@catsSubcatsProdsEst');
+    //Route::get('/categorias','CategoriaController@index');
+    Route::get('/categorias/subcats/productos/establecimiento','CategoriaController@catsSubcatsProdsEst');
+    //Route::get('/categorias/set/panama','CategoriaController@setTablaCategorias');
 
     //----Pruebas BlogController
     Route::get('/blogs','BlogController@index');
