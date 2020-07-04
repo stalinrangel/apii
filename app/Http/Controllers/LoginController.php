@@ -63,6 +63,7 @@ class LoginController extends Controller
         try {
 
             $user = User::where('email', $request->input('email'))->first();
+            return response()->json(['user' => $user], 200);
             if (empty($user)) {
                 return response()->json(['error' => 'Email inválido.'], 401);
             }
