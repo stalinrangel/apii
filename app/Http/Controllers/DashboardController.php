@@ -106,7 +106,19 @@ class DashboardController extends Controller
             ->where(DB::raw('YEAR(created_at)'),$anio_actual)
             ->sum('costo');
 
-        
+        $nuevos_repartidores = \App\User::whereIn('zona_id',$zonas)
+            ->where('tipo_usuario',3)
+            ->where(DB::raw('DAY(created_at)'),$dia_actual)
+            ->where(DB::raw('MONTH(created_at)'),$mes_actual)
+            ->where(DB::raw('YEAR(created_at)'),$anio_actual)
+            ->count();
+
+        $nuevos_clientes = \App\User::whereIn('zona_id',$zonas)
+            ->where('tipo_usuario',2)
+            ->where(DB::raw('DAY(created_at)'),$dia_actual)
+            ->where(DB::raw('MONTH(created_at)'),$mes_actual)
+            ->where(DB::raw('YEAR(created_at)'),$anio_actual)
+            ->count();
 
         return response()->json(['pedidos_curso'=>$pedidos_curso,
             'pedidos_aceptar'=>$pedidos_aceptar,
@@ -116,6 +128,8 @@ class DashboardController extends Controller
             'repartidores_inactivos'=>$repartidores_inactivos_count,
             'dinero_recaudado'=>$dinero_recaudado,
             'zonas'=>$zonas,
+            'nuevos_repartidores'=>$nuevos_repartidores,
+            'nuevos_clientes'=>$nuevos_clientes,
         ], 200);
 
     }

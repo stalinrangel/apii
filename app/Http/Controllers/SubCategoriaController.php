@@ -442,4 +442,34 @@ class SubCategoriaController extends Controller
         }   
     }
 
+    /*Usada para llenar las subcategorias de ciudad de panamá*/
+    public function setTablaSubCategorias()
+    {
+        //cargar  
+        $subcategorias = \App\Subcategoria2::where('ciudad_id', 29)->get();
+
+        for ($i=0; $i < count($subcategorias); $i++) {
+
+            $aux = \App\Categoria2::where('id', $subcategorias[$i]->categoria_id)
+                ->get();
+
+            $aux2 = \App\Categoria::where('ciudad_id', 21)
+                ->where('nombre', $aux[0]->nombre)
+                ->where('imagen', $aux[0]->imagen)
+                ->get(); 
+
+            $nuevoObj=\App\Subcategoria::create([
+                'nombre' => $subcategorias[$i]->nombre,
+                'ingles' => $subcategorias[$i]->ingles,
+                'imagen' => $subcategorias[$i]->imagen,
+                'estado' => $subcategorias[$i]->estado,
+                'categoria_id' => $aux2[0]->id,
+                'ciudad_id' => 21,
+            ]);    
+
+        }
+
+        return response()->json(['subcategorias'=>$subcategorias], 200); 
+    }
+
 }

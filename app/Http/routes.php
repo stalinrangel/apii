@@ -167,6 +167,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::get('/subcategorias/{id}','SubCategoriaController@show');
         Route::get('/subcategorias/{id}/productos','SubCategoriaController@subcategoriaProductos');
         Route::get('/subcategorias/habilitadas/{categoria_id}','SubCategoriaController@subcatHabCat');
+        //Route::get('/subcategorias/set/panama','SubCategoriaController@setTablaSubCategorias');
 
     //Route::group(['middleware' => 'jwt-auth'], function(){
 
