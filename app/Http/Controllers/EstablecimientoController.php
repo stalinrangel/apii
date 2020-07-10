@@ -671,9 +671,9 @@ class EstablecimientoController extends Controller
             $aux = [];
 
             for ($i=0; $i < count($establecimiento->productos) ; $i++) { 
-                if ($establecimiento->productos[$i]->subcategoria->estado == 'ON') {
+               // if ($establecimiento->productos[$i]->subcategoria->estado == 'ON') {
                     array_push($aux, $establecimiento->productos[$i]);
-                }
+                //}
             }
 
             return response()->json(['productos'=>$aux], 200);
