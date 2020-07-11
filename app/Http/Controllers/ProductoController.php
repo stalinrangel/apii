@@ -744,4 +744,22 @@ class ProductoController extends Controller
 
         return response()->json(['productos'=>$productos], 200); 
     }
+
+    /*Aumenta el contador de vistas*/
+    public function countVistas($id)
+    {
+        //cargar un producto
+        $producto = \App\Producto::find($id);
+
+        if(count($producto)==0){
+
+            return response()->json(['error'=>'No existe el producto con id '.$id], 404);
+
+        }else{
+            $producto->count_vistas = $producto->count_vistas + 1;  
+            $producto->save();                  
+
+            return response()->json(['producto'=>$producto], 200);
+        } 
+    }
 }

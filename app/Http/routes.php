@@ -236,6 +236,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::get('/productos/{id}','ProductoController@show');
         Route::get('/productos/habilitados/{subcategoria_id}/{establecimiento_id}','ProductoController@prodHabSubcatEst');
         //Route::get('/productos/set/tabla/zonaproductos','ProductoController@setTablaZonaProductos');
+        Route::put('/productos/{id}/vistas','ProductoController@countVistas');
 
         //----fotos del producto
 
