@@ -130,6 +130,36 @@ class ContratosController extends Controller
                 curl_close($ch);
             }
         }
+
+        if ($request->input('pais_id')=='3') {
+            if ($firma!=null) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "https://service24.app/apii/public/contratos/crear.php?nombre=".$nombre."&ci=".$ci."&telefono=".$telefono."&direccion=".$direccion."&plan=".$plan."&usuario_id=".$usuario_id);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
+                    'Authorization: Basic NGMxNWE5YTItNjM2OC00NGNlLWE0NTYtYzNlNzg3NGI3OWNm'));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                curl_setopt($ch, CURLOPT_HEADER, FALSE);
+                curl_setopt($ch, CURLOPT_POST, TRUE);
+                ///curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+                $response = curl_exec($ch);
+                curl_close($ch);
+            }else{
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "https://service24.app/apii/public/contratos/crear2.php?nombre=".$nombre."&ci=".$ci."&telefono=".$telefono."&direccion=".$direccion."&plan=".$plan);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
+                    'Authorization: Basic NGMxNWE5YTItNjM2OC00NGNlLWE0NTYtYzNlNzg3NGI3OWNm'));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                curl_setopt($ch, CURLOPT_HEADER, FALSE);
+                curl_setopt($ch, CURLOPT_POST, TRUE);
+                ///curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+                $response = curl_exec($ch);
+                curl_close($ch);
+            }
+        }
             
          
 
