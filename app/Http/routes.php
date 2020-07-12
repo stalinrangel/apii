@@ -299,6 +299,7 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::get('/repartidores/{id}/historial/pedidos','RepartidorController@historialPedidos');
         Route::get('/repartidores/estadisticas/{repartidor_id}','RepartidorController@conteoPedidos');
         Route::get('/rep_pos/{id}','RepartidorController@posicion');
+        Route::get('/repartidores/estado/registro','RepartidorController@estadoDelRegistro');
 
         //----Pruebas BlogController
         //Route::get('/blogs','BlogController@index');
