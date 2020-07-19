@@ -408,7 +408,7 @@ class LoginController extends Controller
         //return response()->json(compact('token', 'user'));
 
         $user->repartidor = $user->repartidor;
-        $users = \App\User::where('id',$user->id)->with('establecimiento')->get();
+        $users = \App\User::where('id',$user->id)->with('registro')->with('establecimiento')->get();
          $user->establecimiento=$users[0]->establecimiento;
 
         $info_registro=Registro::select('direccion','direccion_exacta','email','foto','tipo','usuario_id','id','estado','cedula')->where('usuario_id',$user->id)->first();
