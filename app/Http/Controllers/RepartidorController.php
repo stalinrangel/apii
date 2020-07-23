@@ -806,12 +806,15 @@ class RepartidorController extends Controller
         $auxB=[];
         for ($i=0; $i < count($repartidores); $i++) { 
             try{
-                if ($repartidores[$i]->usuario->registro==null) {
-                    array_push($auxA,$repartidores[$i]);
+                if ($repartidores[$i]->usuario->tipo_usuario!=null) {
+                   if ($repartidores[$i]->usuario->registro==null) {
+                        array_push($auxA,$repartidores[$i]);
+                    }
+                    elseif ($repartidores[$i]->usuario->registro!=null) {
+                        array_push($auxB,$repartidores[$i]);
+                    }
                 }
-                elseif ($repartidores[$i]->usuario->registro!=null) {
-                    array_push($auxB,$repartidores[$i]);
-                }
+                
             }catch(Exception $e){
 
             }    
@@ -819,6 +822,8 @@ class RepartidorController extends Controller
 
         $repartidoresA=$auxA;
         $repartidoresB=$auxB;
+
+
 
         for ($i=0; $i < count($repartidoresB); $i++) { 
             $curso = \App\Pedido::where('repartidor_id',$repartidoresB[$i]->id)->where('estado',2)->get();
