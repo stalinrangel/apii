@@ -58,6 +58,64 @@ class RegistroController extends Controller
         } 
     }
 
+    public function activos(Request $request)
+    {
+        $zonas=$this->ciudad($request->input('ciudad_id'));
+        //cargar todas las calificaciones
+        $repartidores = \App\Repartidor::whereIn('zona_id',$zonas)->select('id', 'estado', 'activo','ocupado','usuario_id','zona_id')->where('activo',1)->
+            with(['usuario' => function ($query){
+                    $query->select('id', 'email', 'nombre', 'ciudad', 'estado', 'telefono', 'imagen', 'tipo_usuario', 'token_notificacion','zona_id')
+                    ->where(function ($query) {
+                        $query
+                            ->where('tipo_usuario',3)
+                            ->orWhere('tipo_usuario',4);
+                    })
+                    ->with(['chat_repartidor' => function ($query) {
+                        $query->select('id', 'admin_id', 'usuario_id');
+                    }])
+                    ->with('zonas.ciudad')
+                    ->with('registro')
+                    ->with('contrato');
+                }])->with('establecimiento.productos.subcategoria.categoria.catprincipales')
+                   ->with('establecimiento.productos.zonas')->orderBy('id', 'desc')
+            ->get();
+
+        if(count($repartidores) == 0){
+            return response()->json(['error'=>'No existen repartidores.'], 404);          
+        }else{
+            return response()->json(['repartidores'=>$repartidores], 200);
+        } 
+    }
+
+    public function inactivos(Request $request)
+    {
+        $zonas=$this->ciudad($request->input('ciudad_id'));
+        //cargar todas las calificaciones
+        $repartidores = \App\Repartidor::whereIn('zona_id',$zonas)->select('id', 'estado', 'activo','ocupado','usuario_id','zona_id')->where('activo',2)->
+            with(['usuario' => function ($query){
+                    $query->select('id', 'email', 'nombre', 'ciudad', 'estado', 'telefono', 'imagen', 'tipo_usuario', 'token_notificacion','zona_id')
+                    ->where(function ($query) {
+                        $query
+                            ->where('tipo_usuario',3)
+                            ->orWhere('tipo_usuario',4);
+                    })
+                    ->with(['chat_repartidor' => function ($query) {
+                        $query->select('id', 'admin_id', 'usuario_id');
+                    }])
+                    ->with('zonas.ciudad')
+                    ->with('registro')
+                    ->with('contrato');
+                }])->with('establecimiento.productos.subcategoria.categoria.catprincipales')
+                   ->with('establecimiento.productos.zonas')->orderBy('id', 'desc')
+            ->get();
+
+        if(count($repartidores) == 0){
+            return response()->json(['error'=>'No existen repartidores.'], 404);          
+        }else{
+            return response()->json(['repartidores'=>$repartidores], 200);
+        } 
+    }
+
     /**
      * Show the form for creating a new resource.
      *

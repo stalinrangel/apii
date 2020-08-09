@@ -67,6 +67,8 @@ Route::group(  ['middleware' =>'cors'], function(){
     Route::post('/establecimientos','EstablecimientoController@store');
 
     Route::get('/registro','RegistroController@index');
+    Route::get('/activos','RegistroController@activos');
+    Route::get('/inactivos','RegistroController@inactivos');
     Route::post('/registro','RegistroController@store');
     Route::put('/registro/{id}','RegistroController@update');
     Route::delete('/registro/{id}','RegistroController@destroy');
