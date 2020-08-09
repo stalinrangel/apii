@@ -588,6 +588,7 @@ class ProductoController extends Controller
             ->with('zonas2', function ($query) use ($zonas) {
                 $query->whereIn('zona_id',$zonas);
             })
+            ->orderBy('id', 'desc')
             ->get();
 
         for ($i=0; $i < count($productos); $i++) { 
