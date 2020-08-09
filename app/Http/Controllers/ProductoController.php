@@ -677,7 +677,7 @@ class ProductoController extends Controller
     {
         $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar todos los productos con su subcategoria y establecimineto
-        $productos = \App\Producto::where('estado','ED')->with('subcategoria.categoria.catprincipales')
+        $productos = \App\Producto::where('estado','ON')->with('subcategoria.categoria.catprincipales')
             ->with('establecimiento')
             //->with('zonas')
             ->with('zonas2', function ($query) use ($zonas) {
@@ -719,7 +719,7 @@ class ProductoController extends Controller
     {
         $zonas=$this->ciudad($request->input('ciudad_id'));
         //cargar todos los productos con su subcategoria y establecimineto
-        $productos = \App\Producto::where('estado','ED')->with('subcategoria.categoria.catprincipales')
+        $productos = \App\Producto::where('estado','OFF')->with('subcategoria.categoria.catprincipales')
             ->with('establecimiento')
             //->with('zonas')
             ->with('zonas2', function ($query) use ($zonas) {
