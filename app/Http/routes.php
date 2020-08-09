@@ -229,6 +229,8 @@ Route::group(  ['middleware' =>'cors'], function(){
         Route::get('/productos','ProductoController@index');
         Route::get('/productos/subcategoria/establecimiento','ProductoController@productosSubcatEst');
         Route::get('/productos/editados','ProductoController@productosEditados');
+        Route::get('/productos/on','ProductoController@on');
+        Route::get('/productos/off','ProductoController@off');
         Route::get('/productos/establecimiento/{establecimiento_id}','ProductoController@productosEst');
         Route::post('/productos','ProductoController@store');
         Route::put('/productos/{id}','ProductoController@update');
