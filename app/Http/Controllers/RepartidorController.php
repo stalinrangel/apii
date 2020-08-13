@@ -108,6 +108,83 @@ class RepartidorController extends Controller
         } 
     }
 
+    
+    public function index_sin_registro(Request $request)
+    {  // return 1;
+        $zonas=$this->ciudad($request->input('ciudad_id'));
+        //cargar todos los repartidores
+
+        $repartidores = \App\Repartidor::select('id', 'estado', 'activo','ocupado','usuario_id','zona_id')
+            ->with(['usuario' => function ($query){
+                    $query->select('id', 'email', 'nombre', 'ciudad', 'estado', 'telefono', 'imagen', 'tipo_usuario','zona_id', 'token_notificacion','created_at')
+                    ->where(function ($query) {
+                        $query
+                            ->where('tipo_usuario',2)
+                            ->orWhere('tipo_usuario',3)
+                            ->orWhere('tipo_usuario',4);
+                    })
+                    ->with(['chat_repartidor' => function ($query) {
+                        $query->select('id', 'admin_id', 'usuario_id');
+                    }])
+                    ->with('zonas.ciudad')
+                    ->with('registro')
+                    ->with('contrato')
+                    ->with('Calificacion');
+                }])
+            ->with('establecimiento.productos.subcategoria.categoria.catprincipales')
+            /*->with(['establecimiento.productos' => function ($query){
+                    $query->with('zonas')
+                    ->with('subcategoria.categoria.catprincipales');
+               }])*/
+            ->with('calificaciones.producto.pedidos.usuario')
+            ->with('establecimiento.productos.zonas2')
+            ->whereIn('zona_id',$zonas)
+            ->orderBy('id', 'desc')->get();
+
+           // return 1;
+        $aux=[];
+        for ($i=0; $i < count($repartidores); $i++) { 
+            try{
+                if ($repartidores[$i]->usuario->registro==null) {
+                    array_push($aux,$repartidores[$i]);
+                }
+            }catch(Exception $e){
+
+            }    
+        }
+        $repartidores=$aux;
+        for ($i=0; $i < count($repartidores); $i++) { 
+            $curso = \App\Pedido::where('repartidor_id',$repartidores[$i]->id)->where('estado',2)->get();
+            $final = \App\Pedido::where('repartidor_id',$repartidores[$i]->id)->where('estado',4)->get();
+
+            $repartidores[$i]->encurso=count($curso);
+            $repartidores[$i]->enfinalizados=count($final);
+
+
+            $calificaciones = \App\Calificacion::where('califique_a',$repartidores[$i]->id)->get();
+           
+            
+            if (count($calificaciones)!=0)
+            {
+                $promedio=0;
+                for ($j=0; $j < count($calificaciones); $j++) { 
+                    $promedio=$promedio+$calificaciones[$j]->puntaje;
+                }
+                $promedio=$promedio/count($calificaciones);
+                $repartidores[$i]->promedio=$promedio;
+            }else{
+                $repartidores[$i]->promedio=0;
+            } 
+            
+        }
+
+        if(count($repartidores) == 0){
+            return response()->json(['error'=>'No existen repartidores.'], 404);          
+        }else{
+            return response()->json(['repartidores'=>$repartidores], 200);
+        } 
+    }
+
     public function reporte(Request $request)
     {  // return 1;
         $zonas=$this->ciudad($request->input('ciudad_id'));

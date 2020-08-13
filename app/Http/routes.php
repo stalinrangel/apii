@@ -291,6 +291,7 @@ Route::group(  ['middleware' =>'cors'], function(){
 
         //----Pruebas RepartidorController
         Route::get('/repartidores','RepartidorController@index');
+        Route::get('/repartidores_sin_registro','RepartidorController@index_sin_registro');
         Route::get('/reporte','RepartidorController@reporte');
         Route::get('/repartidores/disponibles','RepartidorController@repDisponibles');
         
