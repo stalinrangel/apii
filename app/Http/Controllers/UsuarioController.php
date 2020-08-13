@@ -61,7 +61,12 @@ class UsuarioController extends Controller
 
 
         $repartidores = \App\Repartidor::where('usuario_id',$id)->first();
-        $repartidores->activo = 2;
+        if ($repartidores->activo==3||$repartidores->activo==4) {
+            
+        }else{
+            $repartidores->activo = 2;
+        }
+        
 
         if ($usuario->save()) {
                 $repartidores->save();
