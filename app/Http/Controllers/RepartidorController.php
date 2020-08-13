@@ -123,13 +123,13 @@ class RepartidorController extends Controller
                             ->orWhere('tipo_usuario',3)
                             ->orWhere('tipo_usuario',4);
                     })
-                    ->with(['chat_repartidor' => function ($query) {
+                    /*->with(['chat_repartidor' => function ($query) {
                         $query->select('id', 'admin_id', 'usuario_id');
-                    }])
-                    ->with('zonas.ciudad')
+                    }])*/
+                    //->with('zonas.ciudad')
                     ->with('registro')
                     ->with('contrato')
-                    ->with('Calificacion');
+                    //->with('Calificacion');
                 }])
             //->with('establecimiento.productos.subcategoria.categoria.catprincipales')
             /*->with(['establecimiento.productos' => function ($query){
