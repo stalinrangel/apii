@@ -131,13 +131,13 @@ class RepartidorController extends Controller
                     ->with('contrato')
                     ->with('Calificacion');
                 }])
-            ->with('establecimiento.productos.subcategoria.categoria.catprincipales')
+            //->with('establecimiento.productos.subcategoria.categoria.catprincipales')
             /*->with(['establecimiento.productos' => function ($query){
                     $query->with('zonas')
                     ->with('subcategoria.categoria.catprincipales');
                }])*/
-            ->with('calificaciones.producto.pedidos.usuario')
-            ->with('establecimiento.productos.zonas2')
+            //->with('calificaciones.producto.pedidos.usuario')
+            //->with('establecimiento.productos.zonas2')
             ->whereIn('zona_id',$zonas)
             ->orderBy('id', 'desc')->get();
 
@@ -145,9 +145,12 @@ class RepartidorController extends Controller
         $aux=[];
         for ($i=0; $i < count($repartidores); $i++) { 
             try{
-                if ($repartidores[$i]->usuario->registro==null) {
-                    array_push($aux,$repartidores[$i]);
+                if ($repartidores[$i]->activo==1||$repartidores[$i]->activo==2) {
+                    if ($repartidores[$i]->usuario->registro==null) {
+                        array_push($aux,$repartidores[$i]);
+                    }
                 }
+                
             }catch(Exception $e){
 
             }    
