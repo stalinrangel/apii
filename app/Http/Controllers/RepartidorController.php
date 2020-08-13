@@ -128,7 +128,7 @@ class RepartidorController extends Controller
                     }])*/
                     //->with('zonas.ciudad')
                     ->with('registro')
-                    ->with('contrato')
+                    ->with('contrato');
                     //->with('Calificacion');
                 }])
             //->with('establecimiento.productos.subcategoria.categoria.catprincipales')
