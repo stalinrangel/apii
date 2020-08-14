@@ -77,7 +77,7 @@ class RepartidorController extends Controller
         }
         $repartidores=$aux;
         for ($i=0; $i < count($repartidores); $i++) { 
-            $curso = \App\Pedido::where('repartidor_id',$repartidores[$i]->id)->where('estado',2)->get();
+            $curso = \App\Pedido::where('repartidor_id',$repartidores[$i]->id)->where('estado',3)->get();
             $final = \App\Pedido::where('repartidor_id',$repartidores[$i]->id)->where('estado',4)->get();
 
             $repartidores[$i]->encurso=count($curso);
