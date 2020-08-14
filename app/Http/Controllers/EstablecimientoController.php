@@ -294,6 +294,7 @@ class EstablecimientoController extends Controller
         $sabado_f = $request->input('sabado_f');
         $domingo_i = $request->input('domingo_i');
         $domingo_f = $request->input('domingo_f');
+        $observacion = $request->input('observacion');
 
         // Creamos una bandera para controlar si se ha modificado algún dato.
         $bandera = false;
@@ -358,6 +359,11 @@ class EstablecimientoController extends Controller
         if ($pasaporte != null && $pasaporte!='')
         {
             $registro->pasaporte = $pasaporte;
+            $bandera=true;
+        }
+        if ($observacion != null && $observacion!='')
+        {
+            $registro->observacion = $observacion;
             $bandera=true;
         }
 

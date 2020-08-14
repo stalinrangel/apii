@@ -25,7 +25,7 @@ class Registro extends Model
      *
      * @var array
      */
-    protected $fillable = ['tipo','ruc', 'latitud', 'longitud', 'email', 'contacto_nombre', 'contacto_cedula', 'contacto_cargo', 'operaciones', 'logo', 'cedula', 'sexo', 'nacionalidad', 'direccion', 'direccion_exacta','fecha_nacimiento', 'formacion', 'experiencia', 'anos_experiencia', 'idoneidad', 'disponibilidad', 'idiomas', 'urgencias', 'factura', 'referencias', 'referencias2', 'foto', 'pasaporte', 'idoneidad_file','record_policivo','recibo_servicio', 'estado', 'usuario_id','contrato','created_at','updated_at'];
+    protected $fillable = ['tipo','ruc', 'latitud', 'longitud', 'email', 'contacto_nombre', 'contacto_cedula', 'contacto_cargo', 'operaciones', 'logo', 'cedula', 'sexo', 'nacionalidad', 'direccion', 'direccion_exacta','fecha_nacimiento', 'formacion', 'experiencia', 'anos_experiencia', 'idoneidad', 'disponibilidad', 'idiomas', 'urgencias', 'factura', 'referencias', 'referencias2', 'foto', 'pasaporte', 'idoneidad_file','record_policivo','recibo_servicio', 'estado', 'usuario_id','contrato','observacion','created_at','updated_at'];
 
     /**
      * The attributes excluded from the model's JSON form.
