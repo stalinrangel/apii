@@ -762,6 +762,26 @@ class UsuarioController extends Controller
         });
     }
 
+    public function webcontactopanama($email,Request $request)
+    {
+        //Enviamos el correo con el enlace para validar
+        //$enlace = 'https://service24.app/alinstanteAPI/public/usuarios/validar/';
+
+        $data = array( 'email' => $email,'name' => $request->input('name'),'phone' => $request->input('phone'),'msg' => $request->input('msg'));
+
+        Mail::send('emails.contactoweb', $data, function($msj) use ($email){
+            $msj->subject('Gracias por contactarnos Service24');
+            $msj->from('service24uy@gmail.com', 'Service24');
+            $msj->to($email);
+        });
+
+        Mail::send('emails.tehancontactado', $data, function($msj) use ($email){
+            $msj->subject('!Te han contactado! Service24');
+            $msj->from('service24uy@gmail.com', 'Service24');
+            $msj->to('info@service24panama.com');
+        });
+    }
+
     public function webcontactoproveedor($email,Request $request)
     {
         //Enviamos el correo con el enlace para validar
@@ -779,6 +799,25 @@ class UsuarioController extends Controller
             $msj->subject('¡Te han contactado! Service24');
             $msj->from('service24uy@gmail.com', 'Service24');
             $msj->to('service24uy@gmail.com');
+        });
+    }
+    public function webcontactoproveedorpanama($email,Request $request)
+    {
+        //Enviamos el correo con el enlace para validar
+        //$enlace = 'https://service24.app/alinstanteAPI/public/usuarios/validar/';
+
+        $data = array( 'email' => $email,'name' => $request->input('name'),'phone' => $request->input('phone'),'msg' => $request->input('msg'));
+
+        Mail::send('emails.contactoweb', $data, function($msj) use ($email){
+            $msj->subject('Gracias por contactarnos Service24');
+            $msj->from('service24uy@gmail.com', 'Service24');
+            $msj->to($email);
+        });
+
+        Mail::send('emails.tehancontactadoproveedor', $data, function($msj) use ($email){
+            $msj->subject('¡Te han contactado! Service24');
+            $msj->from('service24uy@gmail.com', 'Service24');
+            $msj->to('info@service24panama.com');
         });
     }
 
