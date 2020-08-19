@@ -47,8 +47,8 @@ Route::group(  ['middleware' =>'cors'], function(){
     //----Web
     Route::get('/usuarios/webcontacto/{email}','UsuarioController@webcontacto');
     Route::get('/usuarios/webcontactoproveedor/{email}','UsuarioController@webcontactoproveedor');
-    Route::get('/usuarios/webcontactopanama/{email}','UsuarioController@webcontacto');
-    Route::get('/usuarios/webcontactoproveedorpanama/{email}','UsuarioController@webcontactoproveedor');
+    Route::get('/usuarios/webcontactopanama/{email}','UsuarioController@webcontactopanama');
+    Route::get('/usuarios/webcontactoproveedorpanama/{email}','UsuarioController@webcontactoproveedorpanama');
     Route::get('/web_count','DashboardController@web_count');
 
     
