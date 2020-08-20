@@ -64,7 +64,8 @@
 			}*/
 
 			if (count($response1)<=10) {
-					$fields = array(
+				    print('count($response1)<=10');
+					/*$fields = array(
 							'app_id' => "d972ea38-fbba-48de-ac2c-991904917c41",
 							'include_player_ids' => $response1,
 							//'included_segments' => array('All'),
@@ -90,17 +91,20 @@
 						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 
 						$response = curl_exec($ch);
-						curl_close($ch);
+						curl_close($ch);*/
 			}else if(count($response1)>10){
+				print('count($response1)>10');
 				for ($i=0; $i < count($response1); $i++) { 
 					$j=$j+1;
 					//print($j);
 					array_push($tokes,$response1[$i]);
 					if ($j==10) {
+						print('i=');
 						print($i);
-
-				
-						$fields = array(
+						print('j=');
+						print($i);
+						
+						/*$fields = array(
 							'app_id' => "d972ea38-fbba-48de-ac2c-991904917c41",
 							'include_player_ids' => $tokes,
 							//'included_segments' => array('All'),
@@ -132,7 +136,7 @@
 					$pushes=substr($pushes, 0,-1);
 					echo $pushes;
 					$j=0;
-						$tokens=[];
+						$tokens=[];*/
 					}
 					
 				}
