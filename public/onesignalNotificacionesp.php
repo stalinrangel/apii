@@ -96,15 +96,18 @@
 				print('count($response1)>10');
 				for ($i=0; $i < count($response1); $i++) { 
 					$j=$j+1;
-					//print($j);
+					print($j);echo "<br>";
+					//print($response1[$i]);
+					echo "<br>";
 					array_push($tokes,$response1[$i]);
 					if ($j==10) {
 						print('i=');
-						print($i);
+						print($i);echo "<br>";
 						print('j=');
-						print($i);
+						print($i);echo "<br>";
+						print(json_encode($tokes));echo "<br>";
 						
-						/*$fields = array(
+						$fields = array(
 							'app_id' => "d972ea38-fbba-48de-ac2c-991904917c41",
 							'include_player_ids' => $tokes,
 							//'included_segments' => array('All'),
@@ -136,7 +139,7 @@
 					$pushes=substr($pushes, 0,-1);
 					echo $pushes;
 					$j=0;
-						$tokens=[];*/
+						$tokes=[];
 					}
 					
 				}

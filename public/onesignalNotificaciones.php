@@ -134,7 +134,7 @@
 						$pushes=substr($pushes, 0,-1);
 						echo $pushes;
 						$j=0;
-						$tokens=[];
+						$tokes=[];
 					}
 					
 				}
