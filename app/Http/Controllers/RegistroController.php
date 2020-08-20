@@ -116,10 +116,17 @@ class RegistroController extends Controller
                    ->with('establecimiento.productos.zonas')->orderBy('id', 'desc')
             ->get();
 
+        $rep=[];
+        for ($i=0; $i < count($repartidores); $i++) { 
+            if ($repartidores[$i]->usuario->registro!=null) {
+                array_push($rep, $repartidores[$i]);
+            }
+        }
+
         if(count($repartidores) == 0){
             return response()->json(['error'=>'No existen repartidores.'], 404);          
         }else{
-            return response()->json(['repartidores'=>$repartidores], 200);
+            return response()->json(['repartidores'=>$rep], 200);
         } 
     }
 

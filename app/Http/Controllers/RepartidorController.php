@@ -84,7 +84,7 @@ class RepartidorController extends Controller
             $repartidores[$i]->enfinalizados=count($final);
 
 
-            $calificaciones = \App\Calificacion::where('califique_a',$repartidores[$i]->id)->get();
+            $calificaciones = \App\Calificacion::where('califique_a',$repartidores[$i]->usuario_id)->get();
            
             
             if (count($calificaciones)!=0)
