@@ -62,6 +62,7 @@ class RepartidorController extends Controller
             ->with('calificaciones.producto.pedidos.usuario')
             ->with('establecimiento.productos.zonas2')
             ->whereIn('zona_id',$zonas)
+            ->whereIn('activo',[1,2])
             ->orderBy('id', 'desc')->get();
 
            // return 1;
