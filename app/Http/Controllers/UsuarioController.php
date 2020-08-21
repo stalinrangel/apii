@@ -38,7 +38,7 @@ class UsuarioController extends Controller
     {
         
         $tipo=[0,1,5,6,7];
-        $usuarios = \App\User::select('id', 'email', 'nombre', 'ciudad', 'estado', 'telefono', 'imagen', 'tipo_usuario', 'zona_id','token_notificacion', 'status','created_at')
+        $usuarios = \App\User::select('id', 'email', 'nombre', 'ciudad', 'estado', 'telefono', 'intentos', 'confirmado','imagen', 'tipo_usuario', 'zona_id','token_notificacion', 'status','created_at')
             ->whereIn('tipo_usuario', $tipo)->
             where('ciudad',$request->input('ciudad_id'))->get();
         //return response()->json(['usuarios'=>$usuarios], 200);
@@ -275,6 +275,8 @@ class UsuarioController extends Controller
                 $auxUser->pais_id = $request->input('pais_id');
                 $auxUser->estado = $request->input('estado');
                 $auxUser->telefono = $request->input('telefono');
+                $auxUser->confirmado = $request->input('confirmado');
+                $auxUser->intentos = $request->input('intentos');
                 $auxUser->imagen = $request->input('imagen');
                 $auxUser->zona_id = $request->input('zona_id');
                 $auxUser->tipo_registro = $request->input('tipo_registro');
