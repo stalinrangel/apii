@@ -711,9 +711,12 @@ class UsuarioController extends Controller
         });
     }
 
-    public function verificar_numero($numero)
+    public function verificar_numero(Request $request, $numero)
     {
-        $salt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        if ($request->input('codigo')==null||$request->input('codigo')=='') {
+            $rand = $request->input('codigo');
+        }else{
+            $salt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 
             $rand = '';
             $i = 0;
@@ -726,7 +729,7 @@ class UsuarioController extends Controller
                 $rand = $rand . $tmp;
                 $i++;
             }
-
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://service24.app/sms/sms.php?numero=".$numero."&codigo=".$rand);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charset=utf-8',
