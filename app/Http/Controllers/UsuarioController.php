@@ -714,8 +714,7 @@ class UsuarioController extends Controller
     public function verificar_numero(Request $request, $numero)
     {
         if ($request->input('codigo')==null||$request->input('codigo')=='') {
-            $rand = $request->input('codigo');
-        }else{
+            
             $salt = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 
             $rand = '';
@@ -729,6 +728,8 @@ class UsuarioController extends Controller
                 $rand = $rand . $tmp;
                 $i++;
             }
+        }else{
+            $rand = $request->input('codigo');
         }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://service24.app/sms/sms.php?numero=".$numero."&codigo=".$rand);
@@ -744,7 +745,7 @@ class UsuarioController extends Controller
         curl_close($ch);
 
         return response()->json(['codigo'=>$rand,'numero'=>$numero], 200);
-
+https://service24.app/sms/sms.php?numero=584125485409&codigo=123
     }
 
     public function webcontacto($email,Request $request)
