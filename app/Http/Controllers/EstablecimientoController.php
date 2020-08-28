@@ -99,6 +99,8 @@ class EstablecimientoController extends Controller
         $usuario->zona_id = $zona_id;
         $usuario->validado = 1;
         $usuario->status = 'ON';
+        $usuario->confirmado = $request->input('confirmado');
+        $usuario->intentos = $request->input('intentos');
 
         if($usuario->save()){
 
