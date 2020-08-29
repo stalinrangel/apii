@@ -33,11 +33,11 @@ $contenido = '<html><body>
 				<h3 style="text-align: center;">
 					CONTRATO
 				</h3>
-				<p style="text-align: justify;">En la Colonia de Sacramento, el día '.$fecha.' entre <b>“Service24”</b>, y por la otra, <b>'.$nombre.'</b> de C.I '.$ci.' quien en lo sucesivo se denominará <b>“El Proveedor”</b>, se ha convenido en celebrar el presente contrato de conformidad con los términos y condiciones siguientes:
+				<p style="text-align: justify;">Colonia de Sacramento, el día '.$fecha.' entre <b>“Service24”</b>, y por la otra, <b>'.$nombre.'</b> de C.I '.$ci.' quien en lo sucesivo se denominará <b>“El Proveedor”</b>, se ha convenido en celebrar el presente contrato de conformidad con los términos y condiciones siguientes:
 				</p>
         <p><b>A- OBJETO: “Service24”</b> es una aplicación (plataforma) que actúa como intermediario entre quién busca el producto o servicio, en este caso y en lo sucesivo denominado <b>“El Cliente”</b> y quiénes están registrados en ella para ofrecerlos, en este caso <b>“El Proveedor”</b>, quien solo se encargará de gestionar la logística entre las partes para que los trabajos se lleven a cabo. Por este contrato, quién se presenta en este momento <b>“El Proveedor”</b> solicita y adquiere el uso de la plataforma para ofrecer a través de ella sus productos/servicios de acuerdo a los términos y condiciones que se establecen a continuación.</p>
         <p><b>B- PRECIO: </b>A partir de la confirmación de esta solicitud, <b>“El Proveedor”</b> debe abonar las siguientes cantidades: </p>
-        <p>I- La zona que se adopte una cuota mensual por el monto de '.$costo.'.$u según el plan <b>"'.$plan.'. El Proveedor debe abonar la suma correspondiente al plan contratado a través de Red Pagos, Mi Dinero Nº 5351231."</b>.</p> 
+        <p>I- La zona que se adopte una cuota mensual por el monto de '.$costo.'.$ según el plan <b>"'.$plan.'. El Proveedor debe abonar la suma correspondiente al plan contratado a través de Red Pagos, Mi Dinero Nº 5351231."</b>.</p> 
         
 
         <p><b>C- DERECHOS Y OBLIGACIONES:</b> 1- Este contrato se entiende celebrado Intuitu Personae, por lo tanto, ninguna de las partes podrá ceder o traspasar a terceros los derechos y obligaciones que de él se derivan. 2- <b>“El Proveedor”</b> es responsable a partir del momento en el que se coordina el servicio en realizar el trabajo y finalizarlo, cobrando por ese servicio lo que se acuerde entre él y <b>“El Cliente”</b>, estando <b>“Service24”</b> libre de toda responsabilidad contractual que haya podido adquirir con <b>“El Cliente”</b>.</p>
@@ -56,13 +56,13 @@ $contenido = '<html><body>
 
         <p><b>J- NOTIFICACIONES:</b> Toda notificación en virtud de este convenio preliminar podrá realizarse vía fax, telefax o correo certificado, a las direcciones físicas de las partes mencionadas a continuación:</p>
 
-        <p><b>“Servicio 24”</b>:  Colonia de Sacramento y 59891960115)</p>
+        <p><b>“Service 24”</b>:  Dirección: Colonia de Sacramento, Teléfono: 59898751288</p>
 
         <p><b>“EL Proveedor”</b>: Dirección: '.$direccion.', Teléfono: '.$telefono.'</p>
 
-        <p><b>K- ARBITRAJE:</b> Cualquiera controversia que surja por razón de interpretación, ejecución o incumplimiento del presente contrato, será resuelta entre las partes. En caso de que las partes no logren llegar a un acuerdo, entonces se resolverá mediante arbitraje en Derecho ante el Centro de Conciliación y Arbitraje de la Cámara de Comercio, Industrias y Agricultura de la Colonia de Sacramento, de conformidad con sus normas y reglamentos de procedimiento. Para estos efectos, cada parte designará a un árbitro y éstos, a su vez, designarán a un tercero, quienes conformarán el Tribunal Arbitral. La decisión adoptada por dicho tribunal será final, definitiva y de obligatorio cumplimiento para las partes, por lo que la misma no podrá ser impugnada ante los tribunales de justicia. La parte vencida pagará los costos, gastos y honorarios incurridos en el proceso arbitral. El arbitraje se conducirá en idioma castellano.</p>
+        <p><b>K- ARBITRAJE:</b> Cualquiera controversia que surja por razón de interpretación, ejecución o incumplimiento del presente contrato, será resuelta entre las partes. En caso de que las partes no logren llegar a un acuerdo, entonces se resolverá mediante arbitraje en Derecho ante el Centro de Conciliación y Arbitraje de la Cámara de Comercio de la Colonia de Sacramento, de conformidad con sus normas y reglamentos de procedimiento. Para estos efectos, cada parte designará a un árbitro y éstos, a su vez, designarán a un tercero, quienes conformarán el Tribunal Arbitral. La decisión adoptada por dicho tribunal será final, definitiva y de obligatorio cumplimiento para las partes, por lo que la misma no podrá ser impugnada ante los tribunales de justicia. La parte vencida pagará los costos, gastos y honorarios incurridos en el proceso arbitral. El arbitraje se conducirá en idioma castellano.</p>
 
-        <p><b>L- DOMICILIO:</b> Las partes contratantes eligen como domicilio especial a la ciudad de Colonia de Sacramento para todos los efectos, derivados y consecuencias de este contrato. En Colonia de Sacramento, a los '.$fecha.'</p>
+        <p><b>L- DOMICILIO:</b> Las partes contratantes eligen como domicilio especial a la ciudad de Colonia de Sacramento para todos los efectos, derivados y consecuencias de este contrato. En Colonia de Sacramento, '.$fecha.'</p>
         <div align="center">
           <img src="'.$firma.'" alt="" style="width: 250px">
           <div style="border-bottom: 1px solid #000;margin-bottom: 10px;width: 400px"></div>
